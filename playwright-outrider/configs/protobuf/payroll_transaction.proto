@@ -1,8 +1,0 @@
-syntax = "proto3";
-
-message PayrollTransaction {
-  bytes origin_id = 1 [(protokt.property).wrap = "java.util.UUID"]; // Payroll UUID
-  string origin_type = 2; // Origin type ("PAYROLL")
-  bytes origin_group_id = 3 [(protokt.property).wrap = "java.util.UUID"]; // Paygroup UUID
-  string correlation_id = 4; // Correlation ID for tracing
-} 
