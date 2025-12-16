@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package com.toasttab.accounting.journal.creation.proto;
+
+import "protokt/protokt.proto";
+import "google/protobuf/timestamp.proto";
+
+// Message representing an accounting journal entry for DynamoDB storage and Pulsar publishing
+message AccountingJournal {
+  bytes originId = 1 [(protokt.property).wrap = "java.util.UUID"]; // Unique identifier for the origin (e.g., payrollUuid)
+  string originType = 2; // Type of the origin (e.g., "payroll")
+  bytes originGroupId = 3 [(protokt.property).wrap = "java.util.UUID"]; // Unique identifier for the origin group (e.g., payGroupUuid)
+  string journalDate = 4; // Journal date in yyyy-mm-dd format
+  string journalName = 5; // Name of the journal entry
+  string correlationId = 6; // Correlation identifier for tracking transactions
+  string connectionId = 7; // Connection identifier
+  string connectionType = 8; // Type of connection (e.g., "QuickBooks")
+  bool isDeleted = 9; // Flag indicating if the journal entry is deleted
+  JournalMetadata metadata = 10; // Metadata associated with the journal entry
+  string createdAt = 11; // Creation timestamp
+  string updatedAt = 12; // Last modification timestamp
+  string expireAt = 13; // Expiration timestamp
+  repeated JournalLine lines = 14; // List of journal line items
+  double netAmount = 15; //Net amount
+}
+
+// Message representing metadata associated with an accounting journal entry
+message JournalMetadata {
+  string checkDate = 1; // Check date
+  string payPeriodStartDate = 2; // Pay period start date
+  string payPeriodEndDate = 3; // Pay period end date
+  string customerUuid = 4; // Customer UUID
+  string payGroupName = 5; // Pay group name
+}
+
+// Message representing a line item in an accounting journal entry
+message JournalLine {
+  string type = 1; // Type of line item (e.g., "Earnings", "Tips", "Deductions")
+  string name = 2; // Name/description of the line item
+  string accountType = 3; // Account type (e.g., "debit", "credit")
+  double amount = 4; // Monetary amount
+  string class = 5;// Class field (optional)
+  string classReferenceId = 6; // Class reference id
+  string glCode = 7; // General ledger code
+  string glCodeDescription = 8; // Description of the GL code
+  string glReferenceId = 9; // Gl reference id
+}
