@@ -1,0 +1,73 @@
+syntax = "proto3";
+
+package google.protobuf;
+
+message FileDescriptorSet {
+  repeated FileDescriptorProto file = 1;
+}
+
+message FileDescriptorProto {
+  string name = 1;
+  string package = 2;
+  repeated string dependency = 3;
+  repeated DescriptorProto message_type = 4;
+  repeated EnumDescriptorProto enum_type = 5;
+  repeated ServiceDescriptorProto service = 6;
+  repeated FieldDescriptorProto extension = 7;
+  repeated FieldDescriptorProto field = 8;
+}
+
+message DescriptorProto {
+  string name = 1;
+  repeated FieldDescriptorProto field = 2;
+  repeated FieldDescriptorProto extension = 6;
+  repeated DescriptorProto nested_type = 3;
+  repeated EnumDescriptorProto enum_type = 4;
+}
+
+message FieldDescriptorProto {
+  string name = 1;
+  int32 number = 3;
+  Type type = 5;
+  Label label = 4;
+  repeated FieldOptions options = 8;
+}
+
+message EnumDescriptorProto {
+  string name = 1;
+}
+
+message ServiceDescriptorProto {
+  string name = 1;
+}
+
+enum Type {
+  TYPE_DOUBLE = 1;
+  TYPE_FLOAT = 2;
+  TYPE_INT64 = 3;
+  TYPE_UINT64 = 4;
+  TYPE_INT32 = 5;
+  TYPE_FIXED64 = 6;
+  TYPE_FIXED32 = 7;
+  TYPE_BOOL = 8;
+  TYPE_STRING = 9;
+  TYPE_GROUP = 10;
+  TYPE_MESSAGE = 11;
+  TYPE_BYTES = 12;
+  TYPE_UINT32 = 13;
+  TYPE_ENUM = 14;
+  TYPE_SFIXED32 = 15;
+  TYPE_SFIXED64 = 16;
+  TYPE_SINT32 = 17;
+  TYPE_SINT64 = 18;
+}
+
+enum Label {
+  LABEL_OPTIONAL = 1;
+  LABEL_REQUIRED = 2;
+  LABEL_REPEATED = 3;
+}
+
+message FieldOptions {
+  repeated string uninterpreted_option = 999;
+} 

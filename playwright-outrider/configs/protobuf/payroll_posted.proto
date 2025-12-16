@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package com.toasttab.accounting.payroll.ingestion.proto;
+
+import "protokt.proto";
+
+// Message representing a journal synchronization entity
+message PayrollPosted {
+  bytes customer_uuid = 1 [(protokt.property).wrap = "java.util.UUID"]; // Unique identifier for the Customer
+  bytes pay_period_uuid = 2 [(protokt.property).wrap = "java.util.UUID"]; // Unique identifier for the pay period
+  string check_date = 3 [(protokt.property).wrap = "java.time.LocalDate"]; // Date of the check in ISO 8601 format
+  bool is_ach =4; // Indicates if the payment is via ACH (Automated Clearing House)
+}

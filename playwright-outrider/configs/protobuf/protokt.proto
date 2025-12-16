@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package protokt;
+
+import "descriptor.proto";
+
+extend google.protobuf.FieldOptions {
+  Property property = 50000;
+}
+
+message Property {
+  string wrap = 1;
+} 
