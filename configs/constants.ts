@@ -97,7 +97,21 @@ LOGIN_USERNAME_INPUT: '//input[@id="input-login-user-name"]',
   AGENTS_MIRRORAGENT_SKILL_SCHEDULE_BUTTON: "//span[contains(text(),'Schedule')]",
   AGENTS_MIRRORAGENT_SKILL_NUMBER_INPUT: "(//input[@type='number'])[1]",
   AGENTS_MIRRORAGENT_SKILL_NUMBER_INPUT_PARENT: "//div[contains(@class,'editable')]",
-  AGENTS_MIRRORAGENT_SKILL_APPLY_CONFIRM_BUTTON: "//button[contains(text(),'Apply')]"
+  AGENTS_MIRRORAGENT_SKILL_APPLY_CONFIRM_BUTTON: "//button[contains(text(),'Apply')]",
+  AGENTS_MIRRORAGENT_SKILL_GRID_MENU: '//div[@id="copySkillGrid"]//button[@aria-label="Grid Menu"]',
+  AGENTS_MIRRORAGENT_SKILL_CLEAR_ALL_FILTERS: "(//span[contains(text(),'CLEAR_ALL_FILTERS')])[2]",
+  AGENTS_MIRRORAGENT_SKILL_CLEAR_ALL_SORTING: "(//span[contains(text(),'CLEAR_ALL_SORTING')])[2]",
+  AGENTS_MIRRORAGENT_SKILL_TOGGLE_FILTER_ROW: "(//span[contains(text(),'TOGGLE_FILTER_ROW')])[2]",
+  AGENTS_MIRRORAGENT_SKILL_EXPORT_TO_EXCEL: "(//span[contains(text(),'EXPORT_TO_EXCEL')])[2]",
+  AGENTS_MIRRORAGENT_COLUMNS_SKILL_NAME: "//label[contains(text(),'Skill Name')]",
+  AGENTS_MIRRORAGENT_COLUMNS_SKILL_LEVEL: "//label[contains(text(),'Skill Level')]",
+  AGENTS_MIRRORAGENT_FORCE_FIT_COLUMNS: "(//label[contains(text(),'FORCE_FIT_COLUMNS')])[2]",
+  AGENTS_MIRRORAGENT_SKILL_SELECT_ALL_CHECKBOX: '(//div[@title="Select/Deselect All"])[3]',
+  AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES: "//span[contains(text(),'Languages')]",
+  AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES_CHECKBOX: '(((//div[@title="Select/Deselect All"])[3])//following::input[@type="checkbox"]/parent::div)[1]',
+  AGENTS_MIRRORAGENT_LANGUAGE_SEARCH_FILTER: "//input[@aria-label='Name Search Filter']",
+  AGENTS_MIRRORAGENT_LANGUAGE_NO_LANGUAGE_AVAILABLE: "(//div[contains(text(),'There is no language available for this selected user.')])[1]",
+
 
 
 

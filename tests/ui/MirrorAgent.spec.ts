@@ -1127,6 +1127,503 @@ test.skip("@DCCM_SIT_TC_0028 @low Ensure while click on skill level column and e
   });
 
 
+test("@DCCM_SIT_TC_0029 @low Ensure while click on clear all  filters in command menu", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+            await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_GRID_MENU).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_CLEAR_ALL_FILTERS).click();
+          await sharedPage.waitForTimeout(5000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_BACK_BUTTON).click();
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+test("@DCCM_SIT_TC_0030 @low Ensure while click on toggle filter row in the command menu", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+            await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_GRID_MENU).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TOGGLE_FILTER_ROW).click();
+          await sharedPage.waitForTimeout(5000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          expect(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SEARCH_FILTER).isHidden());
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_BACK_BUTTON).click();
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+
+test("@DCCM_SIT_TC_0031 @low Ensure while click on toggle filter row after text box is hide", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+            await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_GRID_MENU).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TOGGLE_FILTER_ROW).click();
+          await sharedPage.waitForTimeout(5000);
+          expect(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SEARCH_FILTER).isHidden());
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_GRID_MENU).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TOGGLE_FILTER_ROW).click();
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          expect(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SEARCH_FILTER).isVisible());
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_BACK_BUTTON).click();
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+
+test("@DCCM_SIT_TC_0032 @low Ensure while click on export to excel", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+            await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_GRID_MENU).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_EXPORT_TO_EXCEL).click();
+          await sharedPage.waitForTimeout(5000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_BACK_BUTTON).click();
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+test("@DCCM_SIT_TC_0033 @low Enusre while click on deselect all check box in Language tab", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL_CHECKBOX).click();
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_BACK_BUTTON).click();
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+test("@DCCM_SIT_TC_0034 @low Enusre while click on select all check box in Language tab", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL_CHECKBOX).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL_CHECKBOX).click();
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_BACK_BUTTON).click();
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+test("@DCCM_SIT_TC_0035 @low Ensure while click on Language name search text box field", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_SEARCH_FILTER).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_SEARCH_FILTER).isEditable();
+
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_BACK_BUTTON).click();
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+  
+test("@DCCM_SIT_TC_0036 @low Ensure while search valid Language name in search text box field", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_SEARCH_FILTER).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_SEARCH_FILTER).fill("Language");
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_BACK_BUTTON).click();
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+  
+test("@DCCM_SIT_TC_0037 @low Ensure while search Invalid Language name in search text box field", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_SEARCH_FILTER).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_SEARCH_FILTER).fill("Invalid");
+          expect(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_NO_LANGUAGE_AVAILABLE).isVisible());
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_BACK_BUTTON).click();
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
 });
 
 
