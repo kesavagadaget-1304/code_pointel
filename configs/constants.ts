@@ -46,11 +46,11 @@ export const SCREENSHOT_PATHS = {
 
 // Locator Selectors - Only what we actually use
 export const SELECTORS = {
-  LOGIN_USERNAME_INPUT: '//input[@id="input-login-user-name"]',
+LOGIN_USERNAME_INPUT: '//input[@id="input-login-user-name"]',
   LOGIN_PASSWORD_INPUT: '//input[@id="input-login-user-password"]',
   LOGIN_CONTINUE_BUTTON: '//input[@id="input-login-dccm-user-submit"]',
-LOGOUT_ACCOUNTICON: "//mat-icon[contains(text(),'account_circle')]",
-LOGOUT: "//span[contains(text(),'Logout')]",
+  LOGOUT_ACCOUNTICON: "//mat-icon[contains(text(),'account_circle')]",
+  LOGOUT: "//span[contains(text(),'Logout')]",
 
 
   DCCM: "//span[normalize-space(text()) = 'DCCM']",
@@ -60,9 +60,46 @@ LOGOUT: "//span[contains(text(),'Logout')]",
   AGENTS_MIRROR_AGENT: '//button[@id="btn-role-manage-templates"]',
   AGENTS_MIRRORAGENT_VALIDATE: "(//*[contains(text(),'Mirror Agent')])[1]",
   AGENTS_MIRRORAGENT_CLOSE: '//button[contains(text(),"Close")]',
+  AGENTS_MIRRORAGENT_NEXT_BUTTON: '//button[contains(text(),"Next")]',
 
   AGENTS_MIRRORAGENT_DIV_DROP: '//mat-select[@id="select-agentcopy-divisions"]',
+  AGENTS_MIRRORAGENT_DIV_OPTION: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"All")]',
   AGENTS_MIRRORAGENT_GROUP_DROP: '//label[@for="select-agentcopy-group"]',
+  AGENTS_MIRRORAGENT_GROUP_DROPDOWN_OPTION: '//mat-option[@aria-selected="true"]/preceding-sibling::mat-option[1]',
+  AGENTS_MIRRORAGENT_GROUP_DROPDOWN_VAL: '(//mat-option[@aria-selected="true"]/preceding-sibling::mat-option[1])/span',
+  AGENTS_MIRRORAGENT_DIV_VALUE: '(//mat-select[@id="select-agentcopy-divisions"]//following::span)[2]',
+  AGENTS_MIRRORAGENT_USERNAME: "//input[@id='input-agentcopy-username']",
+  AGENTS_MIRRORAGENT_SEARCH: "//span[contains(text(),'Search')]",
+  AGENTS_MIRRORAGENT_ALERT_CLOSE: "//h5[contains(text(),' Alert! ')]/following::img",
+  AGENTS_MIRRORAGENT_NO_USER: "(//div[contains(text(),'No users found')])[1]",
+  AGENTS_DASHBOARD_SELECET_DESELECT_ALL: "//div[@title='Select/Deselect All']",
+  AGENTS_MIRRORAGENT_ALERT_VALIDATE: '//div[contains(text(),"Please select atleast one agent !")]',
+  AGENTS_MIRRORAGENT_ALERT_OK_BUTTON: "//button[normalize-space()='Ok']",
+  AGENTS_MIRRORAGENT_USERNAME_LABEL: "(//span[contains(text(),'Mirror Agent Name')]//following::input[@type='checkbox']/following-sibling::label)[1]",
+  AGENTS_MIRRORAGENT_SKILLS_LABEL: "//label[contains(text(),' Skills')]",
+  AGENTS_MIRRORAGENT_QUEUES_LABEL: "//label[contains(text(),'Queues')]",
+  AGENTS_MIRRORAGENT_GROUPS_LABEL: "//label[contains(text(),'Groups')]",
+  AGENTS_MIRRORAGENT_LANGUAGES_LABEL: "//label[contains(text(),'Languages')]",
+  AGENTS_MIRRORAGENT_PHONE_LABEL: "//label[contains(text(),'Phone')]",
+  AGENTS_MIRRORAGENT_PROFILE_LABEL: "//label[contains(text(),'Profile')]",
+  AGENTS_MIRRORAGENT_UTILIZATION_LABEL: "//label[contains(text(),'Utilization')]",
+  AGENTS_MIRRORAGENT_ROLES_LABEL: "//label[contains(text(),'Roles')]",
+  AGENTS_MIRRORAGENT_WORKTEAM_LABEL: "//label[contains(text(),'Work Team')]",
+  AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_CLOSE: "//h5[contains(text(),'Select Attributes')]/following::img",
+  AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON: "(//button[contains(text(),'Next')])[2]",
+  AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_BACK_BUTTON: "//button[contains(text(),'Back')]",
+  AGENTS_MIRRORAGENT_SKILL_SELECT_ALL: "//label[contains(text(),'Select All')]",
+  AGENTS_MIRRORAGENT_SKILL_SEARCH_FILTER: "//input[@aria-label='Name Search Filter']",
+  AGENTS_MIRRORAGENT_SKILL_LEVEL_SEARCH_FILTER: '//input[@aria-label="Level Search Filter"]',
+  AGENTS_MIRRORAGENT_SKILL_NO_SKILL_AVAILABLE: "(//div[contains(text(),'There is no skill available for this selected user.')])[1]",
+  AGENTS_MIRRORAGENT_SKILL_UPDATED_SUCCESSFULLY: "//*[contains(text(),' Updated successfully')]",
+  AGENTS_MIRRORAGENT_SKILL_APPLY_BUTTON: "//span[contains(text(),'Apply')]",
+  AGENTS_MIRRORAGENT_SKILL_SCHEDULE_BUTTON: "//span[contains(text(),'Schedule')]",
+  AGENTS_MIRRORAGENT_SKILL_NUMBER_INPUT: "(//input[@type='number'])[1]",
+  AGENTS_MIRRORAGENT_SKILL_NUMBER_INPUT_PARENT: "//div[contains(@class,'editable')]",
+  AGENTS_MIRRORAGENT_SKILL_APPLY_CONFIRM_BUTTON: "//button[contains(text(),'Apply')]"
+
+
 
   
 
