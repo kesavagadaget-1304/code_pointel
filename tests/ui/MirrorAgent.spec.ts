@@ -4,6 +4,7 @@ import { LoginPage } from '../../pages/LoginPage';
 import { LOGIN_CREDENTIALS, SCREENSHOT_PATHS, TIMEOUTS, SELECTORS } from '../../configs/constants';
 import { TestHelpers } from '../../utils/testHelpers';
 import { ScreenshotUtils } from '../../utils/screenshotUtils';
+import { scrollUntilVisible } from '../../utils/scroll';
 
 test.describe('DCCM', () => {
   test.describe.configure({ mode: 'serial' });
@@ -1608,6 +1609,770 @@ test("@DCCM_SIT_TC_0037 @low Ensure while search Invalid Language name in search
           await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+
+
+test("@DCCM_SIT_TC_0085 @low Ensure while click on deselect all check box in Role & Division tab", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLES_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLE_DESELECT).click();
+          await sharedPage.waitForTimeout(3000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Role_Deselect');
+          
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+  test("@DCCM_SIT_TC_0086 @low Ensure while click on select all check box in Role & Division tab", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLES_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLE_DESELECT).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLE_SELECT).click();
+          await sharedPage.waitForTimeout(3000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Role_Deselect');
+          
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+test("@DCCM_SIT_TC_0087,DCCM_SIT_TC_0088 @low Ensure while click on select all check box in Role & Division tab", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLES_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLE_SEARCH).click();
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Role_Search_Box_Focus');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLE_SEARCH).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLE_SEARCH).pressSequentially("Role", { delay: 100 });
+          await sharedPage.waitForTimeout(5000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Role_Search_Box');
+          
+          
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+test("@DCCM_SIT_TC_0089 @low Ensure while search Invalid Role in search text box field", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLES_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLE_SEARCH).click();
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Role_Search_Box_Focus');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLE_SEARCH).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLE_SEARCH).pressSequentially("test123", { delay: 100 });
+          await sharedPage.waitForTimeout(5000);
+          //expect(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NO_ROLE_AVAILABLE).isVisible());
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Role_Search_Box');
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+  test("@DCCM_SIT_TC_0090,DCCM_SIT_TC_0091 @low Ensure while click on Division search text box field", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLES_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIVISION_SEARCH).click();
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Division_Search_Box_Focus');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIVISION_SEARCH).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIVISION_SEARCH).pressSequentially("Demo", { delay: 100 });
+          await sharedPage.waitForTimeout(5000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Division_Search_Box');
+          
+          
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+test("@DCCM_SIT_TC_0092 @low Ensure while search Invalid division in search text box field", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLES_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIVISION_SEARCH).click();
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Division_Search_Box_Focus');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIVISION_SEARCH).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIVISION_SEARCH).pressSequentially("Test1", { delay: 100 });
+          await sharedPage.waitForTimeout(5000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Division_Search_Box');
+          
+          
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+test("@DCCM_SIT_TC_0095 @low Ensure while click on clear all  filters in command menu ", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLES_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIVISION_SEARCH).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIVISION_SEARCH).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIVISION_SEARCH).pressSequentially("Demo", { delay: 100 });
+          await sharedPage.waitForTimeout(5000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Division_Search_Box');
+          await sharedPage.locator(SELECTORS.AGENT_MIRRORAGENT_ROLE_GRID).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLEAR_ALL_FILTERS).click();
+          await sharedPage.waitForTimeout(5000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Clear_All_Filters_Command_Menu');
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+test("@DCCM_SIT_TC_0096,DCCM_SIT_TC_0097 @low Ensure while click on clear all  filters in command menu ", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLES_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(3000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Role_Search_Box');
+          await sharedPage.locator(SELECTORS.AGENT_MIRRORAGENT_ROLE_GRID).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_TOGGLE_FILTERS).click();
+          await sharedPage.waitForTimeout(3000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Toggle_Filters_Command_Menu');
+          await sharedPage.locator(SELECTORS.AGENT_MIRRORAGENT_ROLE_GRID).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_TOGGLE_FILTERS).click();
+          await sharedPage.waitForTimeout(3000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Toggle_Filters_Command_Menu');
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+test("@DCCM_SIT_TC_0099 @low Ensure while apply the profile attributes details for bulk user", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_BULK_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY).click();
+          await sharedPage.waitForTimeout(5000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Confirmation');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY_CONFIRM_BUTTON).click();
+          await sharedPage.waitForTimeout(7000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skills-Updated-Successfully');
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+  test("@DCCM_SIT_TC_0100 @low Ensure while select Profile attributes and click on next button", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_BULK_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_PROFILE_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Profile_Attributes_Selected');
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+test("@DCCM_SIT_TC_0101 @low Ensure while apply the profile attributes deatils for the user", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_BULK_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_PROFILE_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Profile_Apply');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY_CONFIRM_BUTTON).click();
+          await sharedPage.waitForTimeout(3000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'ProfileConfirmation');
+
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+/*test("@DCCM_SIT_TC_0106 @low Ensure while schedule the profile attributes deatils for  bulk user", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_BULK_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULER_BUTTON).click();
+          //await sharedPage.waitForTimeout(2000);
+          expect(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULER_JOB_TITLE).isEnabled());
+          console.log("Scheduler is enabled");
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Scheduler_enabled');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULER_JOB_TITLE).click(); //click not working
+          await sharedPage.waitForTimeout(5000);
+          //await ScreenshotUtils.capture(sharedPage, testInfo, 'Confirmation');
+          //await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY_CONFIRM_BUTTON).click({ timeout: 5000 });
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+*/
+
+test("@DCCM_SIT_TC_0107 @low Ensure while click on Groups drop down", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click();
+          await sharedPage.waitForTimeout(2000);
+          expect(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).isEnabled());
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Dropdown_enabled');
+          await sharedPage.waitForTimeout(2000);
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+test("@DCCM_SIT_TC_0108 @low Ensure while select any groups from drop down", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click();
+          await sharedPage.waitForTimeout(2000);
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_MEMBER));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_MEMBER).click({ timeout: 5000 });
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Member_selection');
+          await sharedPage.waitForTimeout(2000);
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+
+
+  test("@DCCM_SIT_TC_0109 @low Ensure while select none from group drop down", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click();
+          await sharedPage.waitForTimeout(2000);
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_NONE));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_NONE).click({ timeout: 5000 });
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'None_selection');
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Confirmation_popup');
+          //await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CONFIRM_OK).click({ timeout: 2000 });
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+  
+
+  test("@DCCM_SIT_TC_0110 @low Ensure while select user and click on next button and click on apply button in mirror agent", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY).click();
+          await sharedPage.waitForTimeout(5000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Confirmation');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY_CONFIRM_BUTTON).click({ timeout: 5000 });
+          
         },
 
         sharedPage,
