@@ -5,7 +5,7 @@ const validateEnvironment = () => {
   const requiredVars = [
     'LOGIN_USERNAME', 'LOGIN_PASSWORD', 'BASE_URL'
   ];
-  
+
   const missing = requiredVars.filter(varName => !process.env[varName]);
   if (missing.length > 0) {
     console.warn(`⚠️ Missing environment variables: ${missing.join(', ')}`);
@@ -46,7 +46,7 @@ export const SCREENSHOT_PATHS = {
 
 // Locator Selectors - Only what we actually use
 export const SELECTORS = {
-LOGIN_USERNAME_INPUT: '//input[@id="input-login-user-name"]',
+  LOGIN_USERNAME_INPUT: '//input[@id="input-login-user-name"]',
   LOGIN_PASSWORD_INPUT: '//input[@id="input-login-user-password"]',
   LOGIN_CONTINUE_BUTTON: '//input[@id="input-login-dccm-user-submit"]',
   LOGOUT_ACCOUNTICON: "//mat-icon[contains(text(),'account_circle')]",
@@ -113,20 +113,63 @@ LOGIN_USERNAME_INPUT: '//input[@id="input-login-user-name"]',
   AGENTS_MIRRORAGENT_LANGUAGE_NO_LANGUAGE_AVAILABLE: "(//div[contains(text(),'There is no language available for this selected user.')])[1]",
 
 
+  AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_SEARCH_FILTER: "//input[@aria-label='Level Search Filter']",
+  AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_NUMBER_INPUT: '(//input[@type="number"])[1]',
+  AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_APPLY_BUTTON: "//span[contains(text(),'Apply')]",
+  AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_OVERRIDE_WARNING: "//div[contains(text(),'If you want to override skills, languages and queues, Please select override!')]",
+  AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_OVERRIDE_APPLY_BUTTON: "//button[contains(text(),'Apply')]",
+  AGENTS_MIRRORAGENT_LANGUAGE_UPDATED_SUCCESSFULLY: "//*[contains(text(),' Updated successfully')]",
+  AGENTS_MIRRORAGENT_LANGUAGE_GRID_MENU: '//div[@id="addUpdateLanguageGrid"]//button[@aria-label="Grid Menu"]',
+  AGENTS_MIRRORAGENT_LANGUAGE_CLEAR_ALL_FILTERS: "(//span[contains(text(),'CLEAR_ALL_FILTERS')])[3]",
+  AGENTS_MIRRORAGENT_LANGUAGE_TOGGLE_FILTER_ROW: "(//span[contains(text(),'TOGGLE_FILTER_ROW')])[3]",
+  AGENTS_MIRRORAGENT_LANGUAGE_EXPORT_TO_EXCEL: "(//span[contains(text(),'EXPORT_TO_EXCEL')])[3]",
+  AGENTS_MIRRORAGENT_SCHEDULE_BUTTON: '(//button[@id="btn-agentcopy-schedule"])[2]',
+  AGENTS_MIRRORAGENT_SCHEDULE_JOB_TYPE_LABEL: "(//span[contains(text(),'Job Type*')])[1]",
+  AGENTS_MIRRORAGENT_SCHEDULE_JOB_TYPE_ONCE: "//*[@value='once']",
+  AGENTS_MIRRORAGENT_SCHEDULE_JOB_NAME: '(//input[@name="jobName"])[1]',
+  AGENTS_MIRRORAGENT_SCHEDULE_START_DATE: '(//input[@name="onceDate"])[1]',
+  AGENTS_MIRRORAGENT_SCHEDULE_START_DATE_CURRENT: "//button[contains(@class,'calendar-body-active')]",
+  AGENTS_MIRRORAGENT_SCHEDULE_START_TIME: '(//input[@placeholder="Time at*"])[1]',
+  AGENTS_MIRRORAGENT_SCHEDULE_SAVE_BUTTON: '//button[@id="once-create-btn"]',
+  AGENTS_MIRRORAGENT_SKILL_TAB_QUEUES: "//span[contains(text(),'Queues') and @class='iconTitle']",
+  AGENTS_MIRRORAGENT_QUEUES_SELECT_ALL_CHECKBOX: '(//div[@title="Select/Deselect All"])[3]',
+  AGENTS_MIRRORAGENT_SKILL_QUEUES_CHECKBOX: '(((//div[@title="Select/Deselect All"])[3])//following::input[@type="checkbox"]/parent::div)[1]',
+  AGENTS_MIRRORAGENT_QUEUES_NAME_SEARCH_TEXTBOX: '//input[@aria-label="Name Search Filter"]',
+  AGENTS_MIRRORAGENT_QUEUES_ACTION_SEARCH_TEXTBOX: '//input[@aria-label="Action Search Filter"]',
+  AGENTS_MIRRORAGENT_QUEUES_NO_QUEUES_AVAILABLE: "(//div[contains(text(),'There is no queue available for this selected user.')])[1]",
+  AGENTS_MIRRORAGENT_QUEUES_GRID_MENU: '//div[@id="copyQueueGrid"]//button[@aria-label="Grid Menu"]',
+  AGENTS_MIRRORAGENT_QUEUES_CLEAR_ALL_FILTERS: "(//span[contains(text(),'CLEAR_ALL_FILTERS')])[3]",
+  AGENTS_MIRRORAGENT_QUEUES_TOGGLE_FILTER_ROW: "(//span[contains(text(),'TOGGLE_FILTER_ROW')])[3]",
+  AGENTS_MIRRORAGENT_QUEUES_EXPORT_TO_EXCEL: "(//span[contains(text(),'EXPORT_TO_EXCEL')])[3]",
+
+  DASHBOARD_REPORT: "//span[contains(text(),'Report')]",
+  DASHBOARD_REPORT_SCHEDULER: "//span[contains(text(),'Scheduler')]",
+  DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT: "//*[contains(text(),' Job Type - Current')]",
+  DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN: "//label[@aria-owns='select-filter-job-type']",
+  DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED: "//span[contains(text(),'Completed ')]",
+  DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON: '//button[@id="btn-filter-search"]',
+  DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::span",
+  DASHBOARD_REPORT_SCHEDULER_VALIDATE: "((//div[contains(@class,'checkbox')])[1])/following::div[2]/p",
+
+
+  AGENTS_MIRRORAGENT_DIV_NONE: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"None")]',
+
+
+
 
 
   AGENTS_CHECKBOX2: "(//div[contains(@class,'checkbox')])[3]",
   AGENTS_MIRRORAGENT_USERNAME_LABEL1: "(//span[contains(text(),'Mirror Agent Name')]//following::input[@type='checkbox']/following-sibling::label)[4]",
-  AGENTS_MIRRORAGENT_ROLE_DESELECT:"//div[contains(@class, 'slick-header-column') and .//text()='Role']//label",
-  AGENTS_MIRRORAGENT_ROLE_SELECT:"//div[contains(@class, 'slick-header-column') and .//text()='Role']//label",
-  AGENTS_MIRRORAGENT_ROLE_SEARCH:'input[data-columnid="role"]',
-  AGENTS_MIRRORAGENT_DIVISION_SEARCH:'//div[contains(@class, "l2") and contains(@class, "r2")]//input[@data-columnid="division"]',
-  AGENT_MIRRORAGENT_ROLE_GRID:"//div[@id='copyRoleGrid']//div[contains(@class, 'slick-pane-left')]//button[@aria-label='Grid Menu']",
-  AGENTS_MIRRORAGENT_CLEAR_ALL_FILTERS:"//div[contains(@class, 'slick-grid-menu') and contains(@style, 'display: block')]//li[@data-command='clear-filter']",
-  AGENTS_MIRRORAGENT_TOGGLE_FILTERS:"div.slick-grid-menu[style*='display: block'] li[data-command='toggle-filter']",
+  AGENTS_MIRRORAGENT_ROLE_DESELECT: "//div[contains(@class, 'slick-header-column') and .//text()='Role']//label",
+  AGENTS_MIRRORAGENT_ROLE_SELECT: "//div[contains(@class, 'slick-header-column') and .//text()='Role']//label",
+  AGENTS_MIRRORAGENT_ROLE_SEARCH: 'input[data-columnid="role"]',
+  AGENTS_MIRRORAGENT_DIVISION_SEARCH: '//div[contains(@class, "l2") and contains(@class, "r2")]//input[@data-columnid="division"]',
+  AGENT_MIRRORAGENT_ROLE_GRID: "//div[@id='copyRoleGrid']//div[contains(@class, 'slick-pane-left')]//button[@aria-label='Grid Menu']",
+  AGENTS_MIRRORAGENT_CLEAR_ALL_FILTERS: "//div[contains(@class, 'slick-grid-menu') and contains(@style, 'display: block')]//li[@data-command='clear-filter']",
+  AGENTS_MIRRORAGENT_TOGGLE_FILTERS: "div.slick-grid-menu[style*='display: block'] li[data-command='toggle-filter']",
   AGENTS_MIRRORAGENT_USERNAME_BULK_LABEL: "(//span[contains(text(),'Mirror Agent Name')]//following::input[@type='checkbox']/following-sibling::label)[2]",
   AGENTS_MIRRORAGENT_USERNAME_BULK_LABEL1: "(//span[contains(text(),'Mirror Agent Name')]//following::input[@type='checkbox']/following-sibling::label)[3]",
-  AGENTS_MIRRORAGENT_SCHEDULER_BUTTON:'//*[@id="btn-agentcopy-schedule"]/span[1]',
+  AGENTS_MIRRORAGENT_SCHEDULER_BUTTON: '//*[@id="btn-agentcopy-schedule"]/span[1]',
   AGENTS_MIRRORAGENT_SCHEDULER_JOB_TITLE: '//*[@id="cdk-accordion-child-19"]/div/mat-dialog-content/div/div[2]/mat-form-field[1]/div[1]/div[2]',
   AGENTS_MIRRORAGENT_DIV_MEMBER: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"Member")]',
   AGENTS_MIRRORAGENT_DIV_NONE: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"None")]',
@@ -134,9 +177,9 @@ LOGIN_USERNAME_INPUT: '//input[@id="input-login-user-name"]',
   AGENTS_MIRRORAGENT_CONFIRM_OK: "//button[contains(text(),'Ok')]",
   AGENTS_MIRRORAGENT_SKILL_APPLY: "//*[@id='btn-agentcopy-apply']/span[1]"
 
-  
 
-  
+
+
 
 };
 
