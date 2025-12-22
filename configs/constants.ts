@@ -152,31 +152,42 @@ export const SELECTORS = {
   DASHBOARD_REPORT_SCHEDULER_VALIDATE: "((//div[contains(@class,'checkbox')])[1])/following::div[2]/p",
 
 
-  AGENTS_MIRRORAGENT_DIV_NONE: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"None")]',
+  //AGENTS_MIRRORAGENT_DIV_NONE: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"None")]',
+                     
 
 
 
+  AGENTS_MIRRORAGENT_DASHBOARD_HISTORY: '//*[@id="grid"]/div[4]/div[3]/div/div[10]/div[2]',
+  AGENTS_MIRRORAGENT_UTILIZATION_DESELECT:"//div[contains(@class, 'slick-header-columns')][.//span[text()='Media Type']]//div[@data-id='_checkbox_selector']//label",
+  AGENTS_MIRRORAGENT_UTILIZATION_SELECT:"//div[contains(@class, 'slick-header-columns')][.//span[text()='Media Type']]//div[@data-id='_checkbox_selector']//label",
+  AGENTS_MIRRORAGENT_UTILIZATION_MEDIA_SEARCH:"//div[contains(@class, 'slick-headerrow-column')]//input[@data-columnid='mediaType']",
+  AGENTS_MIRRORAGENT_UTILIZATION_CAPACITY_SEARCH:"//div[contains(@class, 'slick-headerrow-column')]//input[@data-columnid='maximumCapacity']",
+  AGENTS_MIRRORAGENT_UTILIZATION_GRID: "//div[contains(@class, 'slick-pane-header')][.//span[text()='Media Type']]//button[@aria-label='Grid Menu']",
+  AGENTS_MIRRORAGENT_UTILIZATION_CAPACITY_INPUT:'//*[@id="copyUtilizationGrid"]/div[4]/div[3]/div/div[2]/div[3]/input',
 
+  AGENTS_MIRRORAGENT_GROUP_DESELECT:"//div[contains(@class, 'slick-header-column')][.//span[text()='Group Name']]/preceding-sibling::div[@data-id='_checkbox_selector']//label",
+  AGENTS_MIRRORAGENT_GROUP_SELECT:"//div[contains(@class, 'slick-header-column')][.//span[text()='Group Name']]/preceding-sibling::div[@data-id='_checkbox_selector']//label",
+  AGENTS_MIRRORAGENT_GROUP_SEARCH:"//div[contains(@class, 'slick-headerrow-column')]//input[@data-columnid='name']",
+  AGENTS_MIRRORAGENT_GROUP_GRID: "//div[@id='copyGroupGrid']//div[contains(@class, 'slick-pane slick-pane-header slick-pane-left')]//button[@aria-label='Grid Menu']",
 
   AGENTS_CHECKBOX2: "(//div[contains(@class,'checkbox')])[3]",
   AGENTS_MIRRORAGENT_USERNAME_LABEL1: "(//span[contains(text(),'Mirror Agent Name')]//following::input[@type='checkbox']/following-sibling::label)[4]",
-  AGENTS_MIRRORAGENT_ROLE_DESELECT: "//div[contains(@class, 'slick-header-column') and .//text()='Role']//label",
-  AGENTS_MIRRORAGENT_ROLE_SELECT: "//div[contains(@class, 'slick-header-column') and .//text()='Role']//label",
-  AGENTS_MIRRORAGENT_ROLE_SEARCH: 'input[data-columnid="role"]',
-  AGENTS_MIRRORAGENT_DIVISION_SEARCH: '//div[contains(@class, "l2") and contains(@class, "r2")]//input[@data-columnid="division"]',
-  AGENT_MIRRORAGENT_ROLE_GRID: "//div[@id='copyRoleGrid']//div[contains(@class, 'slick-pane-left')]//button[@aria-label='Grid Menu']",
-  AGENTS_MIRRORAGENT_CLEAR_ALL_FILTERS: "//div[contains(@class, 'slick-grid-menu') and contains(@style, 'display: block')]//li[@data-command='clear-filter']",
-  AGENTS_MIRRORAGENT_TOGGLE_FILTERS: "div.slick-grid-menu[style*='display: block'] li[data-command='toggle-filter']",
+  AGENTS_MIRRORAGENT_ROLE_DESELECT:"//div[contains(@class, 'slick-header-column') and .//text()='Role']//label",
+  AGENTS_MIRRORAGENT_ROLE_SELECT:"//div[contains(@class, 'slick-header-column') and .//text()='Role']//label",
+  AGENTS_MIRRORAGENT_ROLE_SEARCH:'input[data-columnid="role"]',
+  AGENTS_MIRRORAGENT_DIVISION_SEARCH:'//div[contains(@class, "l2") and contains(@class, "r2")]//input[@data-columnid="division"]',
+  AGENT_MIRRORAGENT_ROLE_GRID:"//div[@id='copyRoleGrid']//div[contains(@class, 'slick-pane-left')]//button[@aria-label='Grid Menu']",
+  AGENTS_MIRRORAGENT_CLEAR_ALL_FILTERS:"//div[contains(@class, 'slick-grid-menu') and contains(@style, 'display: block')]//li[@data-command='clear-filter']",
+  AGENTS_MIRRORAGENT_TOGGLE_FILTERS:"div.slick-grid-menu[style*='display: block'] li[data-command='toggle-filter']",
   AGENTS_MIRRORAGENT_USERNAME_BULK_LABEL: "(//span[contains(text(),'Mirror Agent Name')]//following::input[@type='checkbox']/following-sibling::label)[2]",
   AGENTS_MIRRORAGENT_USERNAME_BULK_LABEL1: "(//span[contains(text(),'Mirror Agent Name')]//following::input[@type='checkbox']/following-sibling::label)[3]",
-  AGENTS_MIRRORAGENT_SCHEDULER_BUTTON: '//*[@id="btn-agentcopy-schedule"]/span[1]',
+  AGENTS_MIRRORAGENT_SCHEDULER_BUTTON:'//*[@id="btn-agentcopy-schedule"]/span[1]',
   AGENTS_MIRRORAGENT_SCHEDULER_JOB_TITLE: '//*[@id="cdk-accordion-child-19"]/div/mat-dialog-content/div/div[2]/mat-form-field[1]/div[1]/div[2]',
   AGENTS_MIRRORAGENT_DIV_MEMBER: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"Member")]',
   AGENTS_MIRRORAGENT_DIV_NONE: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"None")]',
   AGENTS_MIRRORAGENT_GROUP_NONE: "(//div[contains(text(),'Please select either divisions or groups to search')])[1]",
   AGENTS_MIRRORAGENT_CONFIRM_OK: "//button[contains(text(),'Ok')]",
   AGENTS_MIRRORAGENT_SKILL_APPLY: "//*[@id='btn-agentcopy-apply']/span[1]"
-
 
 
 
