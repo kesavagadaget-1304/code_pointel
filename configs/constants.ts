@@ -176,7 +176,6 @@ export const SELECTORS = {
   AGENTS_MIRRORAGENT_GROUP_SEARCH:"//div[contains(@class, 'slick-headerrow-column')]//input[@data-columnid='name']",
   AGENTS_MIRRORAGENT_GROUP_GRID: "//div[@id='copyGroupGrid']//div[contains(@class, 'slick-pane slick-pane-header slick-pane-left')]//button[@aria-label='Grid Menu']",
 
-  AGENTS_CHECKBOX2: "(//div[contains(@class,'checkbox')])[3]",
   AGENTS_MIRRORAGENT_USERNAME_LABEL1: "(//span[contains(text(),'Mirror Agent Name')]//following::input[@type='checkbox']/following-sibling::label)[4]",
   AGENTS_MIRRORAGENT_ROLE_DESELECT:"//div[contains(@class, 'slick-header-column') and .//text()='Role']//label",
   AGENTS_MIRRORAGENT_ROLE_SELECT:"//div[contains(@class, 'slick-header-column') and .//text()='Role']//label",
