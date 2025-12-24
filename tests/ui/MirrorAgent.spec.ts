@@ -1073,6 +1073,7 @@ test("@DCCM_SIT_TC_0027 @low Ensure while click on skill level column and enter 
     }
   });
 
+  /*
 test.skip("@DCCM_SIT_TC_0028 @low Ensure while click on skill level column and enter Invalid value and click on apply button", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
@@ -1126,7 +1127,7 @@ test.skip("@DCCM_SIT_TC_0028 @low Ensure while click on skill level column and e
       );
     }
   });
-
+*/
 
 test("@DCCM_SIT_TC_0029 @low Ensure while click on clear all  filters in command menu", async ({ }, testInfo) => {
     try {
@@ -3894,6 +3895,92 @@ test("@DCCM_SIT_TC_0101 @low Ensure while apply the profile attributes deatils f
       );
     }
   });
+
+  
+    test("@DCCM_SIT_TC_106 @low Ensure while schedule the profile attributes deatils for bulk user", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_TYPE_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_TYPE_ONCE).click();
+          const jobNameDCCM_SIT_TC_105 = faker.person.jobTitle();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_NAME).fill(jobNameDCCM_SIT_TC_105);
+          console.log('Job Name for DCCM_SIT_TC_105:', jobNameDCCM_SIT_TC_105);
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_DATE).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_DATE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_TIME).click();
+          const time = getTimeAfterMinutes(1);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_TIME).fill(time);
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'AGENT');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_SAVE_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          console.log('Scheduled job successfully. Wait for its completion...');
+          await sharedPage.waitForTimeout(100000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
+          await sharedPage.waitForTimeout(1000);
+          const text = await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).innerText();
+          console.log('Completed Scheduled Job:', text);
+          expect(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE)).toHaveText(jobNameDCCM_SIT_TC_105);
+
+
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForTimeout(5000);
+
+
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
 
 
 test("@DCCM_SIT_TC_0107 @low Ensure while click on Groups drop down", async ({ }, testInfo) => {
