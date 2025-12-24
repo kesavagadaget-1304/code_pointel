@@ -46,17 +46,20 @@ export const SCREENSHOT_PATHS = {
 
 // Locator Selectors - Only what we actually use
 export const SELECTORS = {
+
   LOGIN_USERNAME_INPUT: '//input[@id="input-login-user-name"]',
   LOGIN_PASSWORD_INPUT: '//input[@id="input-login-user-password"]',
   LOGIN_CONTINUE_BUTTON: '//input[@id="input-login-dccm-user-submit"]',
   LOGOUT_ACCOUNTICON: "//mat-icon[contains(text(),'account_circle')]",
   LOGOUT: "//span[contains(text(),'Logout')]",
 
-
+//    *****Mirrior Agent Selectors *****
   DCCM: "//span[normalize-space(text()) = 'DCCM']",
   DASHBOARD_AGENTS: '//a[@title="Agents"]',
   AGENTS_MORE_ICON: "//*[normalize-space(text()) = 'more_vert']",
   AGENTS_CHECKBOX1: "(//div[contains(@class,'checkbox')])[1]",
+  AGENTS_CHECKBOX2: "(//div[contains(@class,'checkbox')])[2]",
+  AGENTS_CHECKBOX3: "(//div[contains(@class,'checkbox')])[3]",
   AGENTS_MIRROR_AGENT: '//button[@id="btn-role-manage-templates"]',
   AGENTS_MIRRORAGENT_VALIDATE: "(//*[contains(text(),'Mirror Agent')])[1]",
   AGENTS_MIRRORAGENT_CLOSE: '//button[contains(text(),"Close")]',
@@ -150,6 +153,9 @@ export const SELECTORS = {
   DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON: '//button[@id="btn-filter-search"]',
   DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::span",
   DASHBOARD_REPORT_SCHEDULER_VALIDATE: "((//div[contains(@class,'checkbox')])[1])/following::div[2]/p",
+  AGENTS_MIRRORAGENT_UTILIZATION_TAB: "//span[contains(text(),'Utilization')]",
+  AGENTS_MIRRORAGENT_UTILIZATION_EXPORT_TO_EXCEL: "(//span[contains(text(),'EXPORT_TO_EXCEL')])[3]",
+  AGENTS_MIRRORAGENT_GROUPS_TAB: "(//span[contains(text(),'Groups')])[3]",
 
 
   //AGENTS_MIRRORAGENT_DIV_NONE: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"None")]',
