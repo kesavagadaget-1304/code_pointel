@@ -2,7 +2,6 @@ import { Page, expect, TestInfo } from '@playwright/test';
 import { TIMEOUTS } from '../configs/constants';
 import { ScreenshotUtils } from './screenshotUtils';
 import { BrowserInfoUtils } from './browserInfo';
-import { getRunId } from './runId';
 
 export class TestHelpers {
   
