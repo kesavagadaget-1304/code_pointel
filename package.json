@@ -35,9 +35,6 @@
     "@types/uuid": "^10.0.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "google-protobuf": "^3.21.4",
-    "protobufjs": "^7.5.3",
-    "pulsar-client": "^1.14.0",
     "qs": "^6.14.0",
     "uuid": "^11.1.0"
   },
