@@ -729,4 +729,309 @@ test.describe('DCCM', () => {
         }
     });
 
+    test("@DCCM_SIT_TC_019 @low Ensure while click on base phone drop down button in filters page", async ({ }, testInfo) => {
+        try {
+            await TestHelpers.executeTestStep(
+                'Login → Accounting Activity (first time banner)',
+                async () => {
+                    await sharedPage.locator(SELECTORS.DASHBOARD_PHONES).click();
+                    await sharedPage.waitForLoadState('networkidle');
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_ICON).click();
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_ROLE).click();
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_ROLE_SUPER_ADMIN).click();
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_BASE_PHONE).click();
+                    expect (sharedPage.locator(SELECTORS.PHONES_FILTER_PHONE_DROPDOWN_VALUES)).toBeVisible();
+                    await ScreenshotUtils.capture(sharedPage, testInfo, 'SuperAdmin-phones-dropdown');
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_BASE_PHONE).press('Tab')
+
+                    await sharedPage.waitForTimeout(3000);
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_CLOSE).click();
+                    await sharedPage.waitForTimeout(10000);
+
+                },
+
+                sharedPage,
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+            );
+        } catch (error) {
+            await TestHelpers.handleTestError(
+                sharedPage,
+                error,
+                'error',
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+                testInfo
+            );
+        }
+    });
+
+
+    test("@DCCM_SIT_TC_020 @low Ensure while click on Site drop down button in filters page", async ({ }, testInfo) => {
+        try {
+            await TestHelpers.executeTestStep(
+                'Login → Accounting Activity (first time banner)',
+                async () => {
+                    await sharedPage.locator(SELECTORS.DASHBOARD_PHONES).click();
+                    await sharedPage.waitForLoadState('networkidle');
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_ICON).click();
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_ROLE).click();
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_ROLE_SUPER_ADMIN).click();
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_SITE_DROPDOWN).click();
+                    expect (sharedPage.locator(SELECTORS.PHONES_FILTER_SITE_DROPDOWN_VALUES)).toBeVisible();
+                    await ScreenshotUtils.capture(sharedPage, testInfo, 'SuperAdmin-SITE-dropdown');
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_SITE_DROPDOWN).press('Tab');
+                    await sharedPage.waitForTimeout(3000);
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_CLOSE).click();
+                    await sharedPage.waitForTimeout(10000);
+                },
+                sharedPage,
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+            );
+        } catch (error) {
+            await TestHelpers.handleTestError(
+                sharedPage,
+                error,
+                'error',
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+                testInfo
+            );
+        }
+    });
+
+    test("@DCCM_SIT_TC_021 @low Ensure while click on base phone drop down button in create phone page", async ({ }, testInfo) => {
+        try {
+            await TestHelpers.executeTestStep(
+                'Login → Accounting Activity (first time banner)',
+                async () => {
+                    await sharedPage.locator(SELECTORS.DASHBOARD_PHONES).click();
+                    await sharedPage.waitForLoadState('networkidle');
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_ICON).click();
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_ROLE).click();
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_ROLE_SUPER_ADMIN).click();
+                    //await sharedPage.locator(SELECTORS.PHONES_FILTER_BASE_PHONE).click();
+                    await sharedPage.waitForTimeout(3000);
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_SEARCH).click();
+                    await sharedPage.waitForTimeout(10000);
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_CLOSE).click();
+                    await sharedPage.locator(SELECTORS.PHONES_MORE_ICON).click();
+                    await sharedPage.locator(SELECTORS.PHONES_MORE_ICON_CREATE_PHONE).click();
+                    await sharedPage.waitForTimeout(5000);
+                    await sharedPage.locator(SELECTORS.PHONES_CREATE_PHONE_BASE_PHONE).click();
+                    expect (sharedPage.locator(SELECTORS.PHONES_CREATE_PHONE_BASE_PHONE_DROPDOWN)).toBeVisible();
+                    await ScreenshotUtils.capture(sharedPage, testInfo, 'SuperAdmin-phones-dropdown');
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_SITE_DROPDOWN).press('Escape');
+                    await sharedPage.locator(SELECTORS.PHONES_CREATE_PHONE_CLOSE).click();
+                },
+                sharedPage,
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+            );
+        } catch (error) {
+            await TestHelpers.handleTestError(
+                sharedPage,
+                error,
+                'error',
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+                testInfo
+            );
+        }
+    });
+
+    test("@DCCM_SIT_TC_022 @low Ensure while click on Site drop down button in create phone page", async ({ }, testInfo) => {
+        try {
+            await TestHelpers.executeTestStep(
+                'Login → Accounting Activity (first time banner)',
+                async () => {
+                    await sharedPage.locator(SELECTORS.DASHBOARD_PHONES).click();
+                    await sharedPage.waitForLoadState('networkidle');
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_ICON).click();
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_ROLE).click();
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_ROLE_SUPER_ADMIN).click();
+                    //await sharedPage.locator(SELECTORS.PHONES_FILTER_BASE_PHONE).click();
+                    await sharedPage.waitForTimeout(3000);
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_SEARCH).click();
+                    await sharedPage.waitForTimeout(10000);
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_CLOSE).click();
+                    await sharedPage.locator(SELECTORS.PHONES_MORE_ICON).click();
+                    await sharedPage.locator(SELECTORS.PHONES_MORE_ICON_CREATE_PHONE).click();
+                    await sharedPage.waitForTimeout(5000);
+                    await sharedPage.locator(SELECTORS.PHONES_CREATE_PHONE_SITE).click();
+                    expect (sharedPage.locator(SELECTORS.PHONES_CREATE_PHONE_SITE_DROPDOWN)).toBeVisible();
+                    await ScreenshotUtils.capture(sharedPage, testInfo, 'SuperAdmin-phones-dropdown');
+                    await sharedPage.locator(SELECTORS.PHONES_FILTER_SITE_DROPDOWN).press('Escape');
+                    await sharedPage.locator(SELECTORS.PHONES_CREATE_PHONE_CLOSE).click();
+                },
+                sharedPage,
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+            );
+        } catch (error) {
+            await TestHelpers.handleTestError(
+                sharedPage,
+                error,
+                'error',
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+                testInfo
+            );
+        }
+    });
+
+ test("@DCCM_SIT_TC_023 @low Ensure while click on Tables drop down button in filters page", async ({ }, testInfo) => {
+        try {
+            await TestHelpers.executeTestStep(
+                'Login → Accounting Activity (first time banner)',
+                async () => {
+                    await sharedPage.locator(SELECTORS.DASHBOARD_DATATABLE).click();
+                    await sharedPage.waitForLoadState('networkidle');
+                    await sharedPage.locator(SELECTORS.DATATABLE_FILTER_ICON).click();
+                    await sharedPage.locator(SELECTORS.DATATABLE_FILTER_ROLE).click();
+                    await sharedPage.locator(SELECTORS.DATATABLE_FILTER_ROLE_SUPER_ADMIN).click();
+                    await sharedPage.locator(SELECTORS.DATATABLE_FILTER_TABLE_DROPDOWN).click();
+                    expect(sharedPage.locator(SELECTORS.DATATABLE_FILTER_TABLE_DROPDOWN_VAL)).toBeVisible();
+                    await ScreenshotUtils.capture(sharedPage, testInfo, 'SuperAdmin-datatable-dropdown');
+                    await sharedPage.locator(SELECTORS.DATATABLE_FILTER_TABLE_DROPDOWN_VAL).press('Tab');
+                    await sharedPage.locator(SELECTORS.DATATABLE_FILTER_CLOSE).click();
+                    
+                },
+                sharedPage,
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+            );
+        } catch (error) {
+            await TestHelpers.handleTestError(
+                sharedPage,
+                error,
+                'error',
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+                testInfo
+            );
+        }
+    });
+
+     test("@DCCM_SIT_TC_024 @low Ensure while select superadmin role and click on serach in filters page", async ({ }, testInfo) => {
+        try {
+            await TestHelpers.executeTestStep(
+                'Login → Accounting Activity (first time banner)',
+                async () => {
+                    await sharedPage.locator(SELECTORS.DASHBOARD_PROMPTS).click();
+                    await sharedPage.waitForLoadState('networkidle');
+                    await sharedPage.locator(SELECTORS.PROMPTS_FILTER_ICON).click();
+                    await sharedPage.locator(SELECTORS.PROMPTS_FILTER_ROLE).click();
+                    await sharedPage.locator(SELECTORS.PROMPTS_FILTER_ROLE_SUPER_ADMIN).click();
+                    expect(sharedPage.locator(SELECTORS.PROMPTS_PROMPT_NAME)).toBeVisible();
+                    await ScreenshotUtils.capture(sharedPage, testInfo, 'SuperAdmin-datatable-dropdown');
+                    await sharedPage.locator(SELECTORS.PROMPTS_FILTER_CLOSE).click();
+                },
+                sharedPage,
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+            );
+        } catch (error) {
+            await TestHelpers.handleTestError(
+                sharedPage,
+                error,
+                'error',
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+                testInfo
+            );
+        }
+    });
+
+    test("@DCCM_SIT_TC_025 @low Ensure while click on Schedule group drop down button in filters page", async ({ }, testInfo) => {
+        try {
+            await TestHelpers.executeTestStep(
+                'Login → Accounting Activity (first time banner)',
+                async () => {
+                    await sharedPage.locator(SELECTORS.DASHBOARD_OPERATING_SCHEDULES).click();
+                    await sharedPage.locator(SELECTORS.DASHBOARD_SCHEDULES_GROUPS).click();
+                    await sharedPage.waitForLoadState('networkidle');
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_FILTER_ICON).click();
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_FILTER_ROLE).click();
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_FILTER_ROLE_SUPER_ADMIN).click();
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_FILTER_SG_DROPDOWN).click();
+                    expect(sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_FILTER_SG_DROPDOWN_VAL)).toBeVisible();
+                    await ScreenshotUtils.capture(sharedPage, testInfo, 'SuperAdmin-datatable-dropdown');
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_FILTER_SG_DROPDOWN_VAL).press('Tab');
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_FILTER_CLOSE).click();
+                },
+                sharedPage,
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+            );
+        } catch (error) {
+            await TestHelpers.handleTestError(
+                sharedPage,
+                error,
+                'error',
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+                testInfo
+            );
+        }
+    });
+
+        test("@DCCM_SIT_TC_026 @low Ensure while click on divisions drop down in create schedule page", async ({ }, testInfo) => {
+        try {
+            await TestHelpers.executeTestStep(
+                'Login → Accounting Activity (first time banner)',
+                async () => {
+                    await sharedPage.locator(SELECTORS.DASHBOARD_OPERATING_SCHEDULES).click();
+                    await sharedPage.locator(SELECTORS.DASHBOARD_SCHEDULES_GROUPS).click();
+                    await sharedPage.waitForLoadState('networkidle');
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_FILTER_ICON).click();
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_FILTER_ROLE).click();
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_FILTER_ROLE_SUPER_ADMIN).click();
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_FILTER_CLOSE).click();
+                    await ScreenshotUtils.capture(sharedPage, testInfo, 'SuperAdmin-datatable-dropdown');                    
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_MORE_ICON).click();
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_MORE_ICON_CREATE_SCHEDULE).click();
+                    await sharedPage.waitForTimeout(5000);
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_MORE_ICON_CREATE_SCHEDULE_DIVISION_DROPDOWN).click();
+                    expect(sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_MORE_ICON_CREATE_SCHEDULE_DIVISION_DROPDOWN_VAL)).toBeVisible();
+                    await ScreenshotUtils.capture(sharedPage, testInfo, 'SuperAdmin-datatable-dropdown');
+                    await sharedPage.waitForTimeout(3000);
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_MORE_ICON_CREATE_SCHEDULE_DIVISION_DROPDOWN_VAL).press('Tab');
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_MORE_ICON_CREATE_SCHEDULE_CLOSE).click();
+                    await sharedPage.waitForTimeout(5000);
+                },
+                sharedPage,
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+            );
+        } catch (error) {
+            await TestHelpers.handleTestError(
+                sharedPage,
+                error,
+                'error',
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+                testInfo
+            );
+        }
+    });
+
+            test("@DCCM_SIT_TC_027 @low Ensure while click on divisions drop down in Filters page", async ({ }, testInfo) => {
+        try {
+            await TestHelpers.executeTestStep(
+                'Login → Accounting Activity (first time banner)',
+                async () => {
+                    await sharedPage.locator(SELECTORS.DASHBOARD_OPERATING_SCHEDULES).click();
+                    await sharedPage.locator(SELECTORS.DASHBOARD_SCHEDULES).click();
+                    await sharedPage.waitForLoadState('networkidle');
+                    await sharedPage.locator(SELECTORS.SCHEDULES_FILTER_ICON).click();
+                    await sharedPage.locator(SELECTORS.SCHEDULES_FILTER_ROLE).click();
+                    await sharedPage.locator(SELECTORS.SCHEDULES_FILTER_ROLE_SUPER_ADMIN).click();
+                    await sharedPage.locator(SELECTORS.SCHEDULES_FILTER_DIVISIONS_DROPDOWN).click();
+                    expect(sharedPage.locator(SELECTORS.SCHEDULES_FILTER_DIVISIONS_DROPDOWN_VAL)).toBeVisible();
+                    await ScreenshotUtils.capture(sharedPage, testInfo, 'SuperAdmin-datatable-dropdown');
+                    await sharedPage.waitForTimeout(3000);
+                    await sharedPage.locator(SELECTORS.SCHEDULES_FILTER_DIVISIONS_DROPDOWN_VAL).press('Tab');
+                    await sharedPage.locator(SELECTORS.SCHEDULES_GROUPS_FILTER_CLOSE).click();
+                    await ScreenshotUtils.capture(sharedPage, testInfo, 'SuperAdmin-datatable-dropdown');                    
+                },
+                sharedPage,
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+            );
+        } catch (error) {
+            await TestHelpers.handleTestError(
+                sharedPage,
+                error,
+                'error',
+                SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+                testInfo
+            );
+        }
+    });
+
 });
