@@ -36,7 +36,7 @@ test.describe('DCCM', () => {
     }
   });
   */
-   test("@DCCM_SIT_TC_001 @low Ensure while click on mirror agent in more option", async ({ }, testInfo) => {
+   test("@DCCM_SIT_TC_0001 @low Ensure while click on mirror agent in more option", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -67,7 +67,7 @@ test.describe('DCCM', () => {
     }
   });
 
-  test("@DCCM_SIT_TC_002 @low Check the fileds and buttons present in the mirror agent page", async ({ }, testInfo) => {
+  test("@DCCM_SIT_TC_0002 @low Check the fileds and buttons present in the mirror agent page", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -99,7 +99,7 @@ test.describe('DCCM', () => {
   });
 
 
-  test("@DCCM_SIT_TC_003 @low Ensure while click on division drop down", async ({ }, testInfo) => {
+  test("@DCCM_SIT_TC_0003 @low Ensure while click on division drop down", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -133,7 +133,7 @@ test.describe('DCCM', () => {
   });
 
 
-  test("@DCCM_SIT_TC_004 @low Ensure while select any division  from drop down", async ({ }, testInfo) => {
+  test("@DCCM_SIT_TC_0004 @low Ensure while select any division  from drop down", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -167,7 +167,7 @@ test.describe('DCCM', () => {
   });
 
 
-  test("@DCCM_SIT_TC_005 @low Ensure while click on user name search text box field", async ({ }, testInfo) => {
+  test("@DCCM_SIT_TC_0005 @low Ensure while click on user name search text box field", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -200,7 +200,7 @@ test.describe('DCCM', () => {
   });
 
 
-  test("@DCCM_SIT_TC_006 @low Ensure while enter values in User name search text box filed", async ({ }, testInfo) => {
+  test("@DCCM_SIT_TC_0006 @low Ensure while enter values in User name search text box filed", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -233,7 +233,7 @@ test.describe('DCCM', () => {
   });
 
 
-  test("@DCCM_SIT_TC_007 @low Check the boundary value conditions in search text box filed", async ({ }, testInfo) => {
+  test("@DCCM_SIT_TC_0007 @low Check the boundary value conditions in search text box filed", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -267,7 +267,7 @@ test.describe('DCCM', () => {
   });
 
 
-  test("@DCCM_SIT_TC_008 @low Ensure while search valid username in search text box field", async ({ }, testInfo) => {
+  test("@DCCM_SIT_TC_0008 @low Ensure while search valid username in search text box field", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -300,7 +300,7 @@ test.describe('DCCM', () => {
     }
   });
 
-   test("@DCCM_SIT_TC_009 @low Ensure while search Invalid username in search text box field", async ({ }, testInfo) => {
+   test("@DCCM_SIT_TC_0009 @low Ensure while search Invalid username in search text box field", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
