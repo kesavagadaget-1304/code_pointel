@@ -1028,6 +1028,15 @@ test("@DCCM_SIT_TC_0027 @low Ensure while click on skill level column and enter 
         async () => {
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0027=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :",username0027);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0027?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0027?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
           await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
@@ -1041,10 +1050,14 @@ test("@DCCM_SIT_TC_0027 @low Ensure while click on skill level column and enter 
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_LABEL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
           await sharedPage.waitForTimeout(10000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_NUMBER_INPUT).click();
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_NUMBER_INPUT).fill("3");          
+          const DCCM_SIT_TC_0027 = faker.number.int({ min: 1, max: 5 }).toString();
+          console.log("DCCM_SIT_TC_0027 Generated Skill Level is :",DCCM_SIT_TC_0027);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_NUMBER_INPUT).fill(DCCM_SIT_TC_0027);
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY_BUTTON).click();
           await sharedPage.waitForTimeout(5000);
@@ -1052,10 +1065,20 @@ test("@DCCM_SIT_TC_0027 @low Ensure while click on skill level column and enter 
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY_CONFIRM_BUTTON).click();
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
-          expect (await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_UPDATED_SUCCESSFULLY).isVisible());
+          expect(await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_UPDATED_SUCCESSFULLY).isVisible());
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
+          await sharedPage.waitForTimeout(5000);
+          const historyCurrentVAlue = await sharedPage.locator(SELECTORS.HISTORY_CURRENT_VALUE).textContent() ?? '';
+          console.log("History Current Value is :",historyCurrentVAlue);
+          expect(parseFloat(historyCurrentVAlue)).toBe(parseFloat(DCCM_SIT_TC_0027));
+          await sharedPage.waitForTimeout(2000);
+          //expect(sharedPage.locator(SELECTORS.HISTORY_CURRENT_VALUE)).toHaveText(DCCM_SIT_TC_0027);
+          await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
+
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
         },
 
@@ -1798,12 +1821,21 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
   
   
   test("@DCCM_SIT_TC_0043 @low Ensure while click on Language level column and enter valid value and click on apply button", async ({ }, testInfo) => {
-     try {
+    try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0043=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :",username0043);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0043?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0043?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
           await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
@@ -1821,7 +1853,9 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           await sharedPage.waitForTimeout(10000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
           await sharedPage.waitForTimeout(2000);
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_NUMBER_INPUT).fill("3");
+          const DCCM_SIT_TC_0043 = faker.number.int({ min: 1, max: 5 }).toString();
+          console.log("DCCM_SIT_TC_0043 Generated Language Level is :",DCCM_SIT_TC_0043);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_NUMBER_INPUT).fill(DCCM_SIT_TC_0043);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_APPLY_BUTTON).click();
           await sharedPage.waitForTimeout(1000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_OVERRIDE_APPLY_BUTTON).click();
@@ -1830,6 +1864,16 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
+
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
+          await sharedPage.waitForTimeout(5000);
+          const historyCurrentVAlue = await sharedPage.locator(SELECTORS.HISTORY_CURRENT_VALUE).textContent() ?? '';
+          console.log("History Current Value is :",historyCurrentVAlue);
+          expect(parseFloat(historyCurrentVAlue)).toBe(parseFloat(DCCM_SIT_TC_0043));
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
+
+
         },
 
         sharedPage,
@@ -1848,12 +1892,21 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
 
   test("@DCCM_SIT_TC_0044 @low Ensure while click on Language level column and enter Invalid value and click on apply button", async ({ }, testInfo) => {
-     try {
+    try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0044=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :",username0044);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0044?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0044?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
           await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
@@ -1871,7 +1924,10 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           await sharedPage.waitForTimeout(10000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
           await sharedPage.waitForTimeout(2000);
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_NUMBER_INPUT).fill("8");
+          const DCCM_SIT_TC_0044 = faker.number.int({ min: 6, max: 9 }).toString();
+          console.log("DCCM_SIT_TC_0044 Generated Language Level is :",DCCM_SIT_TC_0044);
+
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_NUMBER_INPUT).fill(DCCM_SIT_TC_0044);
           await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_APPLY_BUTTON).click();
           await sharedPage.waitForTimeout(1000);
@@ -1881,6 +1937,14 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
+
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
+          await sharedPage.waitForTimeout(5000);
+          const historyCurrentVAlue = await sharedPage.locator(SELECTORS.HISTORY_CURRENT_VALUE).textContent() ?? '';
+          console.log("History Current Value is :",historyCurrentVAlue);
+          expect(parseFloat(historyCurrentVAlue)).not.toBe(parseFloat(DCCM_SIT_TC_0044));
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
         },
 
         sharedPage,
@@ -2828,6 +2892,15 @@ test("@DCCM_SIT_TC_0070 @low Ensure while click on capacity  level column and en
         async () => {
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0070=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :",username0070);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0070?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0070?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
           await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
@@ -2849,7 +2922,9 @@ test("@DCCM_SIT_TC_0070 @low Ensure while click on capacity  level column and en
           await sharedPage.waitForTimeout(4000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_UTILIZATION_CAPACITY_INPUT).focus();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_UTILIZATION_CAPACITY_INPUT).click();
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_UTILIZATION_CAPACITY_INPUT).fill((faker.number.int({ min: 1, max: 5 })).toString());
+          const DCCM_SIT_TC_0070 = faker.number.int({ min: 1, max: 5 }).toString();
+          console.log("DCCM_SIT_TC_0070 Generated Utilization Capacity is :",DCCM_SIT_TC_0070);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_UTILIZATION_CAPACITY_INPUT).fill(DCCM_SIT_TC_0070);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_UTILIZATION_CAPACITY_INPUT).press('Tab');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_UTILIZATION_CAPACITY_INPUT).press('Escape');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_UTILIZATION_APPLY_BUTTON).click();
@@ -2858,6 +2933,16 @@ test("@DCCM_SIT_TC_0070 @low Ensure while click on capacity  level column and en
           expect(await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_UTILIZATION_UPDATED_SUCCESSFULLY).isVisible());
           await ScreenshotUtils.capture(sharedPage, testInfo, 'Utilization_Search_Box');
           await sharedPage.waitForLoadState('networkidle');
+
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
+          await sharedPage.waitForTimeout(5000);
+          const historyCurrentVAlue = await sharedPage.locator(SELECTORS.HISTORY_CURRENT_VALUE).textContent() ?? '';
+          console.log("History Current Value is :",historyCurrentVAlue);
+          expect(parseFloat(historyCurrentVAlue)).toBe(parseFloat(DCCM_SIT_TC_0070));
+          await sharedPage.waitForTimeout(2000);
+          //expect(sharedPage.locator(SELECTORS.HISTORY_CURRENT_VALUE)).toHaveText(DCCM_SIT_TC_0027);
+          await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
+
           await sharedPage.waitForTimeout(5000);
           await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
           await sharedPage.waitForTimeout(1000);
@@ -3725,6 +3810,15 @@ test("@DCCM_SIT_TC_0099 @low Ensure while apply the profile attributes details f
         async () => {
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0099=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :",username0099);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0099?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0099?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
@@ -3739,9 +3833,18 @@ test("@DCCM_SIT_TC_0099 @low Ensure while apply the profile attributes details f
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_BULK_LABEL1).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_LABEL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(2000);
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_NUMBER_INPUT).click();
+          const DCCM_SIT_TC_0099 = faker.number.int({ min: 1, max: 5 }).toString();
+          console.log("DCCM_SIT_TC_0099 Generated Skill Level is :",DCCM_SIT_TC_0099);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_NUMBER_INPUT).fill(DCCM_SIT_TC_0099);
+          await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY).click();
           await sharedPage.waitForTimeout(5000);
           await ScreenshotUtils.capture(sharedPage, testInfo, 'Confirmation');
@@ -3749,12 +3852,21 @@ test("@DCCM_SIT_TC_0099 @low Ensure while apply the profile attributes details f
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await ScreenshotUtils.capture(sharedPage, testInfo, 'Apply_Confirmation');
-          expect (await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_UPDATED_SUCCESSFULLY).isVisible());
+          expect(await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_UPDATED_SUCCESSFULLY).isVisible());
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
+          await sharedPage.waitForTimeout(5000);
+          const historyCurrentVAlue = await sharedPage.locator(SELECTORS.HISTORY_CURRENT_VALUE).textContent() ?? '';
+          console.log("History Current Value is :",historyCurrentVAlue);
+          expect(parseFloat(historyCurrentVAlue)).toBe(parseFloat(DCCM_SIT_TC_0099));
+          await sharedPage.waitForTimeout(2000);
+          //expect(sharedPage.locator(SELECTORS.HISTORY_CURRENT_VALUE)).toHaveText(DCCM_SIT_TC_0027);
+          await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
           await sharedPage.waitForTimeout(1000);
-          
         },
 
         sharedPage,
