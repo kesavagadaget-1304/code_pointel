@@ -192,7 +192,7 @@ export const SELECTORS = {
   AGENTS_MIRRORAGENT_DIV_NONE: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"None")]',
   AGENTS_MIRRORAGENT_GROUP_NONE: "(//div[contains(text(),'Please select either divisions or groups to search')])[1]",
   AGENTS_MIRRORAGENT_CONFIRM_OK: "//button[contains(text(),'Ok')]",
-  AGENTS_MIRRORAGENT_SKILL_APPLY: "//*[@id='btn-agentcopy-apply']/span[1]"
+  AGENTS_MIRRORAGENT_SKILL_APPLY: "//*[@id='btn-agentcopy-apply']/span[1]",
 
 //    *****SuperAdmin Selectors *****
 SUPERADMIN_DASBOARD_FILTER_ICON: '//span[@id="select-filter-toggle"]',
@@ -312,7 +312,18 @@ DASHBOARD_DIVISIONS : '//a[@title="Divisions"]',
 DIVISIONS_FILTER_ICON: '//span[@id="select-filter-toggle"]',
 DIVISIONS_FILTER_ROLE: '//*[@id="select-filter-role"]',
 DIVISIONS_FILTER_ROLE_SUPER_ADMIN: '//div[@id="select-filter-role-panel"]//span[contains(text(),"Super Administrator")]',
-DIVISIONS_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::span"
+DIVISIONS_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::span",
+
+
+
+//28-01-2026 History Audit
+AGENTS_USERNAME_COPY: "(//i[contains(@title,'Edit_Agent.header')]/following::span)[1]",
+AGENTS_MIRRORAGENT_HISTORY_USER: '//img[@title="History"]',
+AGENTS_USERNAME_SEARCH_TEXTBOX: '//input[@aria-label="User Name Search Filter"]',
+HISTORY_CURRENT_VALUE : '((//div[@class="ui-widget-content slick-row even"])[1])/div[5]',
+HISTORY_CLOSE : "//button[contains(text(),'Close')]",
+
+
 
 
 };
