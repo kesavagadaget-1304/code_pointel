@@ -4322,7 +4322,569 @@ test("@DCCM_SIT_TC_0108 @low Ensure while select any groups from drop down", asy
     }
   });
 
+    test("@DCCM_SIT_TC_0129 @low Ensure while select none from group drop down", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_NONE));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_NONE).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.waitForLoadState('networkidle');
+          expect (await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ALERT_SELECTGROUP).isVisible());
+          
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ALERT_OK_BUTTON).click({ timeout: 2000 });
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'alert_handled');
+          await sharedPage.waitForTimeout(3000);
+        },
 
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+  test("@DCCM_SIT_TC_0130 @low Ensure while apply the groups mirror for the single user", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0130=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Copied attribute name is :",username0130);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0130?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0130?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_DROP).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_DROPDOWN_OPTION_2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUPS_LABEL).click();
+          const DCCM_SIT_TC_0130 = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUPS_LABEL).textContent() ?? '';
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY_BUTTON).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          expect(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_UPDATED_SUCCESSFULLY).isVisible());
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(5000);
+
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
+          await sharedPage.waitForTimeout(5000);
+          const historyCurrentVAlue = await sharedPage.locator(SELECTORS.HISTORY_PROP_TAB).textContent() ?? '';
+          console.log("History Current Value is :", historyCurrentVAlue);
+          expect(parseFloat(historyCurrentVAlue)).toBe(parseFloat(DCCM_SIT_TC_0130));
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
+
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+    test("@DCCM_SIT_TC_0131 @low Ensure while apply the groups mirror for the multiple user", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0131_1=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0131_2=await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0131_3=await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :",username0131_1);
+          console.log("Copied attribute name is :",username0131_2);
+          console.log("Copied attribute name is :",username0131_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_DROP).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_DROPDOWN_OPTION_2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUPS_LABEL).click();
+          const DCCM_SIT_TC_0131 = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUPS_LABEL).textContent() ?? '';
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY_BUTTON).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          expect(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_UPDATED_SUCCESSFULLY).isVisible());
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0131_1?.trim() || '');          
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
+          await sharedPage.waitForTimeout(5000);
+          const historyCurrentVAlue1 = await sharedPage.locator(SELECTORS.HISTORY_PROP_TAB).textContent() ?? '';
+          console.log("History Current Value is :", historyCurrentVAlue1);
+          expect(parseFloat(historyCurrentVAlue1)).toBe(parseFloat(DCCM_SIT_TC_0131));
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0131_2?.trim() || '');          
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
+          await sharedPage.waitForTimeout(5000);
+          const historyCurrentVAlue2 = await sharedPage.locator(SELECTORS.HISTORY_PROP_TAB).textContent() ?? '';
+          console.log("History Current Value is :", historyCurrentVAlue2);
+          expect(parseFloat(historyCurrentVAlue2)).toBe(parseFloat(DCCM_SIT_TC_0131));
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0131_3?.trim() || '');          
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
+          await sharedPage.waitForTimeout(5000);
+          const historyCurrentVAlue3 = await sharedPage.locator(SELECTORS.HISTORY_PROP_TAB).textContent() ?? '';
+          console.log("History Current Value is :", historyCurrentVAlue3);
+          expect(parseFloat(historyCurrentVAlue3)).toBe(parseFloat(DCCM_SIT_TC_0131));
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+    test("@DCCM_SIT_TC_0132 @low Ensure while schedule the groups mirror for the single user", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0132=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Copied attribute name is :",username0132);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0132?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0132?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_DROP).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_DROPDOWN_OPTION_2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUPS_LABEL).click();
+          const DCCM_SIT_TC_0132 = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUPS_LABEL).textContent() ?? '';
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_TYPE_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_TYPE_ONCE).click();
+          const jobNameDCCM_SIT_TC_0132 = faker.person.jobTitle();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_NAME).fill(jobNameDCCM_SIT_TC_0132);
+          console.log('Job Name for DCCM_SIT_TC_0132:', jobNameDCCM_SIT_TC_0132);
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_DATE).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_DATE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_TIME).click();
+          const time = getTimeAfterMinutes(1);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_TIME).fill(time);
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'AGENT');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_SAVE_BUTTON).click();
+          console.log('Scheduled job successfully. Wait for its completion...');
+          await sharedPage.waitForTimeout(60000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
+          await sharedPage.waitForTimeout(1000);
+          const text = await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).innerText();
+          console.log('Completed Scheduled Job:', text);
+          expect(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE)).toHaveText(jobNameDCCM_SIT_TC_0132);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0132?.trim() || '');          
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
+          await sharedPage.waitForTimeout(5000);
+          const historyCurrentVAlue = await sharedPage.locator(SELECTORS.HISTORY_PROP_TAB).textContent() ?? '';
+          console.log("History Current Value is :", historyCurrentVAlue);
+          expect(parseFloat(historyCurrentVAlue)).toBe(parseFloat(DCCM_SIT_TC_0132));
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+      test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the multiple user", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0132_1=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0132_2=await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0132_3=await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :",username0132_1);
+          console.log("Copied attribute name is :",username0132_2);
+          console.log("Copied attribute name is :",username0132_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_DROP).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_DROPDOWN_OPTION_2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUPS_LABEL).click();
+          const DCCM_SIT_TC_0133 = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUPS_LABEL).textContent() ?? '';
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_TYPE_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_TYPE_ONCE).click();
+          const jobNameDCCM_SIT_TC_0133 = faker.person.jobTitle();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_NAME).fill(jobNameDCCM_SIT_TC_0133);
+          console.log('Job Name for DCCM_SIT_TC_0133:', jobNameDCCM_SIT_TC_0133);
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_DATE).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_DATE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_TIME).click();
+          const time = getTimeAfterMinutes(1);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_TIME).fill(time);
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'AGENT');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_SAVE_BUTTON).click();
+          console.log('Scheduled job successfully. Wait for its completion...');
+          await sharedPage.waitForTimeout(60000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
+          await sharedPage.waitForTimeout(1000);
+          const text = await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).innerText();
+          console.log('Completed Scheduled Job:', text);
+          expect(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE)).toHaveText(jobNameDCCM_SIT_TC_0133);
+          
+
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+
+
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0132_1?.trim() || '');          
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
+          await sharedPage.waitForTimeout(5000);
+          const historyCurrentVAlue = await sharedPage.locator(SELECTORS.HISTORY_PROP_TAB).textContent() ?? '';
+          console.log("History Current Value is :", historyCurrentVAlue);
+          expect(parseFloat(historyCurrentVAlue)).toBe(parseFloat(DCCM_SIT_TC_0133));
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
+
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+    test("@DCCM_SIT_TC_0134 @low Ensure while apply the phone mirror to the single agent", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0134=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Copied attribute name is :",username0134);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0134?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0134?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_DROP).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_DROPDOWN_OPTION_2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_PHONE_LABEL).click();
+          const DCCM_SIT_TC_0134 = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_PHONE_LABEL).textContent() ?? '';
+          await sharedPage.waitForTimeout(2000);
+          console.log("Label is :",DCCM_SIT_TC_0134);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          const jobNameDCCM_SIT_TC_0134 = faker.person.jobDescriptor();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_PHONE_NAME).fill(jobNameDCCM_SIT_TC_0134);
+          console.log('Phone Name for DCCM_SIT_TC_0134:', jobNameDCCM_SIT_TC_0134);
+          await sharedPage.waitForTimeout(2000);
+
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          expect(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_UPDATED_SUCCESSFULLY).isVisible());
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(5000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+      test("@DCCM_SIT_TC_0135 @low Ensure while apply the phone mirror to the mutiple agents", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0135_1=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0135_2=await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0135_3=await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :",username0135_1);
+          console.log("Copied attribute name is :",username0135_2);
+          console.log("Copied attribute name is :",username0135_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_DROP).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_DROPDOWN_OPTION_2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_PHONE_LABEL).click();
+          const DCCM_SIT_TC_0135 = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_PHONE_LABEL).textContent() ?? '';
+          await sharedPage.waitForTimeout(2000);
+          console.log("Label is :",DCCM_SIT_TC_0135);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(5000);
+          const jobNameDCCM_SIT_TC_0135 = faker.person.jobDescriptor();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_PHONE_NAME).fill(jobNameDCCM_SIT_TC_0135);
+          console.log('Phone Name for DCCM_SIT_TC_0135:', jobNameDCCM_SIT_TC_0135);
+          await sharedPage.waitForTimeout(2000);
+
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_APPLY_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          expect(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_GROUP_UPDATED_SUCCESSFULLY).isVisible());
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await sharedPage.locator(SELECTORS.AGENTS_REPORT_AUDIT).click();
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(5000);
+          const historyCurrentVAlue = await sharedPage.locator(SELECTORS.AGENTS_REPORT_AUDIT_PROP_TAB).textContent() ?? '';
+          console.log("History Current Value is :", historyCurrentVAlue);
+          expect(historyCurrentVAlue).toContain(DCCM_SIT_TC_0135.trim());
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+
+
+
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
 
 });
 

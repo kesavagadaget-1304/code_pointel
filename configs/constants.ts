@@ -324,6 +324,20 @@ HISTORY_CURRENT_VALUE : '((//div[@class="ui-widget-content slick-row even"])[1])
 HISTORY_CLOSE : "//button[contains(text(),'Close')]",
 
 
+//29-01-2026
+AGENTS_MIRRORAGENT_ALERT_SELECTGROUP: '//div[contains(text(),"Please select either divisions or groups to search")]',
+AGENTS_MIRRORAGENT_GROUP_DROPDOWN_OPTION_2: '//mat-option[@aria-selected="true"]/following-sibling::mat-option[1]',
+AGENTS_MIRRORAGENT_GROUP_APPLY_BUTTON: "//span[contains(text(),'Apply')]",
+AGENTS_MIRRORAGENT_GROUP_OVERRIDE_WARNING: "//div[contains(text(),'If you want to override skills, languages and queues, Please select override!')]",
+AGENTS_MIRRORAGENT_GROUP_OVERRIDE_APPLY_BUTTON: "//button[contains(text(),'Apply')]",
+AGENTS_MIRRORAGENT_GROUP_UPDATED_SUCCESSFULLY: "//*[contains(text(),' Updated successfully')]",
+AGENTS_MIRRORAGENT_GROUP_GRID_MENU: '//div[@id="addUpdateLanguageGrid"]//button[@aria-label="Grid Menu"]',
+HISTORY_PROP_TAB : '(//div[@class="slick-cell l1 r1"])[1]',
+AGENTS_MIRRORAGENT_PHONE_NAME: '//input[@placeholder="Phone Name"]',
+AGENTS_REPORT_AUDIT : '//a[@title="Audit"]',
+AGENTS_REPORT_AUDIT_PROP_TAB: '(//div[@class="slick-cell l2 r2"])[1]',
+
+
 
 
 };
