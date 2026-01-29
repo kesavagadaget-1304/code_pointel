@@ -4,7 +4,10 @@ import { LoginPage } from '../../pages/LoginPage';
 import { LOGIN_CREDENTIALS, SCREENSHOT_PATHS, TIMEOUTS, SELECTORS } from '../../configs/constants';
 import { TestHelpers } from '../../utils/testHelpers';
 import { ScreenshotUtils } from '../../utils/screenshotUtils';
-import { scrollUntilVisible } from '../../utils/scroll';
+import { copyValueFromLocator, getTimeAfterMinutes, scrollUntilVisible } from '../../utils/scroll';
+import { DownloadUtils } from '../../utils/downloadUtils';
+import { faker } from '@faker-js/faker';
+
 
 test.describe('DCCM', () => {
   test.describe.configure({ mode: 'serial' });

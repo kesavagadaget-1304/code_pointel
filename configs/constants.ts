@@ -318,6 +318,8 @@ DIVISIONS_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::s
 
 //28-01-2026 History Audit
 AGENTS_USERNAME_COPY: "(//i[contains(@title,'Edit_Agent.header')]/following::span)[1]",
+AGENTS_USERNAME2_COPY: "(//i[contains(@title,'Edit_Agent.header')]/following-sibling::span)[2]",
+AGENTS_USERNAME3_COPY: "(//i[contains(@title,'Edit_Agent.header')]/following-sibling::span)[3]",
 AGENTS_MIRRORAGENT_HISTORY_USER: '//img[@title="History"]',
 AGENTS_USERNAME_SEARCH_TEXTBOX: '//input[@aria-label="User Name Search Filter"]',
 HISTORY_CURRENT_VALUE : '((//div[@class="ui-widget-content slick-row even"])[1])/div[5]',
