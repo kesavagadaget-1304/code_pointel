@@ -26,7 +26,8 @@
     "electron-builder": "^24.9.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.0",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "@faker-js/faker": "^10.1.0"
   },
   "dependencies": {
     "@bufbuild/protobuf": "^2.6.2",
