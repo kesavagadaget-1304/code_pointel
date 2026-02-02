@@ -338,8 +338,18 @@ HISTORY_PROP_TAB : '(//div[@class="slick-cell l1 r1"])[1]',
 AGENTS_MIRRORAGENT_PHONE_NAME: '//input[@placeholder="Phone Name"]',
 AGENTS_REPORT_AUDIT : '//a[@title="Audit"]',
 AGENTS_REPORT_AUDIT_PROP_TAB: '(//div[@class="slick-cell l2 r2"])[1]',
+AGENTS_MIRRORAGENT_PHONE_DISABLE_CREATION: '//div[contains(@class,"switch__icons")]',
 
-
+//30-01-2026
+AGENTS_REPORT_AUDIT_OBJECT_NAME_TAB: '(//div[@class="slick-cell l1 r1"])[1]',
+AGENTS_MIRRORAGENT_DIV_OPTION_DCCM: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"Dccm")]',
+AGENTS_MIRRORAGENT_USERNAME_SEARCH_INPUT: '(//input[@data-columnid="userName"])[3]',
+AGENTS_MIRRORAGENT_DIVISION_LABEL : "//label[contains(text(),'Division')]",
+AGENTS_REPORT_AUDIT_PROP_NAME: '(//div[@class="slick-cell l3 r3"])[1]',
+AGENTS_REPORT_AUDIT_ACTION_TYPE_ROW_1: '(//div[@class="slick-cell l6 r6"])[1]',
+AGENTS_REPORT_AUDIT_ACTION_TYPE_ROW_2: '(//div[@class="slick-cell l6 r6"])[2]',
+AGENT_MIRROR_AGENT_DIVISION_NAME : "//input[@name='divisionName']",
+AGENTS_REPORT_AUDIT_OBJECT_NAME_MODIFIED: '(//div[@class="slick-cell l1 r1"])[2]',
 
 
 };
