@@ -368,7 +368,9 @@ AGENTS_MIRRORAGENT_USERNAME_SEARCH: "input[data-columnid='userName']",
   AGENTS_REPORT_JOBNAME_FILTER : "//div[contains(@class, 'l2 r2')]//input[@data-columnid='jobName']",
   REPORT_JOBNAME_VALIDATE: "//div[contains(@class, 'l2 r2')]//p[contains(@style, 'cursor:pointer')]",
   DASHBOARD_REPORT_AUDIT : "//span[contains(text(),'Audit')]",
-  REPORT_AUDIT_PROPNAME: "//input[@data-columnid='propName' and contains(@class, 'filter-propName')]",
+  REPORT_AUDIT_OBJNAME: "//input[@data-columnid='objectName' and contains(@class, 'filter-objectName')]",
+  REPORT_AUDIT_USERNOTES: "//div[@class='slick-cell l9 r9']",
+
 
 
 };
