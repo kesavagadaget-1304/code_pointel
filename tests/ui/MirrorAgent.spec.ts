@@ -6032,6 +6032,672 @@ await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
     }
   });
 
+
+test("@DCCM_SIT_TC_0147 @low Ensure while apply the work teams mirror for the single user", async ({ }, testInfo) => {
+     try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          const username0147=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :",username0147);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0147?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0147?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).pressSequentially("amar02@gmail.com", { delay: 100 });
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_WORKTEAM_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'SELECT_NEXT');
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0147=await sharedPage.locator(SELECTORS.AGENT_WORKTEAM_VALUE).inputValue();
+          console.log("Workteam value :",DCCM_SIT_TC_0147);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_WORKTEAM_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Workteam_Apply');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_WORKTEAM_APPLY_CONFIRM_BUTTON).click();
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(5000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Apply_Confirmation');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
+          await sharedPage.waitForTimeout(5000);
+          const historyCurrentVAlue = await sharedPage.locator(SELECTORS.HISTORY_PROP_NAME).textContent() ?? '';
+          console.log("History Current Value is :",historyCurrentVAlue);
+          await sharedPage.waitForTimeout(5000);
+          expect(parseFloat(historyCurrentVAlue)).toBe(parseFloat(DCCM_SIT_TC_0147));
+          await sharedPage.waitForTimeout(2000);
+          //expect(sharedPage.locator(SELECTORS.HISTORY_CURRENT_VALUE)).toHaveText(DCCM_SIT_TC_0027);
+          await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.waitForLoadState('networkidle');
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+  
+  test("@DCCM_SIT_TC_0148 @low Ensure while apply the work teams mirror for the multiple user", async ({ }, testInfo) => {
+     try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          const DashboardFilter = sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK);
+          await expect(DashboardFilter).toBeVisible({ timeout: 40000 });
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_CLICK).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_INPUT).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_INPUT).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_INPUT).pressSequentially("DCCM", { delay: 100 });
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_ALL_CHECKBOX).click();
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_DCCM_CHECKBOX).click();
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_BACKDROP_CLICK).click({ force: true });
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
+          await sharedPage.waitForTimeout(2000);
+          const userNameFilter = sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH);
+          await expect(userNameFilter).toBeVisible({ timeout: 50000 });
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).pressSequentially("cmstestuser@gmail.com", { delay: 100 });
+          await sharedPage.waitForTimeout(5000);
+          const username0148_1=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Copied attribute name is :",username0148_1);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).clear();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).pressSequentially("cmstestuser2@gmail.com", { delay: 100 });
+          await sharedPage.waitForTimeout(3000);
+          const username0148_2=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Copied attribute name is :",username0148_2);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).clear();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).pressSequentially("cmstestuser", { delay: 100 });
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'User-Select-Box-Click');
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).pressSequentially("amar02@gmail.com", { delay: 100 });
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_WORKTEAM_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'SELECT_NEXT');
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0148=await sharedPage.locator(SELECTORS.AGENT_WORKTEAM_VALUE).inputValue();
+          console.log("Workteam value :",DCCM_SIT_TC_0148);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_WORKTEAM_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Workteam_Apply');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_WORKTEAM_APPLY_CONFIRM_BUTTON).click();
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(5000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Apply_Confirmation');
+          await sharedPage.waitForTimeout(5000);
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT));
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_AUDIT));
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_AUDIT).click();
+          await sharedPage.waitForTimeout(8000);
+          const jobNameFilter = sharedPage.locator(SELECTORS.REPORT_AUDIT_PROPNAME);
+          await jobNameFilter.fill('CMS_TEST_USER');
+          await sharedPage.keyboard.press('Enter');
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Audit_Confirmation');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.waitForLoadState('networkidle');
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the single user", async ({ }, testInfo) => {
+     try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          const username0147=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :",username0147);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0147?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0147?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).pressSequentially("amar02@gmail.com", { delay: 100 });
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_WORKTEAM_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'SELECT_NEXT');
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(8000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_TYPE_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_TYPE_ONCE).click();
+          const jobNameDCCM_SIT_TC_0149 = faker.person.jobTitle();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_NAME).fill(jobNameDCCM_SIT_TC_0149);
+          console.log('Job Name for DCCM_SIT_TC_0149:', jobNameDCCM_SIT_TC_0149);
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_DATE).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_DATE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_TIME).click();
+          const time = getTimeAfterMinutes(1);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_TIME).fill(time);
+          await sharedPage.waitForTimeout(4000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_SAVE_BUTTON).click();
+          await sharedPage.locator('text=Job scheduled successfully').waitFor({ state: 'visible', timeout: 60000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT));
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER));
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+          await sharedPage.waitForTimeout(8000);
+
+          const maxAttempt = 5;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0149, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isHidden()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0149)) {
+                      console.log('Success! Job not found in Current status:', text);
+                      jobnotFound = false;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          const jobDropdown = sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN);
+          await jobDropdown.waitFor({ state: 'visible', timeout: 60000 });
+          await jobDropdown.click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click({ timeout: 10000 });
+          const closeFilter = sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE);
+          await closeFilter.waitFor({ state: 'visible', timeout: 30000 });
+          await closeFilter.click();
+
+          const maxAttempts = 12;
+          let jobFound = false;
+
+          for (let i = 0; i < maxAttempts; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempts})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0149, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isVisible()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0149)) {
+                      console.log('Success! Job found in Completed status:', text);
+                      jobFound = true;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+          expect(jobFound).toBe(true);
+          await sharedPage.waitForTimeout(3000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Confirmation');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.waitForLoadState('networkidle');
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+    test("@DCCM_SIT_TC_0150 @low Ensure while apply the work teams mirror for the multiple user", async ({ }, testInfo) => {
+     try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          const DashboardFilter = sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK);
+          await expect(DashboardFilter).toBeVisible({ timeout: 40000 });
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_CLICK).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_INPUT).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_INPUT).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_INPUT).pressSequentially("DCCM", { delay: 100 });
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_ALL_CHECKBOX).click();
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_DCCM_CHECKBOX).click();
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_BACKDROP_CLICK).click({ force: true });
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
+          await sharedPage.waitForTimeout(2000);
+          const userNameFilter = sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH);
+          await expect(userNameFilter).toBeVisible({ timeout: 50000 });
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).pressSequentially("cmstestuser@gmail.com", { delay: 100 });
+          await sharedPage.waitForTimeout(5000);
+          const username0148_1=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Copied attribute name is :",username0148_1);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).clear();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).pressSequentially("cmstestuser2@gmail.com", { delay: 100 });
+          await sharedPage.waitForTimeout(3000);
+          const username0148_2=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Copied attribute name is :",username0148_2);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).clear();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).pressSequentially("cmstestuser", { delay: 100 });
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'User-Select-Box-Click');
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).pressSequentially("amar02@gmail.com", { delay: 100 });
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_WORKTEAM_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'SELECT_NEXT');
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0148=await sharedPage.locator(SELECTORS.AGENT_WORKTEAM_VALUE).inputValue();
+          console.log("Workteam value :",DCCM_SIT_TC_0148);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_WORKTEAM_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Workteam_Apply');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_WORKTEAM_APPLY_CONFIRM_BUTTON).click();
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(5000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Apply_Confirmation');
+          await sharedPage.waitForTimeout(5000);
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT));
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_AUDIT));
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_AUDIT).click();
+          await sharedPage.waitForTimeout(8000);
+          const jobNameFilter = sharedPage.locator(SELECTORS.REPORT_AUDIT_PROPNAME);
+          await jobNameFilter.fill('CMS_TEST_USER');
+          await sharedPage.keyboard.press('Enter');
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Audit_Confirmation');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.waitForLoadState('networkidle');
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+test("@DCCM_SIT_TC_0155 @low Ensure while schedule the mirror divisions  for the selected user having same divisions", async ({ }, testInfo) => {
+  test.setTimeout(300000);   
+  try {
+      await TestHelpers.executeTestStep(
+        'Login → Accounting Activity (first time banner)',
+        async () => {
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          const DashboardFilter = sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK);
+          await expect(DashboardFilter).toBeVisible({ timeout: 40000 });
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_CLICK).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_INPUT).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_INPUT).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_INPUT).pressSequentially("DCCM", { delay: 100 });
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_ALL_CHECKBOX).click();
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_DCCM_CHECKBOX).click();
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_BACKDROP_CLICK).click({ force: true });
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
+          await sharedPage.waitForTimeout(2000);
+          const userNameFilter = sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH);
+          await expect(userNameFilter).toBeVisible({ timeout: 50000 });
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).pressSequentially("cmstestuser@gmail.com", { delay: 100 });
+          await sharedPage.waitForTimeout(5000);
+          const username0155_1=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Copied attribute name is :",username0155_1);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).clear();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).pressSequentially("cmstestuser2@gmail.com", { delay: 100 });
+          await sharedPage.waitForTimeout(3000);
+          const username0155_2=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Copied attribute name is :",username0155_2);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).clear();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).pressSequentially("cmstestuser", { delay: 100 });
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'User-Select-Box-Click');
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).click();
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).pressSequentially("amar02@gmail.com", { delay: 100 });
+          //await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
+          //await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIVISION_LABEL).click();
+          //await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(8000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_TYPE_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_TYPE_ONCE).click();
+          const jobNameDCCM_SIT_TC_0155 = faker.person.jobTitle();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_JOB_NAME).fill(jobNameDCCM_SIT_TC_0155);
+          console.log('Job Name for DCCM_SIT_TC_0155:', jobNameDCCM_SIT_TC_0155);
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_DATE).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_DATE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_TIME).click();
+          const time = getTimeAfterMinutes(1);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_START_TIME).fill(time);
+          await sharedPage.waitForTimeout(4000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_SAVE_BUTTON).click();
+          await sharedPage.locator('text=Job scheduled successfully').waitFor({ state: 'visible', timeout: 60000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT));
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER));
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+          await sharedPage.waitForTimeout(8000);
+
+          const maxAttempt = 5;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0155, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isHidden()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0155)) {
+                      console.log('Success! Job not found in Current status:', text);
+                      jobnotFound = false;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          const jobDropdown = sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN);
+          await jobDropdown.waitFor({ state: 'visible', timeout: 60000 });
+          await jobDropdown.click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click({ timeout: 10000 });
+          const closeFilter = sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE);
+          await closeFilter.waitFor({ state: 'visible', timeout: 30000 });
+          await closeFilter.click();
+
+          const maxAttempts = 12;
+          let jobFound = false;
+
+          for (let i = 0; i < maxAttempts; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempts})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0155, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isVisible()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0155)) {
+                      console.log('Success! Job found in Completed status:', text);
+                      jobFound = true;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+          expect(jobFound).toBe(true);
+          await sharedPage.waitForTimeout(3000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Confirmation');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.waitForLoadState('networkidle');
+          
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+  
+
 });
 
 
