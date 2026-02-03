@@ -371,6 +371,13 @@ AGENTS_MIRRORAGENT_USERNAME_SEARCH: "input[data-columnid='userName']",
   REPORT_AUDIT_OBJNAME: "//input[@data-columnid='objectName' and contains(@class, 'filter-objectName')]",
   REPORT_AUDIT_USERNOTES: "//div[@class='slick-cell l9 r9']",
 
+    //2-2-2026
+  AGENTS_SCHEDULER_VALIDATE_SKILL: "//*[contains(text(),'Failed to update same skill level might already available')]",
+  AGENTS_SCHEDULER_VALIDATE_LANGUAGE: "//*[contains(text(),'Failed to update same language level might already available')]",
+  AGENTS_SCHEDULER_VALIDATE_USER_PHONE: "//*[contains(text(),'Failed, User already has a phone')]",
+  AGENTS_SCHEDULER_VALIDATE_ROLE_DIVISION: "//*[contains(text(),'Failed to Add, role/division already available')]",
+
+
 
 
 };
