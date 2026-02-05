@@ -70,6 +70,7 @@ export const SELECTORS = {
   AGENTS_MIRRORAGENT_NEXT_BUTTON: '//button[contains(text(),"Next")]',
 
   AGENTS_MIRRORAGENT_DIV_DROP: '//mat-select[@id="select-agentcopy-divisions"]',
+  AGENTS_MIRRORAGENT_DIV_OPTION_NONE: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"None")]',
   AGENTS_MIRRORAGENT_DIV_OPTION: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"All")]',
   AGENTS_MIRRORAGENT_GROUP_DROP: '//label[@for="select-agentcopy-group"]',
   AGENTS_MIRRORAGENT_GROUP_DROPDOWN_OPTION: '//mat-option[@aria-selected="true"]/preceding-sibling::mat-option[1]',
