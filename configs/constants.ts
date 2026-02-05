@@ -3,7 +3,7 @@
 // Environment validation
 const validateEnvironment = () => {
   const requiredVars = [
-    'LOGIN_USERNAME', 'LOGIN_PASSWORD', 'BASE_URL'
+    'LOGIN_USERNAME', 'LOGIN_PASSWORD', 'BASE_URL', 'USER_DCCM_1', 'USER_DCCM_2'
   ];
 
   const missing = requiredVars.filter(varName => !process.env[varName]);
@@ -33,6 +33,10 @@ export const LOGIN_CREDENTIALS = {
 
 };
 
+export const DCCM_USERS = {
+  USER_1: process.env.USER_DCCM_1 || '',
+  USER_2: process.env.USER_DCCM_2 || '',
+};
 
 // Application URLs
 export const URLS = {
@@ -170,6 +174,9 @@ export const SELECTORS = {
   AGENTS_MIRRORAGENT_UTILIZATION_CAPACITY_SEARCH:"//div[contains(@class, 'slick-headerrow-column')]//input[@data-columnid='maximumCapacity']",
   AGENTS_MIRRORAGENT_UTILIZATION_GRID: "//div[contains(@class, 'slick-pane-header')][.//span[text()='Media Type']]//button[@aria-label='Grid Menu']",
   AGENTS_MIRRORAGENT_UTILIZATION_CAPACITY_INPUT:'//*[@id="copyUtilizationGrid"]/div[4]/div[3]/div/div[2]/div[3]/input',
+  AGENTS_MIRRORAGENT_UTILIZATION_UPDATED_SUCCESSFULLY: "//*[contains(text(),' Updated successfully')]",
+  AGENTS_MIRRORAGENT_UTILIZATION_APPLY_BUTTON: "//span[contains(text(),'Apply')]",
+  AGENTS_MIRRORAGENT_UTILIZATION_OVERRIDE_APPLY_BUTTON: "//button[contains(text(),'Apply')]",
 
   AGENTS_MIRRORAGENT_GROUP_DESELECT:"//div[contains(@class, 'slick-header-column')][.//span[text()='Group Name']]/preceding-sibling::div[@data-id='_checkbox_selector']//label",
   AGENTS_MIRRORAGENT_GROUP_SELECT:"//div[contains(@class, 'slick-header-column')][.//span[text()='Group Name']]/preceding-sibling::div[@data-id='_checkbox_selector']//label",

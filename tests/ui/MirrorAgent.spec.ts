@@ -1,7 +1,7 @@
 import { test, expect, type Page, type Browser, type BrowserContext } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 
-import { LOGIN_CREDENTIALS, SCREENSHOT_PATHS, TIMEOUTS, SELECTORS } from '../../configs/constants';
+import { LOGIN_CREDENTIALS, SCREENSHOT_PATHS, TIMEOUTS, SELECTORS, DCCM_USERS } from '../../configs/constants';
 import { TestHelpers } from '../../utils/testHelpers';
 import { ScreenshotUtils } from '../../utils/screenshotUtils';
 import { copyValueFromLocator, getTimeAfterMinutes, scrollUntilVisible } from '../../utils/scroll';
@@ -1054,7 +1054,7 @@ test("@DCCM_SIT_TC_0027 @low Ensure while click on skill level column and enter 
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
           await sharedPage.waitForTimeout(10000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_NUMBER_INPUT).click();
@@ -3838,7 +3838,7 @@ test("@DCCM_SIT_TC_0099 @low Ensure while apply the profile attributes details f
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(2000);
@@ -6621,7 +6621,7 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
 
-          const DCCM_SIT_TC_0151 = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_LABEL).textContent() ?? '';
+          const DCCM_SIT_TC_0151 = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).textContent() ?? '';
           await sharedPage.waitForTimeout(2000);
           console.log("Label is :", DCCM_SIT_TC_0151);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
