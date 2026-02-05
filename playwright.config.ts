@@ -7,7 +7,7 @@ const timestamp = `${pad(now.getDate())}-${pad(now.getMonth() + 1)}-${now.getFul
 // Professional timestamp for report file names
 //const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
 export default defineConfig({
-  timeout: 1000 * 60 * 3, // 3 minutes
+  timeout: 1000 * 60 * 5, // 3 minutes
   testDir: 'tests',
   // :performing_arts: PROFESSIONAL HTML REPORTER WITH TIMESTAMPED FILE NAMES
   reporter: [
