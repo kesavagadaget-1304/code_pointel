@@ -77,6 +77,32 @@ export const SELECTORS = {
   AGENTS_TEMPLATE_SEARCH_INPUT: '//input[@id="template-search"]',
   AGENTS_TEMPLATE_SEARCHED_INPUT : '//mat-select[@id="select-agenttemplate-templates"]',
 
+
+  //05-02-2026
+  AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY: "//*[contains(text(),'Agents updated successfully')]",
+  AGENTS_TEMPLATE_APPLY_BUTTON: "//span[contains(text(),'Apply')]",
+  AGENTS_TEMPLATE_SKILL_SCHEDULE_BUTTON: "//button[@id='btn-agenttemplate-schedule']//following-sibling::span[contains(text(),'Schedule')]",
+  AGENTS_TEMPLATE_OVERRIDE_CHECKBOX: '//div[contains(text(),"If you want to override skills, languages and queues, Please select override!")]/following::input[@type="checkbox"]',
+  AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON: "//button[contains(text(),'Apply')]",
+  AGENTS_TEMPLATE_SKILL_AVAILABLE_IN_ROW_1: "(//div[contains(text(),'There is no skill available in this template.')]/following::div[contains(@class,'slick-cell l1 r1')])[1]",
+
+
+  AGENTS_USERNAME_COPY: "(//i[contains(@title,'Edit_Agent.header')]/following::span)[1]",
+  AGENTS_USERNAME2_COPY: "(//i[contains(@title,'Edit_Agent.header')]/following-sibling::span)[2]",
+  AGENTS_USERNAME3_COPY: "(//i[contains(@title,'Edit_Agent.header')]/following-sibling::span)[3]",
+  AGENTS_MIRRORAGENT_HISTORY_USER: '//img[@title="History"]',
+  AGENTS_USERNAME_SEARCH_TEXTBOX: '//input[@aria-label="User Name Search Filter"]',
+  HISTORY_CURRENT_VALUE: '((//div[@class="ui-widget-content slick-row even"])[1])/div[5]',
+  HISTORY_CLOSE: "//button[contains(text(),'Close')]",
+  AGENTS_MIRRORAGENT_DIV_OPTION: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"All")]',
+  AGENTS_MIRRORAGENT_ALERT_SELECTGROUP: '//div[contains(text(),"Please select either divisions or groups to search")]',
+  AGENTS_MIRRORAGENT_GROUP_DROPDOWN_OPTION_2: '//mat-option[@aria-selected="true"]/following-sibling::mat-option[1]',
+  AGENTS_TEMPLATE_SKILLS_TAB: "//span[contains(text(),'Skills')]",
+  AGENTS_TEMPLATE_SKILLS_TAB_GRID_FIRST_CELL: "(//div[@id='slickGridContainer-exportSkillGrid']//following::div[contains(@class,'slick-cell l1 r1')])[1]",
+  AGENTS_TEMPLATE_CLOSE_BUTTON: "//button[contains(text(),'Close')]",
+  AGENTS_TEMPLATE_NAME_SEARCH_TEXTBOX: '//input[@aria-label="Name Search Filter"]',
+  AGENTS_TEMPLATE_NO_SKILL_AVAILABLE: "(//div[contains(text(),'There is no skill available in this template.')])[1]",
+  
 };
 
 
