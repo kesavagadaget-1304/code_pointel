@@ -102,7 +102,7 @@ export const SELECTORS = {
   AGENTS_TEMPLATE_CLOSE_BUTTON: "//button[contains(text(),'Close')]",
   AGENTS_TEMPLATE_NAME_SEARCH_TEXTBOX: '//input[@aria-label="Name Search Filter"]',
   AGENTS_TEMPLATE_NO_SKILL_AVAILABLE: "(//div[contains(text(),'There is no skill available in this template.')])[1]",
-  
+  DCCM_DASHBOARD: '//a[@title="Dashboard"]',
 };
 
 
