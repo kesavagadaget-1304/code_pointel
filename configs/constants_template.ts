@@ -103,6 +103,38 @@ export const SELECTORS = {
   AGENTS_TEMPLATE_NAME_SEARCH_TEXTBOX: '//input[@aria-label="Name Search Filter"]',
   AGENTS_TEMPLATE_NO_SKILL_AVAILABLE: "(//div[contains(text(),'There is no skill available in this template.')])[1]",
   DCCM_DASHBOARD: '//a[@title="Dashboard"]',
+
+    //10-02-2026
+  AGENTS_TEMPLATE_SCHEDULE_BUTTON: '//button[@id="btn-agenttemplate-schedule"]',
+  AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_LABEL: "(//span[contains(text(),'Job Type*')])[1]",
+  AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_ONCE: "//*[@value='once']",
+  AGENTS_TEMPLATE_SCHEDULE_JOB_NAME: '(//input[@name="jobName"])[1]',
+  AGENTS_TEMPLATE_SCHEDULE_START_DATE: '(//input[@name="onceDate"])[1]',
+  AGENTS_TEMPLATE_SCHEDULE_START_DATE_CURRENT: "//button[contains(@class,'calendar-body-active')]",
+  AGENTS_TEMPLATE_SCHEDULE_START_TIME: '(//input[@placeholder="Time at*"])[1]',
+  AGENTS_TEMPLATE_SCHEDULE_SAVE_BUTTON: '//button[@id="once-create-btn"]',
+  DASHBOARD_REPORT: "//span[contains(text(),'Report')]",
+  DASHBOARD_REPORT_SCHEDULER: "//span[contains(text(),'Scheduler')]",
+  DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT: "//*[contains(text(),' Job Type - Current')]",
+  DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN: "//label[@aria-owns='select-filter-job-type']",
+  DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED: "//span[contains(text(),'Completed ')]",
+  DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON: '//button[@id="btn-filter-search"]',
+  DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::span",
+  DASHBOARD_REPORT_SCHEDULER_VALIDATE: "((//div[contains(@class,'checkbox')])[1])/following::div[2]/p",
+  AGENTS_TEMPLATE_UTILIZATION_TAB: "//span[contains(text(),'Utilization')]",
+  AGENTS_TEMPLATE_UTILIZATION_EXPORT_TO_EXCEL: "(//span[contains(text(),'EXPORT_TO_EXCEL')])[3]",
+  AGENTS_TEMPLATE_GROUPS_TAB: "(//span[contains(text(),'Groups')])[3]",
+  AGENTS_TEMPLATE_CLOSE_ICON: "(//h5[contains(text(),'Template')]/following::img)[1]",
+  AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX: '//input[@name="override"]',
+
+//11-02-2026
+AGENTS_REPORT_JOBNAME_FILTER: '//input[@aria-label="Job Name Search Filter"]',
+REPORT_JOBNAME_VALIDATE: '//p[@title=" Job Details"]',
+AGENTS_TEMPLATE_LANGUAGES_TAB: "//div[@role='tab']/following::span[contains(text(),'Languages')]",
+AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1: "(//div[@id='languagetemplateGrid']//following::div[contains(@class,'slick-cell l1 r1')])[1]",
+AGENTS_USEREDIT_LANGUAGE_TAB : "//span[contains(text(),'Languages')]",
+AGENTS_TEMPLATE_SEARCH_OPTION_LANGUAGE_DROPDOWN: "//mat-option[.//span[normalize-space()='language template']]",
+
 };
 
 
