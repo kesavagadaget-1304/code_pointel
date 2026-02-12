@@ -7171,12 +7171,30 @@ test("@DCCM_SIT_TC_0155 @low Ensure while schedule the mirror divisions  for the
               await sharedPage.waitForTimeout(15000);
           }
           expect(jobFound).toBe(true);
-          await sharedPage.waitForTimeout(3000);
-          await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Confirmation');
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
-          await sharedPage.waitForTimeout(1000);
-          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.locator(SELECTORS.REPORT_JOB_HISTORY).click();
+          const statusCell = sharedPage.locator(SELECTORS.REPORT_JOB_HISTORY_STATUS).first();
+          const actualText = await statusCell.innerText();
+          console.log(`Detected Status: ${actualText}`);
+          try{
+            if (actualText === 'Failed, Apply and current values are same') {
+            console.log('--- TEST RESULT: PASS ---');
+            await sharedPage.waitForTimeout(3000);
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Confirmation');
+            await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+             } else {
+            console.log('--- TEST RESULT: FAIL ---');
+            console.log(`Expected: 'Failed, Apply and current values are same' but found: '${actualText}'`);
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Failure');
+            await expect(statusCell).toHaveText('Failed, Apply and current values are same', { timeout: 1000 });
+            }}
+            finally {
+            console.log('Navigating to Dashboard for next test case...');
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Final_Status_Check');
+            await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+            await sharedPage.waitForLoadState('networkidle');
+             }
+            await sharedPage.waitForTimeout(1000);
+
           
         },
 

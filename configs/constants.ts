@@ -378,6 +378,8 @@ AGENTS_MIRRORAGENT_USERNAME_SEARCH: "input[data-columnid='userName']",
   DASHBOARD_REPORT_AUDIT : "//span[contains(text(),'Audit')]",
   REPORT_AUDIT_OBJNAME: "//input[@data-columnid='objectName' and contains(@class, 'filter-objectName')]",
   REPORT_AUDIT_USERNOTES: "//div[@class='slick-cell l9 r9']",
+  REPORT_JOB_HISTORY:"//div[contains(@class, 'slick-cell')]//img[@title='History' and contains(@src, 'History.png')]",
+  REPORT_JOB_HISTORY_STATUS: "//div[@id='jobDetailGrid']//div[contains(@class, 'slick-row')]//div[contains(@class, 'l7 r7')]",
 
     //2-2-2026
   AGENTS_SCHEDULER_VALIDATE_SKILL: "//*[contains(text(),'Failed to update same skill level might already available')]",
