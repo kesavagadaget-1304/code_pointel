@@ -126,6 +126,7 @@ export const SELECTORS = {
   AGENTS_TEMPLATE_GROUPS_TAB: "(//span[contains(text(),'Groups')])[3]",
   AGENTS_TEMPLATE_CLOSE_ICON: "(//h5[contains(text(),'Template')]/following::img)[1]",
   AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX: '//input[@name="override"]',
+  
 
 //11-02-2026
 AGENTS_REPORT_JOBNAME_FILTER: '//input[@aria-label="Job Name Search Filter"]',
@@ -134,6 +135,48 @@ AGENTS_TEMPLATE_LANGUAGES_TAB: "//div[@role='tab']/following::span[contains(text
 AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1: "(//div[@id='languagetemplateGrid']//following::div[contains(@class,'slick-cell l1 r1')])[1]",
 AGENTS_USEREDIT_LANGUAGE_TAB : "//span[contains(text(),'Languages')]",
 AGENTS_TEMPLATE_SEARCH_OPTION_LANGUAGE_DROPDOWN: "//mat-option[.//span[normalize-space()='language template']]",
+
+//06-02-2026
+  AGENTS_MIRRORAGENT_USERNAME_SEARCH: "input[data-columnid='userName']",
+  AGENTS_DASHBOARD_DIV_FILTER_CLICK : "//mat-chip//span[contains(@class, 'mat-mdc-chip-action-label') and contains(., 'Division - ')]",
+  AGENTS_DASHBOARD_DIV_CLICK : "//mat-select[@name='divisions']",
+  AGENTS_DASHBOARD_DIV_ALL_CHECKBOX : "//mat-pseudo-checkbox[contains(@class, 'mat-pseudo-checkbox-checked')]",
+  AGENTS_DASHBOARD_DIV_INPUT: '//*[@id="select-filter-divisions-panel"]/mat-form-field/div[1]/div[2]',
+  AGENTS_DASHBOARD_DIV_DCCM_CHECKBOX: "//mat-option[.//span[normalize-space()='Dccm']]//mat-pseudo-checkbox[not(contains(@class, 'mat-pseudo-checkbox-checked'))]",
+  AGENTS_DASHBOARD_BACKDROP_CLICK :".cdk-overlay-backdrop",
+  AGENTS_TEMPLATE_SEARCH_OPTION : 'input[placeholder="search"]',
+  AGENTS_TEMPLATE_SEARCH_OPTION_DROPDOWN: "//mat-option[.//span[normalize-space()='valid division']]",
+  AGENTS_TEMPLATE_SEARCH_OPTION_DROPDOWN1: "//mat-option[.//span[normalize-space()='CMS_UT_TEMPLATE']]",
+  AGENTS_TEMPLATE_ARROW_AFTER: "//button[contains(@class, 'mat-mdc-tab-header-pagination-after')]",
+  AGENTS_TEMPLATE_ARROW_BEFORE: "//button[contains(@class, 'mat-mdc-tab-header-pagination-before')]",
+  AGENTS_TEMPLATE_DIVISION_SELECT: "//span[contains(@class, 'iconTitle') and normalize-space()='Division']",
+  AGENTS_TEMPLATE_DIVISION_SEARCH_INPUT:"//div[contains(@class, 'l1 r1')]//input[@data-columnid='objectName']",
+  AGENTS_TEMPLATE_SKILLS_CHECKBOX: '(//div[@title="Select/Deselect All"])[3]',
+  AGENTS_TEMPLATE_SKILL_SEARCH_FILTER: "//input[@data-columnid='name' and contains(@class, 'filter-name')]",
+  AGENTS_TEMPLATE_SKILLS_NAME_CHECKBOX:'//*[@id="templateGrid"]/div[4]/div[3]/div/div[2]/div[1]',
+  REPORT_JOB_CLOSE:"//span[contains(@class, 'mat-mdc-tooltip-trigger')][img[contains(@src, 'close.png')]]",
+  REPORT_JOB_HISTORY:"//div[contains(@class, 'slick-cell')]//img[@title='History' and contains(@src, 'History.png')]",
+  REPORT_JOB_HISTORY_STATUS: "//div[@id='jobDetailGrid']//div[contains(@class, 'slick-row')]//div[contains(@class, 'l7 r7')]",
+  AGENTS_TEMPLATE_LANGUAGE_SELECT: "//span[contains(@class, 'iconTitle') and normalize-space()='Languages']",
+  AGENTS_TEMPLATE_QUEUES_SELECT: "//span[contains(@class, 'iconTitle') and normalize-space()='Queues']",
+  AGENTS_TEMPLATE_UTILIZATION_SELECT: "//span[contains(@class, 'iconTitle') and normalize-space()='Utilization']",
+  AGENTS_TEMPLATE_GROUPS_SELECT: "//span[contains(@class, 'iconTitle') and normalize-space()='Groups']",
+  AGENTS_TEMPLATE_LANGUAGE_CHECKBOX: '//*[@id="languagetemplateGrid"]/div[4]/div[3]/div/div/div[1]',
+  AGENTS_TEMPLATE_UTILIZATION_MEDIA_SEARCH:"//input[@data-columnid='mediaType']",
+  AGENTS_TEMPLATE_UTILIZATION_MEDIA_CHECKBOX: '//*[@id="templateUtilizationsGrid"]/div[4]/div[3]/div/div/div[1]',
+  AGENTS_TEMPLATE_DIVISION_CHECKBOX: '//*[@id="templateDivisionGrid"]/div[4]/div[3]/div/div/div[1]',
+  AGENTS_TEMPLATE_GROUPS_SEARCH_FILTER:"//input[@data-columnid='groupName']",
+  AGENTS_TEMPLATE_SEARCH_OPTION_DROPDOWN2: "//mat-option[.//span[normalize-space()='skill delete template']]",
+  AGENTS_TEMPLATE_SEARCH_OPTION_DROPDOWN3: "//mat-option[.//span[normalize-space()='language delete template']]",
+  AGENTS_TEMPLATE_SEARCH_OPTION_DROPDOWN4: "//mat-option[.//span[normalize-space()='Queue delete template']]",
+  AGENTS_TEMPLATE_SEARCH_OPTION_DROPDOWN5: "//mat-option[.//span[normalize-space()='group delete template']]",
+  AGENTS_TEMPLATE_SEARCH_OPTION_DROPDOWN6: "//mat-option[.//span[normalize-space()='Group Template']]",
+  AGENTS_TEMPLATE_GROUP_NAME_CHECKBOX: '//*[@id="templateGroupGrid"]/div[4]/div[3]/div/div/div[1]/label',
+  AGENTS_TEMPLATE_SCHEDULE_OVERRIDE: "//input[@type='checkbox' and @name='override']",
+  AGENTS_REPORT_JOBNAME_FILTERS : "//div[contains(@class, 'l2 r2')]//input[@data-columnid='jobName']",
+  REPORT_JOBNAME_VALIDATES: "//div[contains(@class, 'l2 r2')]//p[contains(@style, 'cursor:pointer')]",
+
+
 
 };
 
