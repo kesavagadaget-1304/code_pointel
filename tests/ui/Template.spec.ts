@@ -1611,8 +1611,2305 @@ test.describe('DCCM', () => {
       );
     }
   });
-  
 
+      test("@DCCM_SIT_TC_0021 @low Ensure while apply the template languages for the multiple user without use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0021");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0021_1 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0021_2 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0021_3 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :", username0021_1);
+          console.log("Copied attribute name is :", username0021_2);
+          console.log("Copied attribute name is :", username0021_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_LANGUAGE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGES_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0021_Lang= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Language available in template: " + DCCM_SIT_TC_0021_Lang);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          console.log("Checking if the Checkbox is unchecked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Skill updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                
+                console.log('Skill updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+
+
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          await sharedPage.reload();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_LANGUAGE_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0021_lang_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITLANGUAGE_TAB_GRID_FIRST_CELL).innerText();
+          await expect(DCCM_SIT_TC_0021_lang_source_value).toBe(DCCM_SIT_TC_0021_Lang);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-language-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0021");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+      test("@DCCM_SIT_TC_0022 @low Ensure while apply the template languages for the multiple user with use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0022");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();          
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0022_1 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0022_2 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0022_3 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :", username0022_1);
+          console.log("Copied attribute name is :", username0022_2);
+          console.log("Copied attribute name is :", username0022_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_LANGUAGE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGES_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0022_Lang= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Language available in template: " + DCCM_SIT_TC_0022_Lang);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          console.log("Checking if the Checkbox is unchecked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Skill updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                
+                console.log('Skill updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          await sharedPage.reload();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_LANGUAGE_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0022_lang_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITLANGUAGE_TAB_GRID_FIRST_CELL).innerText();
+          await expect(DCCM_SIT_TC_0022_lang_source_value).toBe(DCCM_SIT_TC_0022_Lang);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-language-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0022");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+test("@DCCM_SIT_TC_0023 @low Ensure while search valid languages name in languages search text box field", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0023");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const DCCM_SIT_TC_0023_username = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :", DCCM_SIT_TC_0023_username);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0023_username?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGES_TAB).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_LANGUAGE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          const DCCM_SIT_TC_0023_Lang= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Language available in template: " + DCCM_SIT_TC_0023_Lang);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_NAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0023_Lang);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_NAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          const searchedLangName = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Searched Language Name: " + searchedLangName);
+          await expect(DCCM_SIT_TC_0023_Lang).toBe(searchedLangName);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-language-searched');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_CLOSE).click();
+          await sharedPage.waitForTimeout(5000);
+
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0023");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+  test("@DCCM_SIT_TC_0024 @low Ensure while search Invalid languages name in languages search text box field", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0024");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const DCCM_SIT_TC_0024_username = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :", DCCM_SIT_TC_0024_username);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0024_username?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGES_TAB).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_LANGUAGE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          const DCCM_SIT_TC_0024_Lang= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Language available in template: " + DCCM_SIT_TC_0024_Lang);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_NAME_SEARCH_TEXTBOX).fill("InvalidLanguageName");
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_NAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_NO_LANGUAGE_AVAILABLE)).toBeVisible();
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1)).not.toBeVisible();
+
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-language-searched');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_CLOSE).click();
+          await sharedPage.waitForTimeout(5000);
+
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0024");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+      test("@DCCM_SIT_TC_0025 @low Ensure while schedule the template languages for the selected user without use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0025");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const DCCM_SIT_TC_0025_username = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :", DCCM_SIT_TC_0025_username);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0025_username?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGES_TAB).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_LANGUAGE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          const DCCM_SIT_TC_0025_Lang= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Language available in template: " + DCCM_SIT_TC_0025_Lang);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-language-searched');
+
+
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX).click();
+          console.log("Checking if the Checkbox is unchecked");
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Override-Option-Checked');
+          }
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_ONCE).click();
+          const jobNameDCCM_SIT_TC_0025 = faker.person.jobTitle();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_NAME).fill(jobNameDCCM_SIT_TC_0025);
+          console.log('Job Name for DCCM_SIT_TC_0025:', jobNameDCCM_SIT_TC_0025);
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_DATE).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_DATE_CURRENT).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_TIME).click();
+          const time = getTimeAfterMinutes(1);
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_TIME).fill(time);
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'AGENT');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_SAVE_BUTTON).click();
+          console.log('Scheduled job successfully. Wait for its completion...');
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_ICON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+
+          
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+
+          const maxAttempt = 5;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(10000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0025, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isHidden()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0025)) {
+                      console.log('Success! Job not found in Current status:', text);
+                      jobnotFound = false;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
+          await sharedPage.waitForTimeout(1000);
+
+          const maxAttempts = 12;
+          let jobFound = false;
+
+          for (let i = 0; i < maxAttempts; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0025, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isVisible()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0025)) {
+                      console.log('Success! Job found in Completed status:', text);
+                      jobFound = true;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+
+          const text = await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).innerText();
+          console.log('Completed Scheduled Job:', text);
+          expect(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE)).toHaveText(jobNameDCCM_SIT_TC_0025);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+                    
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0025");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+        test("@DCCM_SIT_TC_0026 @low Ensure while schedule the template languages for the selected user without use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0026");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const DCCM_SIT_TC_0026_username = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :", DCCM_SIT_TC_0026_username);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0026_username?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGES_TAB).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_LANGUAGE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          const DCCM_SIT_TC_0026_Lang= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Language available in template: " + DCCM_SIT_TC_0026_Lang);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-language-searched');
+
+
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX).click();
+          console.log("Checking if the Checkbox is unchecked");
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Override-Option-Checked');
+          }
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_ONCE).click();
+          const jobNameDCCM_SIT_TC_0026 = faker.person.jobTitle();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_NAME).fill(jobNameDCCM_SIT_TC_0026);
+          console.log('Job Name for DCCM_SIT_TC_0026:', jobNameDCCM_SIT_TC_0026);
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_DATE).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_DATE_CURRENT).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_TIME).click();
+          const time = getTimeAfterMinutes(1);
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_TIME).fill(time);
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'AGENT');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_SAVE_BUTTON).click();
+          console.log('Scheduled job successfully. Wait for its completion...');
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_ICON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+
+          
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+
+          const maxAttempt = 5;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(10000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0026, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isHidden()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0026)) {
+                      console.log('Success! Job not found in Current status:', text);
+                      jobnotFound = false;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
+          await sharedPage.waitForTimeout(1000);
+
+          const maxAttempts = 12;
+          let jobFound = false;
+
+          for (let i = 0; i < maxAttempts; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0026, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isVisible()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0026)) {
+                      console.log('Success! Job found in Completed status:', text);
+                      jobFound = true;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+
+          const text = await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).innerText();
+          console.log('Completed Scheduled Job:', text);
+          expect(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE)).toHaveText(jobNameDCCM_SIT_TC_0026);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+                    
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0026");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+  test("@DCCM_SIT_TC_0027 @low Ensure while schedule the template languages for the multiple user without use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0027");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();          
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0027_1 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0027_2 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0027_3 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :", username0027_1);
+          console.log("Copied attribute name is :", username0027_2);
+          console.log("Copied attribute name is :", username0027_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGES_TAB).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_LANGUAGE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          const DCCM_SIT_TC_0027_Lang= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Language available in template: " + DCCM_SIT_TC_0027_Lang);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-language-searched');
+
+
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX).click();
+          console.log("Checking if the Checkbox is unchecked");
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Override-Option-Checked');
+          }
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_ONCE).click();
+          const jobNameDCCM_SIT_TC_0027 = faker.person.jobTitle();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_NAME).fill(jobNameDCCM_SIT_TC_0027);
+          console.log('Job Name for DCCM_SIT_TC_0027:', jobNameDCCM_SIT_TC_0027);
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_DATE).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_DATE_CURRENT).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_TIME).click();
+          const time = getTimeAfterMinutes(1);
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_TIME).fill(time);
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'AGENT');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_SAVE_BUTTON).click();
+          console.log('Scheduled job successfully. Wait for its completion...');
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_ICON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+
+          
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+
+          const maxAttempt = 5;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(10000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0027, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isHidden()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0027)) {
+                      console.log('Success! Job not found in Current status:', text);
+                      jobnotFound = false;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
+          await sharedPage.waitForTimeout(1000);
+
+          const maxAttempts = 12;
+          let jobFound = false;
+
+          for (let i = 0; i < maxAttempts; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0027, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isVisible()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0027)) {
+                      console.log('Success! Job found in Completed status:', text);
+                      jobFound = true;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+
+          const text = await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).innerText();
+          console.log('Completed Scheduled Job:', text);
+          expect(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE)).toHaveText(jobNameDCCM_SIT_TC_0027);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+                    
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0027");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+
+      test("@DCCM_SIT_TC_0028 @low Ensure while schedule  the template languages for the multiple user with use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0028");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();          
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0028_1 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0028_2 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0028_3 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :", username0028_1);
+          console.log("Copied attribute name is :", username0028_2);
+          console.log("Copied attribute name is :", username0028_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGES_TAB).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_LANGUAGE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          const DCCM_SIT_TC_0028_Lang= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Language available in template: " + DCCM_SIT_TC_0028_Lang);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-language-searched');
+
+
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if (!(await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX).click();
+          console.log("Checking if the Checkbox is unchecked");
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Override-Option-Checked');
+          }
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_ONCE).click();
+          const jobNameDCCM_SIT_TC_0028 = faker.person.jobTitle();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_NAME).fill(jobNameDCCM_SIT_TC_0028);
+          console.log('Job Name for DCCM_SIT_TC_0028:', jobNameDCCM_SIT_TC_0028);
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_DATE).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_DATE_CURRENT).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_TIME).click();
+          const time = getTimeAfterMinutes(1);
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_TIME).fill(time);
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'AGENT');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_SAVE_BUTTON).click();
+          console.log('Scheduled job successfully. Wait for its completion...');
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_ICON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+
+          
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+
+          const maxAttempt = 5;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(10000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0028, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isHidden()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0028)) {
+                      console.log('Success! Job found in Current status:', text);
+                      jobnotFound = false;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
+          await sharedPage.waitForTimeout(1000);
+
+          const maxAttempts = 12;
+          let jobFound = false;
+
+          for (let i = 0; i < maxAttempts; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0028, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isVisible()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0028)) {
+                      console.log('Success! Job found in Completed status:', text);
+                      jobFound = true;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+
+          const text = await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).innerText();
+          console.log('Completed Scheduled Job:', text);
+          expect(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE)).toHaveText(jobNameDCCM_SIT_TC_0028);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+                    
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0028");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+    test("@DCCM_SIT_TC_0029 @low Ensure while apply the template Queues for the selected user without use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0029");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const DCCM_SIT_TC_0029_username = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :", DCCM_SIT_TC_0029_username);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0029_username?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_QUEUE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0029_queue= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Queue available in template: " + DCCM_SIT_TC_0029_queue);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'checkbox-validate');
+          console.log("Checkbox is unchecked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Queue updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                
+                console.log('Queue updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_QUEUE_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0029_queue_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITQUEUE_TAB_GRID_FIRST_CELL).innerText();
+          console.log("Queue available in user edit page: " + DCCM_SIT_TC_0029_queue_source_value);
+          await expect(DCCM_SIT_TC_0029_queue_source_value).toBe(DCCM_SIT_TC_0029_queue);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-queue-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0029");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+
+      test("@DCCM_SIT_TC_0030 @low Ensure while apply the template Queues for the selected user with use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0030");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const DCCM_SIT_TC_0030_username = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :", DCCM_SIT_TC_0030_username);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0030_username?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_QUEUE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0030_queue= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Queue available in template: " + DCCM_SIT_TC_0030_queue);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if (!(await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'checkbox-validate');
+          console.log("Checkbox is checked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Queue updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                
+                console.log('Queue updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_QUEUE_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0030_queue_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITQUEUE_TAB_GRID_FIRST_CELL).innerText();
+          console.log("Queue available in user edit page: " + DCCM_SIT_TC_0030_queue_source_value);
+          await expect(DCCM_SIT_TC_0030_queue_source_value).toBe(DCCM_SIT_TC_0030_queue);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-queue-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0030");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+
+    test("@DCCM_SIT_TC_0031 @low Ensure while apply the template Queues for the multiple user without use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0031");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();          
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0031_1 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0031_2 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0031_3 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :", username0031_1);
+          console.log("Copied attribute name is :", username0031_2);
+          console.log("Copied attribute name is :", username0031_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_QUEUE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0031_queue= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Queue available in template: " + DCCM_SIT_TC_0031_queue);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'checkbox-validate');
+          console.log("Checkbox is unchecked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Queue updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                
+                console.log('Queue updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          await sharedPage.reload();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_QUEUE_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0031_queue_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITQUEUE_TAB_GRID_FIRST_CELL).innerText();
+          console.log("Queue available in user edit page: " + DCCM_SIT_TC_0031_queue_source_value);
+          await expect(DCCM_SIT_TC_0031_queue_source_value).toBe(DCCM_SIT_TC_0031_queue);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-queue-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0031");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+      test("@DCCM_SIT_TC_0032 @low Ensure while apply the template Queues for the multiple user with use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0032");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();          
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0032_1 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0032_2 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0032_3 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :", username0032_1);
+          console.log("Copied attribute name is :", username0032_2);
+          console.log("Copied attribute name is :", username0032_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_QUEUE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0032_queue= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Queue available in template: " + DCCM_SIT_TC_0032_queue);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'checkbox-validate');
+          console.log("Checkbox is unchecked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Queue updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                
+                console.log('Queue updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          await sharedPage.reload();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_QUEUE_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0032_queue_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITQUEUE_TAB_GRID_FIRST_CELL).innerText();
+          console.log("Queue available in user edit page: " + DCCM_SIT_TC_0032_queue_source_value);
+          await expect(DCCM_SIT_TC_0032_queue_source_value).toBe(DCCM_SIT_TC_0032_queue);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-queue-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0032");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+test("@DCCM_SIT_TC_0033 @low Ensure while search valid Queues name in Queues search text box field", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0033");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const DCCM_SIT_TC_0033_username = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :", DCCM_SIT_TC_0033_username);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0033_username?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_TAB).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_QUEUE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          const DCCM_SIT_TC_0033_Queue= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Queue available in template: " + DCCM_SIT_TC_0033_Queue);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_NAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0033_Queue);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_NAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          const searchedQueueName = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Searched Queue Name: " + searchedQueueName);
+          await expect(DCCM_SIT_TC_0033_Queue).toBe(searchedQueueName);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-queue-searched');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_CLOSE).click();
+          await sharedPage.waitForTimeout(5000);
+
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0033");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+  test("@DCCM_SIT_TC_0034 @low Ensure while search Invalid Queues  name in languages search text box field", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0034");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const DCCM_SIT_TC_0034_username = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :", DCCM_SIT_TC_0034_username);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0034_username?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_TAB).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_QUEUE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          const DCCM_SIT_TC_0034_Queue= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Queue available in template: " + DCCM_SIT_TC_0034_Queue);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_NAME_SEARCH_TEXTBOX).fill("InvalidQueueName");
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_NAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_NO_QUEUES_AVAILABLE)).toBeVisible();
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_AVAILABLE_IN_ROW_1)).not.toBeVisible();
+
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-queue-searched');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_CLOSE).click();
+          await sharedPage.waitForTimeout(5000);
+
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0034");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+         
+
+      test("@DCCM_SIT_TC_0035 @low Ensure while schedule the template Queues for the selected user without use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0035");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const DCCM_SIT_TC_0035_username = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :", DCCM_SIT_TC_0035_username);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0035_username?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_TAB).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_QUEUE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          const DCCM_SIT_TC_0035_Queue= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Queue available in template: " + DCCM_SIT_TC_0035_Queue);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-queue-searched');
+
+
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX).click();
+          console.log("Checking if the Checkbox is unchecked");
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Override-Option-Checked');
+          }
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_ONCE).click();
+          const jobNameDCCM_SIT_TC_0035 = faker.person.jobTitle();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_NAME).fill(jobNameDCCM_SIT_TC_0035);
+          console.log('Job Name for DCCM_SIT_TC_0035:', jobNameDCCM_SIT_TC_0035);
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_DATE).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_DATE_CURRENT).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_TIME).click();
+          const time = getTimeAfterMinutes(1);
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_TIME).fill(time);
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'AGENT');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_SAVE_BUTTON).click();
+          console.log('Scheduled job successfully. Wait for its completion...');
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_ICON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+
+          
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+
+          const maxAttempt = 5;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(10000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0035, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isHidden()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0035)) {
+                      console.log('Success! Job not found in Current status:', text);
+                      jobnotFound = false;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
+          await sharedPage.waitForTimeout(1000);
+
+          const maxAttempts = 12;
+          let jobFound = false;
+
+          for (let i = 0; i < maxAttempts; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0035, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isVisible()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0035)) {
+                      console.log('Success! Job found in Completed status:', text);
+                      jobFound = true;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+
+          const text = await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).innerText();
+          console.log('Completed Scheduled Job:', text);
+          expect(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE)).toHaveText(jobNameDCCM_SIT_TC_0035);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Queue-Search-Box');
+                    
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0035");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+        test("@DCCM_SIT_TC_0036 @low Ensure while apply the template Queues for the selected user with use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0036");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const DCCM_SIT_TC_0036_username = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :", DCCM_SIT_TC_0036_username);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0036_username?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_QUEUE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0036_queue= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Queue available in template: " + DCCM_SIT_TC_0036_queue);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if (!(await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'checkbox-validate');
+          console.log("Checkbox is checked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Queue updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                
+                console.log('Queue updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_QUEUE_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0036_queue_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITQUEUE_TAB_GRID_FIRST_CELL).innerText();
+          console.log("Queue available in user edit page: " + DCCM_SIT_TC_0036_queue_source_value);
+          await expect(DCCM_SIT_TC_0036_queue_source_value).toBe(DCCM_SIT_TC_0036_queue);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-queue-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0036");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the multiple user without use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0037");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();          
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0037_1 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0037_2 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0037_3 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :", username0037_1);
+          console.log("Copied attribute name is :", username0037_2);
+          console.log("Copied attribute name is :", username0037_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_TAB).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_QUEUE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          const DCCM_SIT_TC_0037_Lang= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Queue available in template: " + DCCM_SIT_TC_0037_Lang);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-queue-searched');
+
+
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULER_OVERRIDE_CHECKBOX).click();
+          console.log("Checking if the Checkbox is unchecked");
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Override-Option-Checked');
+          }
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_TYPE_ONCE).click();
+          const jobNameDCCM_SIT_TC_0037 = faker.person.jobTitle();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_JOB_NAME).fill(jobNameDCCM_SIT_TC_0037);
+          console.log('Job Name for DCCM_SIT_TC_0037:', jobNameDCCM_SIT_TC_0037);
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_DATE).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_DATE_CURRENT).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_TIME).click();
+          const time = getTimeAfterMinutes(1);
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_START_TIME).fill(time);
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'AGENT');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SCHEDULE_SAVE_BUTTON).click();
+          console.log('Scheduled job successfully. Wait for its completion...');
+          await sharedPage.waitForTimeout(10000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_ICON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+
+          
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+
+          const maxAttempt = 5;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(10000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0037, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isHidden()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0037)) {
+                      console.log('Success! Job not found in Current status:', text);
+                      jobnotFound = false;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
+          await sharedPage.waitForTimeout(1000);
+
+          const maxAttempts = 12;
+          let jobFound = false;
+
+          for (let i = 0; i < maxAttempts; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(jobNameDCCM_SIT_TC_0037, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isVisible()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(jobNameDCCM_SIT_TC_0037)) {
+                      console.log('Success! Job found in Completed status:', text);
+                      jobFound = true;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+
+          const text = await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).innerText();
+          console.log('Completed Scheduled Job:', text);
+          expect(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE)).toHaveText(jobNameDCCM_SIT_TC_0037);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+                    
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0037");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+      test("@DCCM_SIT_TC_0038 @low Ensure while apply the template Queues for the multiple user with use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0038");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();          
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0038_1 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0038_2 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0038_3 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :", username0038_1);
+          console.log("Copied attribute name is :", username0038_2);
+          console.log("Copied attribute name is :", username0038_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_QUEUE_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0038_queue= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_QUEUES_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Queue available in template: " + DCCM_SIT_TC_0038_queue);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'checkbox-validate');
+          console.log("Checkbox is unchecked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Queue updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                
+                console.log('Queue updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          await sharedPage.reload();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_QUEUE_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0038_queue_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITQUEUE_TAB_GRID_FIRST_CELL).innerText();
+          console.log("Queue available in user edit page: " + DCCM_SIT_TC_0038_queue_source_value);
+          await expect(DCCM_SIT_TC_0038_queue_source_value).toBe(DCCM_SIT_TC_0038_queue);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-queue-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0038");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
 
       test("@DCCM_SIT_TC_0049 @low Ensure while search valid groups name in groups search text box field", async ({ }, testInfo) => {
     try {
