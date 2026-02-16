@@ -4760,6 +4760,452 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
     }
   });
 
+      test("@DCCM_SIT_TC_0045 @low Ensure while apply the template Groups for the selected user without use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0045");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const DCCM_SIT_TC_0045_username = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :", DCCM_SIT_TC_0045_username);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0045_username?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_GROUPS_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_GROUPS_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0045_groups= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_GROUPS_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Group available in template: " + DCCM_SIT_TC_0045_groups);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'checkbox-validate');
+          console.log("Checkbox is unchecked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Queue updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                
+                console.log('Queue updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_GROUPS_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0045_group_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITGROUPS_TAB_GRID_FIRST_CELL).innerText();
+          console.log("Group available in user edit page: " + DCCM_SIT_TC_0045_group_source_value);
+          await expect(DCCM_SIT_TC_0045_group_source_value).toBe(DCCM_SIT_TC_0045_groups);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-group-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0045");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+  
+
+      test("@DCCM_SIT_TC_0046 @low Ensure while apply the template Groups  for the selected user with use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0046");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const DCCM_SIT_TC_0046_username = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Username is :", DCCM_SIT_TC_0046_username);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(DCCM_SIT_TC_0046_username?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_GROUPS_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_GROUPS_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0046_groups= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_GROUPS_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Group available in template: " + DCCM_SIT_TC_0046_groups);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'checkbox-validate');
+          console.log("Checkbox is unchecked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Queue updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                
+                console.log('Queue updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_GROUPS_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0046_group_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITGROUPS_TAB_GRID_FIRST_CELL).innerText();
+          console.log("Group available in user edit page: " + DCCM_SIT_TC_0046_group_source_value);
+          await expect(DCCM_SIT_TC_0046_group_source_value).toBe(DCCM_SIT_TC_0046_groups);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-group-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0046");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+    test("@DCCM_SIT_TC_0047 @low Ensure while apply the template Groups for the multiple user without use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0047");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();          
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0047_1 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0047_2 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0047_3 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :", username0047_1);
+          console.log("Copied attribute name is :", username0047_2);
+          console.log("Copied attribute name is :", username0047_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_GROUPS_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_GROUPS_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0047_groups= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_GROUPS_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Groups available in template: " + DCCM_SIT_TC_0047_groups);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'checkbox-validate');
+          console.log("Checkbox is unchecked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Queue updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                
+                console.log('Queue updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          await sharedPage.waitForTimeout(1000);
+
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0047_1?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_GROUPS_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0047_groups_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITGROUPS_TAB_GRID_FIRST_CELL).innerText();
+          console.log("Groups available in user edit page: " + DCCM_SIT_TC_0047_groups_source_value);
+          await expect(DCCM_SIT_TC_0047_groups_source_value).toBe(DCCM_SIT_TC_0047_groups);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-groups-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0047");
+
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+
+      test("@DCCM_SIT_TC_0048 @low Ensure while apply the template Groups  for the multiple user with use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0048");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();          
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0048_1 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0048_2 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0048_3 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :", username0048_1);
+          console.log("Copied attribute name is :", username0048_2);
+          console.log("Copied attribute name is :", username0048_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_GROUPS_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_GROUPS_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0048_groups= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_GROUPS_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Groups available in template: " + DCCM_SIT_TC_0048_groups);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          await sharedPage.waitForTimeout(2000);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'checkbox-validate');
+          console.log("Checkbox is unchecked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Queue updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                
+                console.log('Queue updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          await sharedPage.waitForTimeout(1000);
+
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).fill(username0048_1?.trim() || '');
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_SEARCH_TEXTBOX).press('Enter');
+
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_GROUPS_TAB).click();
+          await sharedPage.waitForTimeout(2000);
+          const DCCM_SIT_TC_0048_groups_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITGROUPS_TAB_GRID_FIRST_CELL).innerText();
+          console.log("Groups available in user edit page: " + DCCM_SIT_TC_0048_groups_source_value);
+          await expect(DCCM_SIT_TC_0048_groups_source_value).toBe(DCCM_SIT_TC_0048_groups);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-groups-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0048");
+
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
 
       test("@DCCM_SIT_TC_0049 @low Ensure while search valid groups name in groups search text box field", async ({ }, testInfo) => {
     try {

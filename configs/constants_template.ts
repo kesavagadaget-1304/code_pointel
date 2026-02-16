@@ -208,6 +208,13 @@ AGENTS_USEREDIT_SKILL_TAB : "//span[contains(text(),'Skills')]",
   AGENTS_TEMPLATE_UTIL_MEDIA_INPUT:'//*[@id="templateUtilizationsGrid"]/div[4]/div[3]/div/div/div[2]',
   AGENTS_TEMPLATE_HISTORY_USER_NOTES: '//*[@id="angularGridReport"]/div[4]/div[3]/div/div[2]/div[9]',
 
+  //16-02-2026
+//AGENTS_TEMPLATE_GROUPS_TAB: "//div[@role='tab']/following::span[contains(text(),'Groups')]",
+AGENTS_TEMPLATE_GROUPS_AVAILABLE_IN_ROW_1: "(//div[@id='templateGroupGrid']//following::div[contains(@class,'slick-cell l1 r1')])[1]",
+AGENTS_TEMPLATE_SEARCH_OPTION_GROUPS_DROPDOWN: "//mat-option[.//span[normalize-space()='Group Template']]",
+AGENTS_USEREDIT_GROUPS_TAB : "//div[@role='tablist']//following::span[contains(text(),'Groups')]",
+AGENTS_TEMPLATE_EDITGROUPS_TAB_GRID_FIRST_CELL:"(//div[@id='exportGroupGrid']//following::div[contains(@class,'slick-cell l1 r1')])[1]",
+
 };
 
 
