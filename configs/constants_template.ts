@@ -189,6 +189,25 @@ AGENTS_TEMPLATE_SEARCH_OPTION_SKILL_DROPDOWN: "//mat-option[.//span[normalize-sp
 AGENTS_USEREDIT_SKILL_TAB : "//span[contains(text(),'Skills')]",
 
 
+  //12-02-2026 - 1
+  AGENTS_TEMPLATE_DIVISION_INPUT: '//*[@id="templateDivisionGrid"]/div[4]/div[3]/div/div/div[2]',
+  AGENTS_DASHBOARD_HISTORY: "//div[contains(@class, 'slick-cell l1 r1') and contains(@class, 'selected')]//img[@title='History']",
+  AGENTS_DASHBOARD_DIV_CMdiv_CHECKBOX: "//mat-option[.//span[normalize-space()='CM Div']]//mat-pseudo-checkbox[not(contains(@class, 'mat-pseudo-checkbox-checked'))]",
+  AGENT_HISTORY_PROPNAME:"//div[contains(@class, 'slick-headerrow-column l2 r2')]//input[@data-columnid='propName']",
+  AGENT_HISTORY_ACTION_TYPE:'//*[@id="angularGridReport"]/div[4]/div[3]/div/div[2]/div[6]',
+  AGENTS_REPORT_JOB_PROPNAME: "//div[contains(@class, 'l3 r3')]//input[@data-columnid='propName']",
+  DASHBOARD_REPORT_AUDIT : "//a[@title='Audit' and contains(., 'Audit')]",
+  AGENTS_REPORT_AUDIT : '//a[@title="Audit"]',
+  AGENTS_REPORT_AUDIT_PROP_TAB: '(//div[@class="slick-cell l2 r2"])[1]',
+  AGENTS_REPORT_AUDIT_OBJ_NAME_SEARCH:'//*[@id="angularGridReport"]/div[4]/div[1]/div[2]/div[2]/input',
+  AGENTS_REPORT_AUDIT_ACTION_TYPE: '//*[@id="angularGridReport"]/div[4]/div[3]/div/div[2]/div[7]',
+  AGENTS_REPORT_AUDIT_USER_NOTES: '//*[@id="angularGridReport"]/div[4]/div[3]/div/div[2]/div[10]',
+  AGENTS_TEMPLATE_NODATA:"//div[contains(@class, 'slick-empty-data-warning') and contains(text(), 'no utilization available')]",
+  AGENTS_TEMPLATE_SEARCH_OPTION_DROPDOWN8: "//mat-option[.//span[normalize-space()='Utilization template']]",
+  AGENTS_TEMPLATE_UTIL_MEDIATYPE: '//*[@id="templateUtilizationsGrid"]/div[4]/div[3]/div/div/div[1]',
+  AGENTS_TEMPLATE_UTIL_MEDIA_INPUT:'//*[@id="templateUtilizationsGrid"]/div[4]/div[3]/div/div/div[2]',
+  AGENTS_TEMPLATE_HISTORY_USER_NOTES: '//*[@id="angularGridReport"]/div[4]/div[3]/div/div[2]/div[9]',
+
 };
 
 
