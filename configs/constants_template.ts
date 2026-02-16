@@ -135,6 +135,7 @@ AGENTS_TEMPLATE_LANGUAGES_TAB: "//div[@role='tab']/following::span[contains(text
 AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1: "(//div[@id='languagetemplateGrid']//following::div[contains(@class,'slick-cell l1 r1')])[1]",
 AGENTS_USEREDIT_LANGUAGE_TAB : "//span[contains(text(),'Languages')]",
 AGENTS_TEMPLATE_SEARCH_OPTION_LANGUAGE_DROPDOWN: "//mat-option[.//span[normalize-space()='language template']]",
+AGENTS_TEMPLATE_NO_LANGUAGE_AVAILABLE: "(//div[contains(text(),'There is no language available in this template.')])[1]",
 
 //06-02-2026
   AGENTS_MIRRORAGENT_USERNAME_SEARCH: "input[data-columnid='userName']",
@@ -176,6 +177,16 @@ AGENTS_TEMPLATE_SEARCH_OPTION_LANGUAGE_DROPDOWN: "//mat-option[.//span[normalize
   AGENTS_REPORT_JOBNAME_FILTERS : "//div[contains(@class, 'l2 r2')]//input[@data-columnid='jobName']",
   REPORT_JOBNAME_VALIDATES: "//div[contains(@class, 'l2 r2')]//p[contains(@style, 'cursor:pointer')]",
 
+//12-02-2026
+AGENTS_TEMPLATE_QUEUES_TAB: "//div[@role='tab']/following::span[contains(text(),'Queues')]",
+AGENTS_TEMPLATE_QUEUES_AVAILABLE_IN_ROW_1: "(//div[@id='templateQueueGrid']//following::div[contains(@class,'slick-cell l1 r1')])[1]",
+AGENTS_TEMPLATE_SEARCH_OPTION_QUEUE_DROPDOWN: "//mat-option[.//span[normalize-space()='Queue template']]",
+AGENTS_USEREDIT_QUEUE_TAB : "//div[@role='tablist']//following::span[contains(text(),'Queues')]",
+AGENTS_TEMPLATE_EDITQUEUE_TAB_GRID_FIRST_CELL:"(//div[@id='exportQueueGrid']//following::div[contains(@class,'slick-cell l0 r0')])[1]",
+AGENTS_TEMPLATE_EDITLANGUAGE_TAB_GRID_FIRST_CELL:"(//div[@id='exportLanguageGrid']//following::div[contains(@class,'slick-cell l1 r1')])[1]",
+AGENTS_TEMPLATE_NO_QUEUES_AVAILABLE: "(//div[contains(text(),'There is no queue available in this template.')])[1]",
+AGENTS_TEMPLATE_SEARCH_OPTION_SKILL_DROPDOWN: "//mat-option[.//span[normalize-space()='Skill template']]",
+AGENTS_USEREDIT_SKILL_TAB : "//span[contains(text(),'Skills')]",
 
 
 };
