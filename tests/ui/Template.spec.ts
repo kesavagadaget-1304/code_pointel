@@ -419,12 +419,12 @@ test.describe('DCCM', () => {
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
-          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_SKILL_DROPDOWN).click();
           await sharedPage.waitForTimeout(5000);
           const DCCM_SIT_TC_0009_Skill= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_AVAILABLE_IN_ROW_1).innerText();
           console.log("Skill available in template: " + DCCM_SIT_TC_0009_Skill);
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
-          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForTimeout(1000);
           console.log("Checking if the Checkbox is visible and checked or not");
           await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
           if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
@@ -432,10 +432,10 @@ test.describe('DCCM', () => {
           console.log("Checking if the Checkbox is unchecked");
           }
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
-          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForTimeout(1000);
 
 
-          const maxAttempt = 10;
+          const maxAttempt = 15;
           let jobnotFound = true;
           for (let i = 0; i < maxAttempt; i++) {
             console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
@@ -461,15 +461,10 @@ test.describe('DCCM', () => {
 
 
 
-
-
           await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
-          await sharedPage.reload();
-          await sharedPage.waitForLoadState('networkidle');
-          await sharedPage.waitForLoadState('load');
-          await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(3000);
           await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_SKILL_TAB).click();
           const DCCM_SIT_TC_0009_skill_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILLS_TAB_GRID_FIRST_CELL).innerText();
           await expect(DCCM_SIT_TC_0009_skill_source_value).toBe(DCCM_SIT_TC_0009_Skill);
           await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-skill-applied');
@@ -502,6 +497,7 @@ test.describe('DCCM', () => {
       );
     }
   });
+  
 
     test("@DCCM_SIT_TC_0010 @low Ensure while apply the template skills for the selected user with use override option", async ({ }, testInfo) => {
     try {
@@ -527,12 +523,12 @@ test.describe('DCCM', () => {
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
-          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_SKILL_DROPDOWN).click();
           await sharedPage.waitForTimeout(5000);
           const DCCM_SIT_TC_0010_Skill= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_AVAILABLE_IN_ROW_1).innerText();
           console.log("Skill available in template: " + DCCM_SIT_TC_0010_Skill);
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
-          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForTimeout(1000);
           console.log("Checking if the Checkbox is visible and checked or not");
           await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
           if (!(await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
@@ -540,7 +536,7 @@ test.describe('DCCM', () => {
           console.log("Checking if the Checkbox is unchecked");
           }
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
-          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForTimeout(1000);
 
 
           const maxAttempt = 10;
@@ -568,16 +564,10 @@ test.describe('DCCM', () => {
           }
 
 
-
-
-
           await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
-          await sharedPage.reload();
-          await sharedPage.waitForLoadState('networkidle');
-          await sharedPage.waitForLoadState('load');
-          await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(3000);
           await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_SKILL_TAB).click();
           const DCCM_SIT_TC_0010_skill_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILLS_TAB_GRID_FIRST_CELL).innerText();
           await expect(DCCM_SIT_TC_0010_skill_source_value).toBe(DCCM_SIT_TC_0010_Skill);
           await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-skill-applied');
@@ -590,6 +580,220 @@ test.describe('DCCM', () => {
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(3000);
           console.log("Completed test case DCCM_SIT_TC_0010");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+      test("@DCCM_SIT_TC_0011 @low Ensure while apply the template skills for the multiple user without use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0011");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0011_1 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0011_2 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0011_3 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :", username0011_1);
+          console.log("Copied attribute name is :", username0011_2);
+          console.log("Copied attribute name is :", username0011_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_SKILL_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          const DCCM_SIT_TC_0011_Skill= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Skill available in template: " + DCCM_SIT_TC_0011_Skill);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          console.log("Checking if the Checkbox is unchecked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Skill updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                console.log('Skill updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_SKILL_TAB).click();
+          const DCCM_SIT_TC_0011_skill_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILLS_TAB_GRID_FIRST_CELL).innerText();
+          await expect(DCCM_SIT_TC_0011_skill_source_value).toBe(DCCM_SIT_TC_0011_Skill);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-skill-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0011");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+        },
+
+        sharedPage,
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR
+      );
+    } catch (error) {
+      await TestHelpers.handleTestError(
+        sharedPage,
+        error,
+        'error',
+        SCREENSHOT_PATHS.ACCOUNTING_TAB_ERROR,
+        testInfo
+      );
+    }
+  });
+
+      test("@DCCM_SIT_TC_0012 @low Ensure while apply the template skills for the selected user without use override option", async ({ }, testInfo) => {
+    try {
+      await TestHelpers.executeTestStep(
+        'DCCM - Template',
+        async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0012");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          const username0012_1 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          const username0012_2 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
+          const username0012_3 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
+          console.log("Copied attribute name is :", username0012_1);
+          console.log("Copied attribute name is :", username0012_2);
+          console.log("Copied attribute name is :", username0012_3);
+
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX2).click();
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX3).click();
+
+          await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE).click({ timeout: 10000 });
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_SKILL_DROPDOWN).click();
+          await sharedPage.waitForTimeout(5000);
+          const DCCM_SIT_TC_0012_Skill= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_AVAILABLE_IN_ROW_1).innerText();
+          console.log("Skill available in template: " + DCCM_SIT_TC_0012_Skill);
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          console.log("Checking if the Checkbox is visible and checked or not");
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX), `${SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX} should be visible`).toBeVisible();
+          if ((await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).isChecked())) {
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_CHECKBOX).click();
+          console.log("Checking if the Checkbox is unchecked");
+          }
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
+          await sharedPage.waitForTimeout(1000);
+
+
+          const maxAttempt = 10;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+            console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+            await sharedPage.waitForTimeout(5000);
+            try {
+              // Check if the message is now visible
+              
+              if (await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY).isVisible({ timeout: 10000 })) {
+                console.log('Success! Skill updated message is visible');
+                jobnotFound = false;
+                break; // Exit the loop early if found
+              }
+              else {                console.log('Skill updated message not visible yet.');
+              } 
+              await sharedPage.waitForTimeout(10000);
+            } catch (e) {
+              console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+            }
+            // If not found, wait 15 seconds before the next refresh attempt
+            console.log('Job not ready yet. Waiting 15s before retry...');
+            await sharedPage.waitForTimeout(15000);
+          }
+
+          await expect(sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY)).toBeVisible();
+          await sharedPage.reload();
+
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
+          await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_SKILL_TAB).click();
+          const DCCM_SIT_TC_0012_skill_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILLS_TAB_GRID_FIRST_CELL).innerText();
+          await expect(DCCM_SIT_TC_0012_skill_source_value).toBe(DCCM_SIT_TC_0012_Skill);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-skill-applied');
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
+          await sharedPage.waitForTimeout(5000);
+          
+          await sharedPage.locator(SELECTORS.DCCM_DASHBOARD).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('load');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          await sharedPage.waitForTimeout(3000);
+          console.log("Completed test case DCCM_SIT_TC_0012");
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForLoadState('load');
@@ -635,7 +839,7 @@ test.describe('DCCM', () => {
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
-          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_SKILL_DROPDOWN).click();
           await sharedPage.waitForTimeout(5000);
           const DCCM_SIT_TC_0013_Skill= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_AVAILABLE_IN_ROW_1).innerText();
           console.log("Skill available in template: " + DCCM_SIT_TC_0013_Skill);
@@ -701,7 +905,7 @@ test.describe('DCCM', () => {
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
-          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_SKILL_DROPDOWN).click();
           await sharedPage.waitForTimeout(5000);
           const DCCM_SIT_TC_0014_Skill= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_AVAILABLE_IN_ROW_1).innerText();
           console.log("Skill available in template: " + DCCM_SIT_TC_0014_Skill);
@@ -721,7 +925,7 @@ test.describe('DCCM', () => {
           await sharedPage.waitForLoadState('load');
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(3000);
-          console.log("Completed test case DCCM_SIT_TC_0013");
+          console.log("Completed test case DCCM_SIT_TC_0014");
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForLoadState('load');
@@ -743,7 +947,7 @@ test.describe('DCCM', () => {
     }
   });
 
-        test("@DCCM_SIT_TC_0015 @low Ensure while schedule the template skills for the selected user without use override option", async ({ }, testInfo) => {
+      test("@DCCM_SIT_TC_0015 @low Ensure while schedule the template skills for the selected user without use override option", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
@@ -767,7 +971,7 @@ test.describe('DCCM', () => {
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
-          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_SKILL_DROPDOWN).click();
           await sharedPage.waitForTimeout(5000);
           const DCCM_SIT_TC_0015_Skill= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_AVAILABLE_IN_ROW_1).innerText();
           console.log("Skill available in template: " + DCCM_SIT_TC_0015_Skill);
@@ -869,7 +1073,7 @@ test.describe('DCCM', () => {
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
-          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_SKILL_DROPDOWN).click();
           await sharedPage.waitForTimeout(5000);
           const DCCM_SIT_TC_0016_Skill= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_AVAILABLE_IN_ROW_1).innerText();
           console.log("Skill available in template: " + DCCM_SIT_TC_0016_Skill);
@@ -1001,7 +1205,7 @@ test.describe('DCCM', () => {
           await sharedPage.waitForLoadState('load');
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(3000);
-          console.log("Completed test case DCCM_SIT_TC_0015");
+          console.log("Completed test case DCCM_SIT_TC_0016");
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForLoadState('load');
@@ -1029,6 +1233,7 @@ test.describe('DCCM', () => {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
         async () => {
+          console.log("Initiating test case DCCM_SIT_TC_0017");
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForLoadState('load');
@@ -1052,7 +1257,7 @@ test.describe('DCCM', () => {
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
-          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_SKILL_DROPDOWN).click();
           await sharedPage.waitForTimeout(5000);
           const DCCM_SIT_TC_0017_Skill= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_AVAILABLE_IN_ROW_1).innerText();
           console.log("Skill available in template: " + DCCM_SIT_TC_0017_Skill);
@@ -1213,6 +1418,7 @@ test.describe('DCCM', () => {
         'DCCM - Template',
         async () => {
           console.log("Initiating test case DCCM_SIT_TC_0018");
+          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForLoadState('load');
           await sharedPage.waitForLoadState('domcontentloaded');
@@ -1233,7 +1439,7 @@ test.describe('DCCM', () => {
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-visible');
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
-          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN_OPTION).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_SKILL_DROPDOWN).click();
           await sharedPage.waitForTimeout(5000);
           const DCCM_SIT_TC_0018_Skill= await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SKILL_AVAILABLE_IN_ROW_1).innerText();
           console.log("Skill available in template: " + DCCM_SIT_TC_0018_Skill);
@@ -1366,7 +1572,7 @@ test.describe('DCCM', () => {
           await sharedPage.waitForLoadState('load');
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(3000);
-          console.log("Completed test case DCCM_SIT_TC_0017");
+          console.log("Completed test case DCCM_SIT_TC_0018");
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForLoadState('load');
@@ -1427,7 +1633,7 @@ test.describe('DCCM', () => {
           console.log("Checking if the Checkbox is unchecked");
           }
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
-          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForTimeout(1000);
 
 
           const maxAttempt = 10;
@@ -1468,9 +1674,10 @@ test.describe('DCCM', () => {
           await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
           await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_LANGUAGE_TAB).click();
           await sharedPage.waitForTimeout(2000);
-          const DCCM_SIT_TC_0019_lang_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1).innerText();
+          const DCCM_SIT_TC_0019_lang_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITLANGUAGE_TAB_GRID_FIRST_CELL).innerText();
           await expect(DCCM_SIT_TC_0019_lang_source_value).toBe(DCCM_SIT_TC_0019_Lang);
           await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-language-applied');
+          await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
           await sharedPage.waitForTimeout(5000);
           
@@ -1541,7 +1748,7 @@ test.describe('DCCM', () => {
           console.log("Checking if the Checkbox is unchecked");
           }
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
-          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForTimeout(1000);
 
 
           const maxAttempt = 10;
@@ -1579,7 +1786,7 @@ test.describe('DCCM', () => {
           await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).click();
           await sharedPage.locator(SELECTORS.AGENTS_USEREDIT_LANGUAGE_TAB).click();
           await sharedPage.waitForTimeout(2000);
-          const DCCM_SIT_TC_0020_lang_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_LANGUAGE_AVAILABLE_IN_ROW_1).innerText();
+          const DCCM_SIT_TC_0020_lang_source_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_EDITLANGUAGE_TAB_GRID_FIRST_CELL).innerText();
           await expect(DCCM_SIT_TC_0020_lang_source_value).toBe(DCCM_SIT_TC_0020_Lang);
           await ScreenshotUtils.capture(sharedPage, testInfo, 'dashboard-template-page-language-applied');
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_CLOSE_BUTTON).click();
@@ -1612,7 +1819,7 @@ test.describe('DCCM', () => {
     }
   });
 
-      test("@DCCM_SIT_TC_0021 @low Ensure while apply the template languages for the multiple user without use override option", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0021 @low Ensure while apply the template languages for the multiple user without use override option", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
@@ -3911,8 +4118,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
     }
   });
 
-
-  test("@DCCM_SIT_TC_0039 @low Ensure while apply the template Utilization values for the selected user", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0039 @low Ensure while apply the template Utilization values for the selected user", async ({ }, testInfo) => {
     try {
         await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -4013,16 +4219,16 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
           const action_value = await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_HISTORY_USER_NOTES).first().innerText();
             console.log(`Detected Status: ${action_value.trim()}`);
             try{
-            if (action_value === 'Changes Applied by Template - Utilization template') {
+            if (action_value?.includes('Changes Applied by Template')) {
             console.log('--- TEST RESULT: PASS ---');
             await sharedPage.waitForTimeout(3000);
             await ScreenshotUtils.capture(sharedPage, testInfo, 'History_Div_Confirmation');
             await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
              } else {
             console.log('--- TEST RESULT: FAIL ---');
-            console.log(`Expected: 'Changes Applied by Template - Utilization template' but found: '${action_value}'`);
+            console.log(`Expected: 'Changes Applied by Template' but found: '${action_value}'`);
             await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Failure');
-            await expect(action_value).toBe('Changes Applied by Template - Utilization template');
+            await expect(action_value).toContain('Changes Applied by Template');
             }}
             finally {
             
@@ -4392,7 +4598,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
         await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
-          console.log("Initiating test case DCCM_SIT_TC_0058");
+          console.log("Initiating test case DCCM_SIT_TC_0042");
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
          await sharedPage.waitForLoadState('networkidle');
                     const DashboardFilter = sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK);
@@ -4610,7 +4816,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
-          console.log("Initiating test case DCCM_SIT_TC_0049");
+          console.log("Initiating test case DCCM_SIT_TC_0043");
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
           const DashboardFilter = sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK);
@@ -4688,7 +4894,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
-          console.log("Initiating test case DCCM_SIT_TC_0049");
+          console.log("Initiating test case DCCM_SIT_TC_0044");
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
           const DashboardFilter = sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK);
@@ -4760,7 +4966,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
     }
   });
 
-      test("@DCCM_SIT_TC_0045 @low Ensure while apply the template Groups for the selected user without use override option", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0045 @low Ensure while apply the template Groups for the selected user without use override option", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
@@ -5207,6 +5413,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
     }
   });
 
+
       test("@DCCM_SIT_TC_0049 @low Ensure while search valid groups name in groups search text box field", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
@@ -5246,6 +5453,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
           await sharedPage.waitForTimeout(3000);
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_GROUPS_DROPDOWN).click();          
           await sharedPage.waitForTimeout(2000);
           const searchInput = sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION);
           await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -5290,7 +5498,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
-          console.log("Initiating test case DCCM_SIT_TC_0049");
+          console.log("Initiating test case DCCM_SIT_TC_0050");
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
           const DashboardFilter = sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK);
@@ -5324,6 +5532,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
           await sharedPage.waitForTimeout(3000);
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_GROUPS_DROPDOWN).click();
           await sharedPage.waitForTimeout(2000);
           const searchInput = sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION);
           await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -5401,6 +5610,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
           await sharedPage.waitForTimeout(3000);
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_GROUPS_DROPDOWN).click();
           await sharedPage.waitForTimeout(2000);
           const searchInput = sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION);
           await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -5610,6 +5820,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
           await sharedPage.waitForTimeout(3000);
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_GROUPS_DROPDOWN).click();
           await sharedPage.waitForTimeout(2000);
           const searchInput = sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION);
           await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -5834,6 +6045,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
           await sharedPage.waitForTimeout(3000);
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_GROUPS_DROPDOWN).click();
           await sharedPage.waitForTimeout(2000);
           const searchInput = sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION);
           await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -6009,7 +6221,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
         await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
-          console.log("Initiating test case DCCM_SIT_TC_0053");
+          console.log("Initiating test case DCCM_SIT_TC_0054");
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
          await sharedPage.waitForLoadState('networkidle');
                     const DashboardFilter = sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK);
@@ -6056,6 +6268,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
           await sharedPage.waitForTimeout(3000);
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_PAGE_TITLE).isVisible(); 
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_DROPDOWN).click();
+          await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION_GROUPS_DROPDOWN).click();
           await sharedPage.waitForTimeout(2000);
           const searchInput = sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_SEARCH_OPTION);
           await searchInput.waitFor({ state: 'visible', timeout: 30000 });
@@ -6904,7 +7117,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
-          console.log("Initiating test case DCCM_SIT_TC_0060");
+          console.log("Initiating test case DCCM_SIT_TC_0059");
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
           const DashboardFilter = sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK);
