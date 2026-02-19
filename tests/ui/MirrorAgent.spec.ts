@@ -6586,6 +6586,7 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
   });
 
 
+
   test("@DCCM_SIT_TC_0151 @low Ensure while schedule the mirror skill level value for the selected user having sameskill level", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
@@ -6617,7 +6618,7 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
 
           await sharedPage.waitForTimeout(5000);
           await sharedPage.waitForLoadState('networkidle');
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
 
@@ -6646,32 +6647,113 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
           await sharedPage.waitForTimeout(2000);
           await ScreenshotUtils.capture(sharedPage, testInfo, 'AGENT');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_SAVE_BUTTON).click();
-          console.log('Scheduled job successfully. Wait for its completion...');
-          await sharedPage.waitForTimeout(60000);
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
-          await sharedPage.waitForTimeout(5000);
-          const text = await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).innerText();
-          console.log('Completed Scheduled Job:', text);
-          expect(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE)).toHaveText(SCH_NameDCCM_SIT_TC_0151);
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).click();
-          await sharedPage.locator(SELECTORS.AGENTS_SCHEDULER_VALIDATE_SKILL).isVisible();
-
-          await ScreenshotUtils.capture(sharedPage, testInfo, 'Div-Scheduled-Job');
-          await sharedPage.waitForTimeout(5000);
-
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.locator('text=Job scheduled successfully').waitFor({ state: 'visible', timeout: 60000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT));
           await sharedPage.waitForLoadState('networkidle');
-          await sharedPage.waitForLoadState('load');
-          await sharedPage.waitForLoadState('domcontentloaded');
-          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER));
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+          await sharedPage.waitForTimeout(8000);
 
+          const maxAttempt = 5;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(SCH_NameDCCM_SIT_TC_0151, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isHidden()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(SCH_NameDCCM_SIT_TC_0151)) {
+                      console.log('Success! Job not found in Current status:', text);
+                      jobnotFound = false;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          const jobDropdown = sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN);
+          await jobDropdown.waitFor({ state: 'visible', timeout: 60000 });
+          await jobDropdown.click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click({ timeout: 10000 });
+          const closeFilter = sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE);
+          await closeFilter.waitFor({ state: 'visible', timeout: 30000 });
+          await closeFilter.click();
+
+          const maxAttempts = 12;
+          let jobFound = false;
+
+          for (let i = 0; i < maxAttempts; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempts})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(SCH_NameDCCM_SIT_TC_0151, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isVisible()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(SCH_NameDCCM_SIT_TC_0151)) {
+                      console.log('Success! Job found in Completed status:', text);
+                      jobFound = true;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+          expect(jobFound).toBe(true);
+          await sharedPage.locator(SELECTORS.REPORT_JOB_HISTORY).click();
+          const statusCell = sharedPage.locator(SELECTORS.REPORT_JOB_HISTORY_STATUS).first();
+          const actualText = await statusCell.innerText();
+          console.log(`Detected Status: ${actualText}`);
+          try{
+            if (actualText === 'Failed to update same skill level might already available') {
+            console.log('--- TEST RESULT: PASS ---');
+            await sharedPage.waitForTimeout(3000);
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Confirmation');
+            await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+             } else {
+            console.log('--- TEST RESULT: FAIL ---');
+            console.log(`Expected: 'Failed to update same skill level might already available' but found: '${actualText}'`);
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Failure');
+            await expect(statusCell).toHaveText('Failed to update same skill level might already available', { timeout: 1000 });
+            }}
+            finally {
+            console.log('Navigating to Dashboard for next test case...');
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Final_Status_Check');
+            await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+            await sharedPage.waitForLoadState('networkidle');
+             }
+            await sharedPage.waitForTimeout(1000);
 
         },
 
@@ -6720,10 +6802,10 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
 
           await sharedPage.waitForTimeout(5000);
           await sharedPage.waitForLoadState('networkidle');
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
+          //await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGES_LABEL).click();
 
@@ -6751,31 +6833,113 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
           await sharedPage.waitForTimeout(2000);
           await ScreenshotUtils.capture(sharedPage, testInfo, 'AGENT');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_SAVE_BUTTON).click();
-          console.log('Scheduled job successfully. Wait for its completion...');
-          await sharedPage.waitForTimeout(60000);
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
-          await sharedPage.waitForTimeout(5000);
-          const text = await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).innerText();
-          console.log('Completed Scheduled Job:', text);
-          expect(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE)).toHaveText(SCH_NameDCCM_SIT_TC_0152);
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).click();
-          await sharedPage.locator(SELECTORS.AGENTS_SCHEDULER_VALIDATE_LANGUAGE).isVisible();
-
-          await ScreenshotUtils.capture(sharedPage, testInfo, 'Div-Scheduled-Job');
-          await sharedPage.waitForTimeout(5000);
-
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.locator('text=Job scheduled successfully').waitFor({ state: 'visible', timeout: 60000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT));
           await sharedPage.waitForLoadState('networkidle');
-          await sharedPage.waitForLoadState('load');
-          await sharedPage.waitForLoadState('domcontentloaded');
-          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER));
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+          await sharedPage.waitForTimeout(8000);
+
+          const maxAttempt = 5;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(SCH_NameDCCM_SIT_TC_0152, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isHidden()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(SCH_NameDCCM_SIT_TC_0152)) {
+                      console.log('Success! Job not found in Current status:', text);
+                      jobnotFound = false;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          const jobDropdown = sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN);
+          await jobDropdown.waitFor({ state: 'visible', timeout: 60000 });
+          await jobDropdown.click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click({ timeout: 10000 });
+          const closeFilter = sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE);
+          await closeFilter.waitFor({ state: 'visible', timeout: 30000 });
+          await closeFilter.click();
+
+          const maxAttempts = 12;
+          let jobFound = false;
+
+          for (let i = 0; i < maxAttempts; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempts})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(SCH_NameDCCM_SIT_TC_0152, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isVisible()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(SCH_NameDCCM_SIT_TC_0152)) {
+                      console.log('Success! Job found in Completed status:', text);
+                      jobFound = true;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+          expect(jobFound).toBe(true);
+          await sharedPage.locator(SELECTORS.REPORT_JOB_HISTORY).click();
+          const statusCell = sharedPage.locator(SELECTORS.REPORT_JOB_HISTORY_STATUS).first();
+          const actualText = await statusCell.innerText();
+          console.log(`Detected Status: ${actualText}`);
+          try{
+            if (actualText === 'Failed to update same language level might already available') {
+            console.log('--- TEST RESULT: PASS ---');
+            await sharedPage.waitForTimeout(3000);
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Confirmation');
+            await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+             } else {
+            console.log('--- TEST RESULT: FAIL ---');
+            console.log(`Expected: 'Failed to update same language level might already available' but found: '${actualText}'`);
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Failure');
+            await expect(statusCell).toHaveText('Failed to update same language level might already available', { timeout: 1000 });
+            }}
+            finally {
+            console.log('Navigating to Dashboard for next test case...');
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Final_Status_Check');
+            await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+            await sharedPage.waitForLoadState('networkidle');
+             }
+            await sharedPage.waitForTimeout(1000);
 
         },
 
@@ -6821,7 +6985,7 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
           await sharedPage.waitForTimeout(5000);
           await sharedPage.waitForLoadState('networkidle');
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
@@ -6854,31 +7018,113 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
           await sharedPage.waitForTimeout(2000);
           await ScreenshotUtils.capture(sharedPage, testInfo, 'AGENT');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_SAVE_BUTTON).click();
-          console.log('Scheduled job successfully. Wait for its completion...');
-          await sharedPage.waitForTimeout(60000);
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
-          await sharedPage.waitForTimeout(1000);
-          const text = await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).innerText();
-          console.log('Completed Scheduled Job:', text);
-          expect(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE)).toHaveText(SCH_NameDCCM_SIT_TC_0153);
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).click();
-          await sharedPage.locator(SELECTORS.AGENTS_SCHEDULER_VALIDATE_USER_PHONE).isVisible();
-
-          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
-          await sharedPage.waitForTimeout(5000);
-
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.locator('text=Job scheduled successfully').waitFor({ state: 'visible', timeout: 60000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT));
           await sharedPage.waitForLoadState('networkidle');
-          await sharedPage.waitForLoadState('load');
-          await sharedPage.waitForLoadState('domcontentloaded');
-          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER));
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+          await sharedPage.waitForTimeout(8000);
+
+          const maxAttempt = 5;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(SCH_NameDCCM_SIT_TC_0153, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isHidden()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(SCH_NameDCCM_SIT_TC_0153)) {
+                      console.log('Success! Job not found in Current status:', text);
+                      jobnotFound = false;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          const jobDropdown = sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN);
+          await jobDropdown.waitFor({ state: 'visible', timeout: 60000 });
+          await jobDropdown.click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click({ timeout: 10000 });
+          const closeFilter = sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE);
+          await closeFilter.waitFor({ state: 'visible', timeout: 30000 });
+          await closeFilter.click();
+
+          const maxAttempts = 12;
+          let jobFound = false;
+
+          for (let i = 0; i < maxAttempts; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempts})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(SCH_NameDCCM_SIT_TC_0153, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isVisible()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(SCH_NameDCCM_SIT_TC_0153)) {
+                      console.log('Success! Job found in Completed status:', text);
+                      jobFound = true;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+          expect(jobFound).toBe(true);
+          await sharedPage.locator(SELECTORS.REPORT_JOB_HISTORY).click();
+          const statusCell = sharedPage.locator(SELECTORS.REPORT_JOB_HISTORY_STATUS).first();
+          const actualText = await statusCell.innerText();
+          console.log(`Detected Status: ${actualText}`);
+          try{
+            if (actualText === 'Failed, User already has a phone') {
+            console.log('--- TEST RESULT: PASS ---');
+            await sharedPage.waitForTimeout(3000);
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Confirmation');
+            await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+             } else {
+            console.log('--- TEST RESULT: FAIL ---');
+            console.log(`Expected: 'Failed, User already has a phone' but found: '${actualText}'`);
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Failure');
+            await expect(statusCell).toHaveText('Failed, User already has a phone', { timeout: 1000 });
+            }}
+            finally {
+            console.log('Navigating to Dashboard for next test case...');
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Final_Status_Check');
+            await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+            await sharedPage.waitForLoadState('networkidle');
+             }
+            await sharedPage.waitForTimeout(1000);
 
         },
 
@@ -6903,38 +7149,65 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
         async () => {
           await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
           await sharedPage.waitForLoadState('networkidle');
-          await sharedPage.waitForLoadState('load');
-          await sharedPage.waitForLoadState('domcontentloaded');
+          const DashboardFilter = sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK);
+          await expect(DashboardFilter).toBeVisible({ timeout: 40000 });
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_FILTER_CLICK).click();
           await sharedPage.waitForTimeout(3000);
-          const username0154_1 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
-          const username0154_2 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME2_COPY).textContent();
-          const username0154_3 = await sharedPage.locator(SELECTORS.AGENTS_USERNAME3_COPY).textContent();
-          console.log("Copied attribute name is :", username0154_1);
-          console.log("Copied attribute name is :", username0154_2);
-          console.log("Copied attribute name is :", username0154_3);
-
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_CLICK).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_INPUT).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_INPUT).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_INPUT).pressSequentially("DCCM", { delay: 100 });
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_ALL_CHECKBOX).click();
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_DIV_DCCM_CHECKBOX).click();
+          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_BACKDROP_CLICK).click({ force: true });
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
+          await sharedPage.waitForTimeout(2000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
+          await sharedPage.waitForTimeout(2000);
+          const userNameFilter = sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH);
+          await expect(userNameFilter).toBeVisible({ timeout: 50000 });
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).pressSequentially("cmstestuser@gmail.com", { delay: 100 });
+          await sharedPage.waitForTimeout(5000);
+          const username0155_1=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Copied attribute name is :",username0155_1);
           await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).click();
+          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).clear();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).pressSequentially("cmstestuser2@gmail.com", { delay: 100 });
+          await sharedPage.waitForTimeout(3000);
+          const username0155_2=await sharedPage.locator(SELECTORS.AGENTS_USERNAME_COPY).textContent();
+          console.log("Copied attribute name is :",username0155_2);
+          await sharedPage.locator(SELECTORS.AGENTS_CHECKBOX1).click();
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).clear();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH).pressSequentially("cmstestuser", { delay: 100 });
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'User-Select-Box-Click');
           await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
-          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
-          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM));
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM).click();
+          await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
-          await sharedPage.waitForTimeout(5000);
+          await sharedPage.waitForTimeout(2000);
           await sharedPage.waitForLoadState('networkidle');
-          console.log("Using DCCM_USERS.USER_1 is :", DCCM_USERS.USER_1);
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH_INPUT).fill(DCCM_USERS.USER_1);
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_SEARCH_INPUT).press('Enter');
-
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.waitForLoadState('networkidle');
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL1).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).click();
+          await sharedPage.waitForTimeout(1000);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).focus();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DCCM_INPUT).pressSequentially("amar01@gmail.com", { delay: 100 });
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIVISION_LABEL).click();
-          const DCCM_SIT_TC_0154 = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIVISION_LABEL).textContent() ?? '';
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLES_LABEL).click();
+          const DCCM_SIT_TC_0154 = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ROLES_LABEL).textContent() ?? '';
           await sharedPage.waitForTimeout(2000);
           console.log("Label is :", DCCM_SIT_TC_0154);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
@@ -6958,31 +7231,113 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
           await sharedPage.waitForTimeout(2000);
           await ScreenshotUtils.capture(sharedPage, testInfo, 'AGENT');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SCHEDULE_SAVE_BUTTON).click();
-          console.log('Scheduled job successfully. Wait for its completion...');
-          await sharedPage.waitForTimeout(60000);
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE).click();
-          await sharedPage.waitForTimeout(5000);
-          const text = await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).innerText();
-          console.log('Completed Scheduled Job:', text);
-          expect(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE)).toHaveText(SCH_NameDCCM_SIT_TC_0154);
-          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_VALIDATE).click();
-          await sharedPage.locator(SELECTORS.AGENTS_SCHEDULER_VALIDATE_ROLE_DIVISION).isVisible();
-
-          await ScreenshotUtils.capture(sharedPage, testInfo, 'Div-Scheduled-Job');
-          await sharedPage.waitForTimeout(5000);
-
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.locator('text=Job scheduled successfully').waitFor({ state: 'visible', timeout: 60000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT));
           await sharedPage.waitForLoadState('networkidle');
-          await sharedPage.waitForLoadState('load');
-          await sharedPage.waitForLoadState('domcontentloaded');
-          await sharedPage.waitForTimeout(3000);
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER));
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER).click();
+          await sharedPage.waitForTimeout(8000);
+
+          const maxAttempt = 5;
+          let jobnotFound = true;
+          for (let i = 0; i < maxAttempt; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempt})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(SCH_NameDCCM_SIT_TC_0154, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isHidden()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(SCH_NameDCCM_SIT_TC_0154)) {
+                      console.log('Success! Job not found in Current status:', text);
+                      jobnotFound = false;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_CURRENT).click();
+          const jobDropdown = sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_DROPDOWN);
+          await jobDropdown.waitFor({ state: 'visible', timeout: 60000 });
+          await jobDropdown.click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_JOB_TYPE_COMPLETED).click();
+          await sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_SEARCH_BUTTON).click({ timeout: 10000 });
+          const closeFilter = sharedPage.locator(SELECTORS.DASHBOARD_REPORT_SCHEDULER_FILTER_CLOSE);
+          await closeFilter.waitFor({ state: 'visible', timeout: 30000 });
+          await closeFilter.click();
+
+          const maxAttempts = 12;
+          let jobFound = false;
+
+          for (let i = 0; i < maxAttempts; i++) {
+              console.log(`Checking for completed job (Attempt ${i + 1}/${maxAttempts})...`);
+              try {
+              // Wait a moment for the grid to refresh
+              await sharedPage.waitForTimeout(5000);
+              
+              // Apply the Job Name filter again if the grid cleared it
+              const jobNameFilter = sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER);
+              await jobNameFilter.fill(SCH_NameDCCM_SIT_TC_0154, { timeout: 10000 });
+              await sharedPage.keyboard.press('Enter');
+              await sharedPage.waitForTimeout(3000);
+
+              // Check if the job is now visible in the grid
+              const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
+              if (await validatedJob.isVisible()) {
+                  const text = (await validatedJob.innerText()).trim();
+                  if (text.includes(SCH_NameDCCM_SIT_TC_0154)) {
+                      console.log('Success! Job found in Completed status:', text);
+                      jobFound = true;
+                      break; // Exit the loop early if found
+                  }
+              }
+              await sharedPage.locator(SELECTORS.AGENTS_REPORT_JOBNAME_FILTER).clear({ timeout: 5000 });
+              } catch (e) {
+            console.log(`Minor error during attempt ${i + 1}, continuing loop...`);
+        }
+              // If not found, wait 15 seconds before the next refresh attempt
+              console.log('Job not ready yet. Waiting 15s before retry...');
+              await sharedPage.waitForTimeout(15000);
+          }
+          expect(jobFound).toBe(true);
+          await sharedPage.locator(SELECTORS.REPORT_JOB_HISTORY).click();
+          const statusCell = sharedPage.locator(SELECTORS.REPORT_JOB_HISTORY_STATUS).first();
+          const actualText = await statusCell.innerText();
+          console.log(`Detected Status: ${actualText}`);
+          try{
+            if (actualText === 'Failed to Add, role/division already available') {
+            console.log('--- TEST RESULT: PASS ---');
+            await sharedPage.waitForTimeout(3000);
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Confirmation');
+            await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+             } else {
+            console.log('--- TEST RESULT: FAIL ---');
+            console.log(`Expected: 'Failed to Add, role/division already available' but found: '${actualText}'`);
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Report_Job_Failure');
+            await expect(statusCell).toHaveText('Failed to Add, role/division already available', { timeout: 1000 });
+            }}
+            finally {
+            console.log('Navigating to Dashboard for next test case...');
+            await ScreenshotUtils.capture(sharedPage, testInfo, 'Final_Status_Check');
+            await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
+            await sharedPage.waitForLoadState('networkidle');
+             }
+            await sharedPage.waitForTimeout(1000);
 
         },
 
@@ -6999,6 +7354,7 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
       );
     }
   });
+
 
 test("@DCCM_SIT_TC_0155 @low Ensure while schedule the mirror divisions  for the selected user having same divisions", async ({ }, testInfo) => {
   test.setTimeout(300000);   
