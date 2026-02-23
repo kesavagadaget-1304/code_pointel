@@ -1,7 +1,7 @@
 import { test, expect, type Page, type Browser, type BrowserContext } from '@playwright/test';
 import { LoginPage } from '../../pages/LoginPage';
 
-import { LOGIN_CREDENTIALS, SCREENSHOT_PATHS, TIMEOUTS, SELECTORS } from '../../configs/constants';
+import { LOGIN_CREDENTIALS, SCREENSHOT_PATHS, TIMEOUTS, SELECTORS } from '../../configs/constants_superAdmin';
 import { TestHelpers } from '../../utils/testHelpers';
 import { ScreenshotUtils } from '../../utils/screenshotUtils';
 import { DownloadUtils } from '../../utils/downloadUtils';
