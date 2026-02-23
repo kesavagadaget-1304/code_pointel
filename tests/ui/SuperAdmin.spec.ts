@@ -38,7 +38,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_001 @low Ensure while click on divisions drop down in filters page", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0001 @low Ensure while click on divisions drop down in filters page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -70,7 +70,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_002 @low Ensure while click on Group drop down in filters page", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0002 @low Ensure while click on Group drop down in filters page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -102,7 +102,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_003 @low Ensure while click on Work team drop down in filters page", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0003 @low Ensure while click on Work team drop down in filters page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -134,7 +134,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_004 @low Ensure while click on Queue drop down in filters page", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0004 @low Ensure while click on Queue drop down in filters page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -167,7 +167,7 @@ test.describe('DCCM', () => {
     });
 
 
-    test("@DCCM_SIT_TC_005 @low Ensure while click on Skill drop down in filters page", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0005 @low Ensure while click on Skill drop down in filters page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -200,7 +200,7 @@ test.describe('DCCM', () => {
     });
 
 
-    test("@DCCM_SIT_TC_006 @low Ensure while click on add queue button in edit agent", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0006 @low Ensure while click on add queue button in edit agent", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -239,7 +239,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_007 @low Ensure while click on add skill button in edit agent", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0007 @low Ensure while click on add skill button in edit agent", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -279,7 +279,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_008 @low Ensure while click on add language button in edit agent ", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0008 @low Ensure while click on add language button in edit agent ", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -319,7 +319,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_009 @low Ensure while click on add groups button in edit agent", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0009 @low Ensure while click on add groups button in edit agent", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -359,7 +359,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_010 @low Ensure while click on add Roles and Division button in edit agent", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0010 @low Ensure while click on add Roles and Division button in edit agent", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -401,7 +401,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_011 @low Ensure while click on add queue button in create agent", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0011 @low Ensure while click on add queue button in create agent", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -416,8 +416,10 @@ test.describe('DCCM', () => {
                     await sharedPage.locator(SELECTORS.SUPERADMIN_DASHBOARD_FILTER_CLOSE).click();
 
                     await sharedPage.locator(SELECTORS.SUPERADMIN_DASHBOARD_USER_EDIT_1).click();
-                    await sharedPage.waitForTimeout(10000);
-                    await sharedPage.locator(SELECTORS.SUPERADMIN_DASHBOARD_USEREDIT_SCROLL_NEXT).click();
+                    await sharedPage.waitForLoadState('networkidle');
+                    await sharedPage.waitForLoadState('load');
+                    await sharedPage.waitForLoadState('domcontentloaded');
+                    await sharedPage.locator(SELECTORS.SUPERADMIN_DASHBOARD_USEREDIT_QUEUES_TAB).scrollIntoViewIfNeeded();
 
                     await sharedPage.locator(SELECTORS.SUPERADMIN_DASHBOARD_USEREDIT_QUEUES_TAB).click();
                     await sharedPage.locator(SELECTORS.SUPERADMIN_DASHBOARD_USEREDIT_ADD_QUEUE).click();
@@ -443,7 +445,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_012 @low Ensure while click on add skill button in create agent", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0012 @low Ensure while click on add skill button in create agent", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -485,7 +487,7 @@ test.describe('DCCM', () => {
     });
 
     // not executed from here
-    test("@DCCM_SIT_TC_013 @low Ensure while click on add Roles and Division button in create agent", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0013 @low Ensure while click on add Roles and Division button in create agent", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -528,7 +530,7 @@ test.describe('DCCM', () => {
     });
 
 
-    test("@DCCM_SIT_TC_014 @low Ensure while select the general group type and click on search button in filters", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0014 @low Ensure while select the general group type and click on search button in filters", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -565,7 +567,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_015 @low Ensure while select the Skill expression group type and click on search button in filters", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0015 @low Ensure while select the Skill expression group type and click on search button in filters", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -601,7 +603,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_016 @low Ensure while click on divisions drop down in add user page", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0016 @low Ensure while click on divisions drop down in add user page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -645,7 +647,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_017 @low Ensure while click on divisions drop down in add user page", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0017 @low Ensure while click on divisions drop down in add user page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -686,7 +688,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_018 @low Ensure while click on add divisions button in skill group", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0018 @low Ensure while click on add divisions button in skill group", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -729,7 +731,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_019 @low Ensure while click on base phone drop down button in filters page", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0019 @low Ensure while click on base phone drop down button in filters page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -765,7 +767,7 @@ test.describe('DCCM', () => {
     });
 
 
-    test("@DCCM_SIT_TC_020 @low Ensure while click on Site drop down button in filters page", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0020 @low Ensure while click on Site drop down button in filters page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -797,7 +799,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_021 @low Ensure while click on base phone drop down button in create phone page", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0021 @low Ensure while click on base phone drop down button in create phone page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -835,7 +837,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_022 @low Ensure while click on Site drop down button in create phone page", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0022 @low Ensure while click on Site drop down button in create phone page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -873,7 +875,7 @@ test.describe('DCCM', () => {
         }
     });
 
- test("@DCCM_SIT_TC_023 @low Ensure while click on Tables drop down button in filters page", async ({ }, testInfo) => {
+ test("@DCCM_SIT_TC_0023 @low Ensure while click on Tables drop down button in filters page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -904,7 +906,7 @@ test.describe('DCCM', () => {
         }
     });
 
-     test("@DCCM_SIT_TC_024 @low Ensure while select superadmin role and click on serach in filters page", async ({ }, testInfo) => {
+     test("@DCCM_SIT_TC_0024 @low Ensure while select superadmin role and click on serach in filters page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -932,7 +934,7 @@ test.describe('DCCM', () => {
         }
     });
 
-    test("@DCCM_SIT_TC_025 @low Ensure while click on Schedule group drop down button in filters page", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0025 @low Ensure while click on Schedule group drop down button in filters page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -963,7 +965,7 @@ test.describe('DCCM', () => {
         }
     });
 
-        test("@DCCM_SIT_TC_026 @low Ensure while click on divisions drop down in create schedule page", async ({ }, testInfo) => {
+        test("@DCCM_SIT_TC_0026 @low Ensure while click on divisions drop down in create schedule page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
@@ -1001,7 +1003,7 @@ test.describe('DCCM', () => {
         }
     });
 
-            test("@DCCM_SIT_TC_027 @low Ensure while click on divisions drop down in Filters page", async ({ }, testInfo) => {
+            test("@DCCM_SIT_TC_0027 @low Ensure while click on divisions drop down in Filters page", async ({ }, testInfo) => {
         try {
             await TestHelpers.executeTestStep(
                 'Login → Accounting Activity (first time banner)',
