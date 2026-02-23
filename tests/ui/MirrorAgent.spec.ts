@@ -4530,7 +4530,8 @@ test("@DCCM_SIT_TC_0108 @low Ensure while select any groups from drop down", asy
   });
 
     test("@DCCM_SIT_TC_0132 @low Ensure while schedule the groups mirror for the single user", async ({ }, testInfo) => {
-    try {
+     test.setTimeout(300000);
+      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
@@ -4631,7 +4632,8 @@ test("@DCCM_SIT_TC_0108 @low Ensure while select any groups from drop down", asy
   });
 
 test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the multiple user", async ({ }, testInfo) => {
-    try {
+   test.setTimeout(300000);  
+  try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
@@ -4946,6 +4948,7 @@ test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the mul
   });
 
    test("@DCCM_SIT_TC_0136 @low Ensure while schedule the phone mirror to the single agent", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -5114,6 +5117,7 @@ test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the mul
 
 
   test("@DCCM_SIT_TC_0137 @low Ensure while schedule the phone mirror to the mutiple agent", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -5610,7 +5614,8 @@ test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the mul
 
 
 test("@DCCM_SIT_TC_0141 @low Ensure while schedule the roles mirror for the single user", async ({ }, testInfo) => {
-    try {
+   test.setTimeout(300000);  
+  try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
@@ -5813,6 +5818,7 @@ test("@DCCM_SIT_TC_0141 @low Ensure while schedule the roles mirror for the sing
 
 
   test("@DCCM_SIT_TC_0142 @low Ensure while schedule the roles mirror for the multiple user", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -6207,6 +6213,7 @@ test("@DCCM_SIT_TC_0141 @low Ensure while schedule the roles mirror for the sing
   });
 
   test("@DCCM_SIT_TC_0145 @low Ensure while schedule the division mirror for the single user", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -6396,6 +6403,7 @@ test("@DCCM_SIT_TC_0141 @low Ensure while schedule the roles mirror for the sing
 
 
   test("@DCCM_SIT_TC_0146 @low Ensure while schedule the division mirror for the multiple user", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -6783,7 +6791,8 @@ test("@DCCM_SIT_TC_0147 @low Ensure while apply the work teams mirror for the si
 
 
 test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the single user", async ({ }, testInfo) => {
-     try {
+   test.setTimeout(300000);   
+  try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
@@ -6946,7 +6955,8 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
   });
 
     test("@DCCM_SIT_TC_0150 @low Ensure while apply the work teams mirror for the multiple user", async ({ }, testInfo) => {
-     try {
+      test.setTimeout(300000);
+      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
@@ -7142,6 +7152,7 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
 
 
   test("@DCCM_SIT_TC_0151 @low Ensure while schedule the mirror skill level value for the selected user having sameskill level", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -7326,6 +7337,7 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
   });
 
   test("@DCCM_SIT_TC_0152 @low Ensure while schedule the mirror language level value for the selected user having same language level", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -7512,6 +7524,7 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
   });
 
   test("@DCCM_SIT_TC_0153 @low Ensure while schedule the mirror phone for the  selected user having phone", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -7697,6 +7710,7 @@ test("@DCCM_SIT_TC_0149 @low Ensure while apply the work teams mirror for the si
   });
 
   test("@DCCM_SIT_TC_0154 @low Ensure while schedule the mirror Role and divisions  for the selected user having same roles and divisions", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',

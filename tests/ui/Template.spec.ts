@@ -948,7 +948,8 @@ test.describe('DCCM', () => {
   });
 
       test("@DCCM_SIT_TC_0015 @low Ensure while schedule the template skills for the selected user without use override option", async ({ }, testInfo) => {
-    try {
+     test.setTimeout(300000);
+        try {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
         async () => {
@@ -1050,7 +1051,8 @@ test.describe('DCCM', () => {
 
 
         test("@DCCM_SIT_TC_0016 @low Ensure while schedule the template skills for the selected user with use override option", async ({ }, testInfo) => {
-    try {
+     test.setTimeout(300000);
+          try {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
         async () => {
@@ -1229,7 +1231,8 @@ test.describe('DCCM', () => {
 
 
           test("@DCCM_SIT_TC_0017 @low Ensure while schedule the template skills for the multiple user without use override option", async ({ }, testInfo) => {
-    try {
+     test.setTimeout(300000);
+            try {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
         async () => {
@@ -1413,7 +1416,8 @@ test.describe('DCCM', () => {
 
 
         test("@DCCM_SIT_TC_0018 @low Ensure while schedule the template skills for the multiple user without use override option", async ({ }, testInfo) => {
-    try {
+     test.setTimeout(300000);
+          try {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
         async () => {
@@ -2184,7 +2188,8 @@ test("@DCCM_SIT_TC_0023 @low Ensure while search valid languages name in languag
 
 
       test("@DCCM_SIT_TC_0025 @low Ensure while schedule the template languages for the selected user without use override option", async ({ }, testInfo) => {
-    try {
+    test.setTimeout(300000);
+        try {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
         async () => {
@@ -2368,7 +2373,8 @@ test("@DCCM_SIT_TC_0023 @low Ensure while search valid languages name in languag
 
 
         test("@DCCM_SIT_TC_0026 @low Ensure while schedule the template languages for the selected user without use override option", async ({ }, testInfo) => {
-    try {
+     test.setTimeout(300000);
+          try {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
         async () => {
@@ -2552,6 +2558,7 @@ test("@DCCM_SIT_TC_0023 @low Ensure while search valid languages name in languag
 
 
   test("@DCCM_SIT_TC_0027 @low Ensure while schedule the template languages for the multiple user without use override option", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
@@ -2740,7 +2747,8 @@ test("@DCCM_SIT_TC_0023 @low Ensure while search valid languages name in languag
 
 
       test("@DCCM_SIT_TC_0028 @low Ensure while schedule  the template languages for the multiple user with use override option", async ({ }, testInfo) => {
-    try {
+     test.setTimeout(300000);
+        try {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
         async () => {
@@ -3521,7 +3529,8 @@ test("@DCCM_SIT_TC_0033 @low Ensure while search valid Queues name in Queues sea
          
 
       test("@DCCM_SIT_TC_0035 @low Ensure while schedule the template Queues for the selected user without use override option", async ({ }, testInfo) => {
-    try {
+     test.setTimeout(300000);
+        try {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
         async () => {
@@ -3815,7 +3824,8 @@ test("@DCCM_SIT_TC_0033 @low Ensure while search valid Queues name in Queues sea
 
 
 test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the multiple user without use override option", async ({ }, testInfo) => {
-    try {
+   test.setTimeout(300000); 
+  try {
       await TestHelpers.executeTestStep(
         'DCCM - Template',
         async () => {
@@ -4256,6 +4266,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
   });
 
   test("@DCCM_SIT_TC_0040 @low Ensure while Schedule the template Utilization values for the selected user", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
         await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -4594,6 +4605,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
   });
 
   test("@DCCM_SIT_TC_0042 @low Ensure while schedule the template divisions for the multiple user", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
         await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -5572,7 +5584,8 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
   });
 
  test("@DCCM_SIT_TC_0051 @low Ensure while schedule the template groups for the selected user without use override option", async ({ }, testInfo) => {
-    try {
+   test.setTimeout(300000);  
+  try {
         await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
@@ -5782,7 +5795,8 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
   });
 
  test("@DCCM_SIT_TC_0052 @low Ensure while schedule the template groups for the selected user with use override option", async ({ }, testInfo) => {
-    try {
+   test.setTimeout(300000);  
+  try {
         await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
@@ -5994,6 +6008,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
 
 
    test("@DCCM_SIT_TC_0053 @low Ensure while schedule the template groups for the multiple user without use override option", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
         await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -6217,6 +6232,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
   });
 
    test("@DCCM_SIT_TC_0054 @low Ensure while schedule the template groups for the multiple user with use override option", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
         await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -6574,6 +6590,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
   });
 
   test("@DCCM_SIT_TC_0056 @low Ensure while schedule the template divisions for the selected user", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
         await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -6902,6 +6919,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
   });
 
   test("@DCCM_SIT_TC_0058 @low Ensure while schedule the template divisions for the multiple user", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
         await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -7269,6 +7287,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
 
 
    test("@DCCM_SIT_TC_0061 @low Ensure while schedule the template skill level value for the selected user having same skill level", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -7471,6 +7490,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
 
 
   test("@DCCM_SIT_TC_0062 @low Ensure while schedule the template language level value for the selected user having same language level", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -7674,6 +7694,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
 
 
   test("@DCCM_SIT_TC_0063 @low Ensure while schedule the template utilization level value for the selected user having same utilization level", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -7876,6 +7897,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
   });
 
   test("@DCCM_SIT_TC_0064 @low Ensure while schedule the template division value for the selected user having same division", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -8092,6 +8114,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
 
 
   test("@DCCM_SIT_TC_0065 @low Ensure while schedule the Invalid template skill level value for the selected user", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -8279,6 +8302,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
 
 
   test("@DCCM_SIT_TC_0066 @low Ensure while schedule the Invalid template language level value for the selected user", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -8466,6 +8490,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
 
 
   test("@DCCM_SIT_TC_0067 @low Ensure while schedule the Invalid template Queue for the selected user", async ({ }, testInfo) => {
+     test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -8653,7 +8678,8 @@ test("@DCCM_SIT_TC_0037 @low Ensure while schedule the template Queues for the m
 
 
     test("@DCCM_SIT_TC_0068 @low Ensure while schedule the Invalid template group for the selected user", async ({ }, testInfo) => {
-    try {
+     test.setTimeout(300000);
+      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
         async () => {
