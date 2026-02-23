@@ -1,0 +1,230 @@
+// Simple, focused constants for current testing needs
+
+// Environment validation
+const validateEnvironment = () => {
+  const requiredVars = [
+    'LOGIN_USERNAME', 'LOGIN_PASSWORD', 'BASE_URL', 'USER_DCCM_1', 'USER_DCCM_2'
+  ];
+
+  const missing = requiredVars.filter(varName => !process.env[varName]);
+  if (missing.length > 0) {
+    console.warn(`⚠️ Missing environment variables: ${missing.join(', ')}`);
+    console.warn('Please check your .env file');
+  }
+};
+
+validateEnvironment();
+
+// Timeouts
+export const TIMEOUTS = {
+  DEFAULT: 30000,
+  LOGIN: 40000,
+  PAGE_LOAD: 45000,
+  ELEMENT_WAIT: 15000
+};
+
+// For backward compatibility
+export const DEFAULT_TIMEOUT = TIMEOUTS.DEFAULT;
+
+// Login Credentials
+export const LOGIN_CREDENTIALS = {
+  USERNAME: process.env.LOGIN_USERNAME || '',
+  PASSWORD: process.env.LOGIN_PASSWORD || '',
+
+};
+
+export const DCCM_USERS = {
+  USER_1: process.env.USER_DCCM_1 || '',
+  USER_2: process.env.USER_DCCM_2 || '',
+};
+
+
+// Application URLs
+export const URLS = {
+  LOGIN: process.env.BASE_URL || '',
+};
+
+// Screenshot paths for error handling
+export const SCREENSHOT_PATHS = {
+  ACCOUNTING_TAB_ERROR: 'screenshots/accounting/accounting-tab-error.png'
+};
+
+// Locator Selectors - Only what we actually use
+export const SELECTORS = {
+
+  //04-02-2026
+  LOGIN_USERNAME_INPUT: '//input[@id="input-login-user-name"]',
+  LOGIN_PASSWORD_INPUT: '//input[@id="input-login-user-password"]',
+  LOGIN_CONTINUE_BUTTON: '//input[@id="input-login-dccm-user-submit"]',
+  LOGOUT_ACCOUNTICON: "//mat-icon[contains(text(),'account_circle')]",
+  LOGOUT: "//span[contains(text(),'Logout')]",
+
+  DCCM: "//span[normalize-space(text()) = 'DCCM']",
+  
+  DASHBOARD_AGENTS: '//a[@title="Agents"]',
+  AGENTS_MORE_ICON: "//*[normalize-space(text()) = 'more_vert']",
+  AGENTS_CHECKBOX1: "(//div[contains(@class,'checkbox')])[1]",
+  AGENTS_CHECKBOX2: "(//div[contains(@class,'checkbox')])[2]",
+  AGENTS_CHECKBOX3: "(//div[contains(@class,'checkbox')])[3]",
+  AGENTS_TEMPLATE: '//BUTTON[@id="btn-role-manage-template"]',
+  AGENTS_TEMPLATE_ALERT_VALIDATE: '//div[contains(text(),"Please select atleast one agent !")]',
+  AGENTS_TEMPLATE_ALERT_OK_BUTTON: "//button[normalize-space()='Ok']",
+  AGENTS_TEMPLATE_PAGE_TITLE: "//h5[contains(text(),'Template')]",
+  AGENTS_TEMPLATE_PAGE_CLOSE: "//h5[contains(text(),'Template')]/following::span[2]",
+  AGENTS_TEMPLATE_DROPDOWN: '//mat-select[@id="select-agenttemplate-templates"]',
+  AGENTS_TEMPLATE_DROPDOWN_OPTION: '(//div[@id="select-agenttemplate-templates-panel"]//span[not(contains(text(),"None"))])[1]',
+  AGENTS_TEMPLATE_DROPDOWN_OPTION_NONE: '//div[@id="select-agenttemplate-templates-panel"]//span[contains(text(),"None")]',
+  AGENTS_MIRRORAGENT_SKILL_NO_SKILL_AVAILABLE: "(//div[contains(text(),'There is no skill available in this template.')])[1]",
+  AGENTS_TEMPLATE_SEARCH_INPUT: '//input[@id="template-search"]',
+  AGENTS_TEMPLATE_SEARCHED_INPUT: '//mat-select[@id="select-agenttemplate-templates"]',
+
+  //05-02-2026
+  AGENTS_TEMPLATE_SKILL_UPDATED_SUCCESSFULLY: "//*[contains(text(),'Agents updated successfully')]",
+  AGENTS_TEMPLATE_APPLY_BUTTON: "//span[contains(text(),'Apply')]",
+  AGENTS_TEMPLATE_SKILL_SCHEDULE_BUTTON: "//button[@id='btn-agenttemplate-schedule']//following-sibling::span[contains(text(),'Schedule')]",
+  AGENTS_TEMPLATE_OVERRIDE_CHECKBOX: '//div[contains(text(),"If you want to override skills, languages and queues, Please select override!")]/following::input[@type="checkbox"]',
+  AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON: "//button[contains(text(),'Apply')]",
+  AGENTS_TEMPLATE_SKILL_AVAILABLE_IN_ROW_1: "(//div[contains(text(),'There is no skill available in this template.')]/following::div[contains(@class,'slick-cell l1 r1')])[1]",
+  
+
+
+  AGENTS_USERNAME_COPY: "(//i[contains(@title,'Edit_Agent.header')]/following::span)[1]",
+  AGENTS_USERNAME2_COPY: "(//i[contains(@title,'Edit_Agent.header')]/following-sibling::span)[2]",
+  AGENTS_USERNAME3_COPY: "(//i[contains(@title,'Edit_Agent.header')]/following-sibling::span)[3]",
+  AGENTS_MIRRORAGENT_HISTORY_USER: '//img[@title="History"]',
+  AGENTS_USERNAME_SEARCH_TEXTBOX: '//input[@aria-label="User Name Search Filter"]',
+  HISTORY_CURRENT_VALUE: '((//div[@class="ui-widget-content slick-row even"])[1])/div[5]',
+  HISTORY_CLOSE: "//button[contains(text(),'Close')]",
+  AGENTS_MIRRORAGENT_DIV_OPTION: '//div[@id="select-agentcopy-divisions-panel"]//span[contains(text(),"All")]',
+  AGENTS_MIRRORAGENT_ALERT_SELECTGROUP: '//div[contains(text(),"Please select either divisions or groups to search")]',
+  AGENTS_MIRRORAGENT_GROUP_DROPDOWN_OPTION_2: '//mat-option[@aria-selected="true"]/following-sibling::mat-option[1]',
+  AGENTS_TEMPLATE_SKILLS_TAB: "//span[contains(text(),'Skills')]",
+  AGENTS_TEMPLATE_SKILLS_TAB_GRID_FIRST_CELL: "(//div[@id='slickGridContainer-exportSkillGrid']//following::div[contains(@class,'slick-cell l1 r1')])[1]",
+  AGENTS_TEMPLATE_CLOSE_BUTTON: "//button[contains(text(),'Close')]",
+  AGENTS_TEMPLATE_NAME_SEARCH_TEXTBOX: '//input[@aria-label="Name Search Filter"]',
+  AGENTS_TEMPLATE_NO_SKILL_AVAILABLE: "(//div[contains(text(),'There is no skill available in this template.')])[1]",
+
+  DCCM_DASHBOARD: '//a[@title="Dashboard"]',
+
+
+//    *****SuperAdmin Selectors *****
+SUPERADMIN_DASBOARD_FILTER_ICON: '//span[@id="select-filter-toggle"]',
+SUPERADMIN_DASHBOARD_FILTER_ROLE: '//*[@id="select-filter-role"]',
+SUPERADMIN_DASHBOARD_FILTER_ROLE_SUPER_ADMIN: '//div[@id="select-filter-role-panel"]//span[contains(text(),"Super Administrator")]',
+SUPERADMIN_DASHBOARD_FILTER_SEARCH: '//button[@id="btn-filter-search"]',
+SUPERADMIN_DASHBOARD_FILTER_DIVISIONS: '//*[@id="select-filter-divisions"]',
+SUPERADMIN_DASHBOARD_FILTER_GROUPS: '//*[@id="select-filter-groups"]',
+SUPERADMIN_DASHBOARD_FILTER_TEMPLATE: '//*[@id="select-filter-template"]',
+SUPERADMIN_DASHBOARD_FILTER_WORKTEAM: '//*[@id="select-filter-workteam"]',
+SUPERADMIN_DASHBOARD_FILTER_QUEUE: '//*[@id="select-filter-queue"]',
+SUPERADMIN_DASHBOARD_FILTER_SKILL: '//*[@id="select-filter-skill"]',
+SUPERADMIN_DASHBOARD_FILTER_USERNAME: "//input[@id='input-filter-user-name']",
+SUPERADMIN_DASHBOARD_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::span",
+SUPERADMIN_DASHBOARD_USER_EDIT_1: '(//i[@title="Edit"])[1]',
+SUPERADMIN_DASHBOARD_USEREDIT_SCROLL_NEXT: "//button[contains(@class,'header-pagination-after')]",
+SUPERADMIN_DASHBOARD_USEREDIT_CLOSE: "//h5[contains(text(),'Edit Agent - DemoUser')]/following::button[contains(text(),'Close')]",
+SUPERADMIN_DASHBOARD_USEREDIT_QUEUES_TAB: '//div[@role="tab"]//child::span[contains(text(),"Queue")]',
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_QUEUE: '//*[@aria-label="Button for adding Queue"]',
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_QUEUE_TITLE: "//h5[contains(text(),'Add Queue')]",
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_QUEUE_CLOSE: "//h5[contains(text(),'Add Queue')]/following::button[contains(text(),'Close')]",
+SUPERADMIN_DASHBOARD_USEREDIT_SKILLS_TAB: "//div[@role='tab']//child::span[contains(text(),'Skills')]",
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_SKILL_TITLE: "//h5[contains(text(),'Add Skill')]",
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_SKILL: '//*[@aria-label="Button for adding Skill"]',
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_SKILL_CLOSE: "//h5[contains(text(),'Add Skill')]/following::button[contains(text(),'Close')]",
+SUPERADMIN_DASHBOARD_USEREDIT_LANGUAGE_TAB: "//div[@role='tab']//child::span[contains(text(),'Skills')]",
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_LANGUAGE_TITLE: "//h5[contains(text(),'Add Skill')]",
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_LANGUAGE: '//*[@aria-label="Button for adding Skill"]',
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_LANGUAGE_CLOSE: "//h5[contains(text(),'Add Skill')]/following::button[contains(text(),'Close')]",
+SUPERADMIN_DASHBOARD_USEREDIT_GROUPS_TAB: "//div[@role='tab']//child::span[contains(text(),'Groups')]",
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_GROUPS_TITLE: "//h5[contains(text(),'Add Groups')]",
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_GROUPS: '//*[@aria-label="Button for adding Skill"]',
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_GROUPS_CLOSE: "//h5[contains(text(),'Add Groups')]/following::button[contains(text(),'Close')]",
+SUPERADMIN_DASHBOARD_USEREDIT_ROLES_DIVISION_TAB: "//div[@role='tab']//child::span[contains(text(),'Roles/Division')]",
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_ROLES_DIVISION_TITLE: "//h5[contains(text(),' Add Role')]",
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_ROLES_DIVISION: '//*[@aria-label="Button for adding Data Table role"]',
+SUPERADMIN_DASHBOARD_USEREDIT_ADD_ROLES_DIVISION_CLOSE: "//h5[contains(text(),'Add Role')]/following::button[contains(text(),'Close')]",
+SUPERADMIN_DASHBOARD_FILTER_GROUPS_SEARCH_INPUT: '//input[@placeholder="search" and @name="groupFilterSearch"]',
+SUPERADMIN_DASHBOARD_FILTER_GROUPS_SEARCH_SELECT_OPTION1: '(//*[@role="option"])[1]',
+DASHBOARD_GROUPS: '//a[@title="Groups"]',
+GROUPS_FILTER_MEMBER_TYPE: '//*[@id="select-filter-member-type"]',
+GROUPS_FILTER_MEMBER_TYPE_GENERAL: '//*[@value="general"]',
+GROUPS_FILTER_MEMBER_TYPE_SKILL: '//*[@value="skill"]',
+GROUPS_FILTER_SEARCH: '//button[@id="btn-filter-search"]',
+GROUPS_FILTER_ICON: '//span[@id="select-filter-toggle"]',
+GROUPS_FILTER_ROLE: '//*[@id="select-filter-role"]',
+GROUPS_FILTER_ROLE_SUPER_ADMIN: '//div[@id="select-filter-role-panel"]//span[contains(text(),"Super Administrator")]',
+GROUPS_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::span",
+GROUPS_TYPE_VALIDATE_GENERAL: "//*[contains(text(),' Type - General')]",
+GROUPS_TYPE_VALIDATE_SKILL_EXPRESSION: "//*[contains(text(),' Type - Skill Expression')]",
+GROUPS_ROLE_VALIDATE_SUPER_ADMIN: "//*[contains(text(),'Role - Super Administrator')]",
+GROUPS_DASHBOARD_USER_EDIT_1: '(//i[@title="Edit"])[1]',
+GROUPS_GENERAL_TYPE_ADD_USER: '//*[@aria-label="Button for adding Skill"]',
+GROUPS_GENERAL_TYPE_EDIT_ADD_USER_VALIDATE : "//mat-label[contains(text(),'Division')]",
+GROUPS_GENERAL_TYPE_EDIT_ADD_USER_CLOSE: "//h5[contains(text(),'Add Users')]/following::button[contains(text(),'Close')]",
+GROUPS_GENERAL_TYPE_EDIT_GROUP_EDIT_CLOSE_BUTTON: "//h5[contains(text(),'Group Edit')]/following::span[contains(text(),'Close')]",
+GROUPS_SKILLEX_TYPE_EDIT_GROUP_EDIT_DIVISIONS_TAB: "//h5[contains(text(),'Group Edit')]/following::span[contains(text(),'Divisions')]",
+GROUPS_SKILLEX_TYPE_EDIT_GROUP_EDIT_ADD_USER: '//*[@aria-label="Button for adding Skill"]',
+GROUPS_SKILLEX_TYPE_EDIT_ADD_USER_CLOSE: "//h5[contains(text(),'Add Division')]/following::button[contains(text(),'Close')]",
+GROUPS_SKILLEX_TYPE_EDIT_GROUP_EDIT_CLOSE_BUTTON: "//h5[contains(text(),'Group Edit')]/following::span[contains(text(),'Close')]",
+GROUPS_SKILLEX_TYPE_EDIT_ADD_DIVISIONS_VALIDATE: "//h5[contains(text(),'Add Divisions')]",
+DASHBOARD_PHONES: '//a[@title="Phones"]',
+PHONES_FILTER_ICON: '//span[@id="select-filter-toggle"]',
+PHONES_FILTER_ROLE: '//*[@id="select-filter-role"]',
+PHONES_FILTER_ROLE_SUPER_ADMIN: '//div[@id="select-filter-role-panel"]//span[contains(text(),"Super Administrator")]',
+PHONES_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::span",
+PHONES_FILTER_BASE_PHONE : '//*[@id="select-filter-base-phone"]',
+PHONES_FILTER_SEARCH: '//button[@id="btn-filter-search"]',
+PHONES_DASHBOARD_USER_EDIT_1: '(//i[@title="Edit"])[1]',
+PHONES_FILTER_SITE_DROPDOWN : '//*[@id="select-filter-site"]',
+PHONES_FILTER_PHONE_DROPDOWN_VALUES : '//div[@id="select-filter-base-phone-panel"]',
+PHONES_FILTER_SITE_DROPDOWN_VALUES: '//div[@id="select-filter-site-panel"]',
+PHONES_MORE_ICON: "//*[normalize-space(text()) = 'more_vert']",
+PHONES_MORE_ICON_CREATE_PHONE: "//span[contains(text(),'Create Phone')]",
+PHONES_CREATE_PHONE_BASE_PHONE : '//*[@id="select-createphn-base"]',
+PHONES_CREATE_PHONE_SITE : '//*[@id="select-createphn-site"]',
+PHONES_CREATE_PHONE_PHONENAME  : '//input[@id="input-createphn-name"]',
+PHONES_CREATE_PHONE_CLOSE : '//button[@class="close_btn"]',
+PHONES_CREATE_PHONE_SAVE : "//button[contains(text(),'Save')]",
+PHONES_CREATE_PHONE_VALIDATE : "//h5[contains(text(),'Create Phone')]",
+PHONES_CREATE_PHONE_BASE_PHONE_DROPDOWN: '//div[@id="select-createphn-base-panel"]',
+PHONES_CREATE_PHONE_SITE_DROPDOWN : '//*[@id="select-createphn-site-panel"]',
+DASHBOARD_DATATABLE : '//a[@title="Data Tables"]',
+DATATABLE_FILTER_ICON: '//span[@id="select-filter-toggle"]',
+DATATABLE_FILTER_ROLE: '//*[@id="select-filter-role"]',
+DATATABLE_FILTER_ROLE_SUPER_ADMIN: '//div[@id="select-filter-role-panel"]//span[contains(text(),"Super Administrator")]',
+DATATABLE_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::span",
+DATATABLE_FILTER_TABLE_DROPDOWN: '//*[@id="select-filter-table"]',
+DATATABLE_FILTER_TABLE_DROPDOWN_VAL : '//div[@id="select-filter-table-panel"]',
+DASHBOARD_PROMPTS: '//a[@title="Prompts"]',
+PROMPTS_PROMPT_NAME : '//input[@id="input-filter-prompt-name"]',
+PROMPTS_FILTER_ICON: '//span[@id="select-filter-toggle"]',
+PROMPTS_FILTER_ROLE: '//*[@id="select-filter-role"]',
+PROMPTS_FILTER_ROLE_SUPER_ADMIN: '//div[@id="select-filter-role-panel"]//span[contains(text(),"Super Administrator")]',
+PROMPTS_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::span",
+DASHBOARD_OPERATING_SCHEDULES : "//span[contains(text(),'Operating Schedules')]",
+DASHBOARD_SCHEDULES : '//a[@title="Schedules"]',
+SCHEDULES_FILTER_ICON: '//span[@id="select-filter-toggle"]',
+SCHEDULES_FILTER_ROLE: '//*[@id="select-filter-role"]',
+SCHEDULES_FILTER_ROLE_SUPER_ADMIN: '//div[@id="select-filter-role-panel"]//span[contains(text(),"Super Administrator")]',
+SCHEDULES_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::span",
+SCHEDULES_FILTER_DIVISIONS_DROPDOWN: '//*[@id="select-filter-divisions"]',
+SCHEDULES_FILTER_DIVISIONS_DROPDOWN_VAL: '//*[@id="select-filter-divisions-panel"]',
+DASHBOARD_SCHEDULES_GROUPS : '//a[@title="Schedule Groups"]',
+SCHEDULES_GROUPS_FILTER_SG_DROPDOWN : '//*[@id="select-filter-schedule-groups"]',
+SCHEDULES_GROUPS_FILTER_SG_DROPDOWN_VAL: '//*[@id="select-filter-schedule-groups-panel"]',
+SCHEDULES_GROUPS_FILTER_ICON: '//span[@id="select-filter-toggle"]',
+SCHEDULES_GROUPS_FILTER_ROLE: '//*[@id="select-filter-role"]',
+SCHEDULES_GROUPS_FILTER_ROLE_SUPER_ADMIN: '//div[@id="select-filter-role-panel"]//span[contains(text(),"Super Administrator")]',
+SCHEDULES_GROUPS_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::span",
+SCHEDULES_GROUPS_MORE_ICON: "//*[normalize-space(text()) = 'more_vert']",
+SCHEDULES_GROUPS_MORE_ICON_CREATE_SCHEDULE: '//button[@id="btn-schdlgrp-createschedules"]',
+SCHEDULES_GROUPS_MORE_ICON_CREATE_SCHEDULE_DIVISION_DROPDOWN : '//*[@id="select-bulkeditphone-site"]',
+SCHEDULES_GROUPS_MORE_ICON_CREATE_SCHEDULE_DIVISION_DROPDOWN_VAL: '//div[@id="select-bulkeditphone-site-panel"]',
+SCHEDULES_GROUPS_MORE_ICON_CREATE_SCHEDULE_CLOSE: "//button[contains(text(),'Close')]",
+DASHBOARD_DIVISIONS : '//a[@title="Divisions"]',
+DIVISIONS_FILTER_ICON: '//span[@id="select-filter-toggle"]',
+DIVISIONS_FILTER_ROLE: '//*[@id="select-filter-role"]',
+DIVISIONS_FILTER_ROLE_SUPER_ADMIN: '//div[@id="select-filter-role-panel"]//span[contains(text(),"Super Administrator")]',
+DIVISIONS_FILTER_CLOSE: "//label[contains(text(),'Filter')]/following-sibling::span",
+
+};
