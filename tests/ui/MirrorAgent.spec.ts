@@ -17,28 +17,27 @@ test.describe('DCCM', () => {
   let sharedPage: Page;
   
     
-  test.beforeEach(async ({ browser: testBrowser }, testInfo) => {
-    browser = testBrowser;
-    context = await browser.newContext();
-    sharedPage = await context.newPage();
-    
-    const loginPage = new LoginPage(sharedPage);
-    await loginPage.signIn(LOGIN_CREDENTIALS.USERNAME, LOGIN_CREDENTIALS.PASSWORD);
-    await ScreenshotUtils.capture(sharedPage, testInfo, 'login-page');
-  });
+    test.beforeAll(async ({ browser: testBrowser }, testInfo) => {
+        browser = testBrowser;
+        context = await browser.newContext();
+        sharedPage = await context.newPage();
 
-  
-  /*test.afterEach(async () => {
-    try {
-      await sharedPage.locator(SELECTORS.LOGOUT_ACCOUNTICON).click();
-      await sharedPage.locator(SELECTORS.LOGOUT).click();
-      //await loginPage.logout();
-    } catch (error) {
-      // Logout error handled silently
-    
-    }
-  });
-  */
+        const loginPage = new LoginPage(sharedPage);
+        await loginPage.signIn(LOGIN_CREDENTIALS.USERNAME, LOGIN_CREDENTIALS.PASSWORD);
+        await ScreenshotUtils.capture(sharedPage, testInfo, 'login-page');
+    });
+
+
+    test.afterAll(async () => {
+        try {
+            await sharedPage.locator(SELECTORS.LOGOUT_ACCOUNTICON).click();
+            await sharedPage.locator(SELECTORS.LOGOUT).click();
+            //await loginPage.logout();
+        } catch (error) {
+            // Logout error handled silently
+
+        }
+    });
    test("@DCCM_SIT_TC_0001 @low Ensure while click on mirror agent in more option", async ({ }, testInfo) => {
     try {
       await TestHelpers.executeTestStep(
