@@ -1078,10 +1078,9 @@ test("@DCCM_SIT_TC_0027 @low Ensure while click on skill level column and enter 
           await sharedPage.waitForTimeout(2000);
           //expect(sharedPage.locator(SELECTORS.HISTORY_CURRENT_VALUE)).toHaveText(DCCM_SIT_TC_0027);
           await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
-
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1186,11 +1185,9 @@ test("@DCCM_SIT_TC_0029 @low Ensure while click on clear all  filters in command
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1241,11 +1238,9 @@ test("@DCCM_SIT_TC_0030 @low Ensure while click on toggle filter row in the comm
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1300,11 +1295,9 @@ test("@DCCM_SIT_TC_0031 @low Ensure while click on toggle filter row after text 
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1355,11 +1348,9 @@ test("@DCCM_SIT_TC_0032 @low Ensure while click on export to excel", async ({ },
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1408,11 +1399,9 @@ test("@DCCM_SIT_TC_0033 @low Enusre while click on deselect all check box in Lan
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1462,11 +1451,9 @@ test("@DCCM_SIT_TC_0034 @low Enusre while click on select all check box in Langu
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1518,11 +1505,9 @@ test("@DCCM_SIT_TC_0035 @low Ensure while click on Language name search text box
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1573,11 +1558,9 @@ test("@DCCM_SIT_TC_0036 @low Ensure while search valid Language name in search t
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1630,11 +1613,9 @@ test("@DCCM_SIT_TC_0037 @low Ensure while search Invalid Language name in search
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1686,11 +1667,9 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1742,11 +1721,9 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1799,11 +1776,9 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1874,6 +1849,9 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           expect(parseFloat(historyCurrentVAlue)).toBe(parseFloat(DCCM_SIT_TC_0043));
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
 
 
         },
@@ -1947,6 +1925,9 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           expect(parseFloat(historyCurrentVAlue)).not.toBe(parseFloat(DCCM_SIT_TC_0044));
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
+          await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForTimeout(5000);
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -2059,7 +2040,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
   });
 
   
-  test("@DCCM_SIT_TC_0047 @low Ensure while click on toggle filter row after text box is hide", async ({ }, testInfo) => {
+    test("@DCCM_SIT_TC_0047 @low Ensure while click on toggle filter row after text box is hide", async ({ }, testInfo) => {
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2087,6 +2068,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_TOGGLE_FILTER_ROW).click();
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_SEARCH_FILTER).isHidden();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_GRID_MENU).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_TOGGLE_FILTER_ROW).click();
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_SEARCH_FILTER).isVisible();
