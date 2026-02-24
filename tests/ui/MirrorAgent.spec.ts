@@ -4691,7 +4691,7 @@ test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the mul
                           await sharedPage.waitForTimeout(3000);
             
                           // Check if the job is now visible in the grid
-                          const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATES);
+                          const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
                           if (await validatedJob.isHidden()) {
                               const text = (await validatedJob.innerText()).trim();
                               if (text.includes(jobNameDCCM_SIT_TC_0133)) {
@@ -5180,7 +5180,7 @@ test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the mul
                           await sharedPage.waitForTimeout(3000);
             
                           // Check if the job is now visible in the grid
-                          const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATES);
+                          const validatedJob = sharedPage.locator(SELECTORS.REPORT_JOBNAME_VALIDATE);
                           if (await validatedJob.isHidden()) {
                               const text = (await validatedJob.innerText()).trim();
                               if (text.includes(SCH_NameDCCM_SIT_TC_0137)) {
