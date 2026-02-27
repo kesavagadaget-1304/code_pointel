@@ -59,3 +59,64 @@ export class TestHelpers {
     }
   }
 } 
+
+const CHARS =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-={}[]|:;<>,.?/';
+
+const UPPER = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const LOWER = 'abcdefghijklmnopqrstuvwxyz';
+const NUMBERS = '0123456789';
+const SPECIAL = '!@#$%^&*()';
+
+const randomChar = (charSet: string): string =>
+  charSet.charAt(Math.floor(Math.random() * charSet.length));
+
+export function randomNumeric(length: number = 5): string {
+
+  return Array.from({ length }, () =>
+    NUMBERS.charAt(Math.floor(Math.random() * NUMBERS.length))
+  ).join('');
+}
+
+/**
+ * Generate random string with alphabets, numbers and special characters
+ */
+export function complexString(length: number = 10): string {
+  return Array.from({ length }, () =>
+    CHARS.charAt(Math.floor(Math.random() * CHARS.length))
+  ).join('');
+}
+
+/**
+ * Generate strictly alphanumeric string
+ */
+export function alphaNumeric(length: number = 10): string {
+  const chars = UPPER + LOWER + NUMBERS;
+  return Array.from({ length }, () => randomChar(chars)).join('');
+}
+
+/**
+ * Generate password with at least:
+ * 1 uppercase, 1 number, 1 special character
+ */
+export function alphaNumericSpecialchar(length: number = 10): string {
+  if (length < 3) {
+    throw new Error('Password length must be at least 3');
+  }
+
+  const mandatory =
+    randomChar(UPPER) +
+    randomChar(NUMBERS) +
+    randomChar(SPECIAL);
+
+  const allChars = UPPER + LOWER + NUMBERS + SPECIAL;
+
+  const remaining = Array.from({ length: length - 3 }, () =>
+    randomChar(allChars)
+  ).join('');
+
+  return (mandatory + remaining)
+    .split('')
+    .sort(() => Math.random() - 0.5)
+    .join('');
+}
