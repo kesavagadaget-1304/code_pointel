@@ -432,7 +432,7 @@ test.describe('DCCM', () => {
           console.log("Checking if the Checkbox is unchecked");
           }
           await sharedPage.locator(SELECTORS.AGENTS_TEMPLATE_OVERRIDE_APPLY_BUTTON).click();
-          await sharedPage.waitForTimeout(1000);
+          
 
 
           const maxAttempt = 15;

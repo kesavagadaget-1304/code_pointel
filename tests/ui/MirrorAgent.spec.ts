@@ -39,6 +39,7 @@ test.describe('DCCM', () => {
         }
     });
    test("@DCCM_SIT_TC_0001 @low Ensure while click on mirror agent in more option", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -70,6 +71,7 @@ test.describe('DCCM', () => {
   });
 
   test("@DCCM_SIT_TC_0002 @low Check the fileds and buttons present in the mirror agent page", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -102,6 +104,7 @@ test.describe('DCCM', () => {
 
 
   test("@DCCM_SIT_TC_0003 @low Ensure while click on division drop down", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -136,6 +139,7 @@ test.describe('DCCM', () => {
 
 
   test("@DCCM_SIT_TC_0004 @low Ensure while select any division  from drop down", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -170,6 +174,7 @@ test.describe('DCCM', () => {
 
 
   test("@DCCM_SIT_TC_0005 @low Ensure while click on user name search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -203,6 +208,7 @@ test.describe('DCCM', () => {
 
 
   test("@DCCM_SIT_TC_0006 @low Ensure while enter values in User name search text box filed", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -236,6 +242,7 @@ test.describe('DCCM', () => {
 
 
   test("@DCCM_SIT_TC_0007 @low Check the boundary value conditions in search text box filed", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -270,6 +277,7 @@ test.describe('DCCM', () => {
 
 
   test("@DCCM_SIT_TC_0008 @low Ensure while search valid username in search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -303,6 +311,7 @@ test.describe('DCCM', () => {
   });
 
    test("@DCCM_SIT_TC_0009 @low Ensure while search Invalid username in search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -340,6 +349,7 @@ test.describe('DCCM', () => {
 
 
  test("@DCCM_SIT_TC_0010 @low Ensure while select division and click on search button", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -357,11 +367,9 @@ test.describe('DCCM', () => {
           await sharedPage.waitForTimeout(5000);
           await ScreenshotUtils.capture(sharedPage, testInfo, 'username');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -380,6 +388,7 @@ test.describe('DCCM', () => {
 
 
 test("@DCCM_SIT_TC_0011 @low Ensure while without select any users and click on next button", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -416,6 +425,7 @@ test("@DCCM_SIT_TC_0011 @low Ensure while without select any users and click on 
   });
 
 test("@DCCM_SIT_TC_0012 @low Ensure while click on ok button in the above alert message", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -450,6 +460,7 @@ test("@DCCM_SIT_TC_0012 @low Ensure while click on ok button in the above alert 
   });
 
 test("@DCCM_SIT_TC_0013 @low Ensure while click on close icon button in the above alert message", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -484,6 +495,7 @@ test("@DCCM_SIT_TC_0013 @low Ensure while click on close icon button in the abov
   });
 
 test("@DCCM_SIT_TC_0014 @low Ensure while click on close button in the mirror agent", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -499,11 +511,9 @@ test("@DCCM_SIT_TC_0014 @low Ensure while click on close button in the mirror ag
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_ALERT_CLOSE).click();
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -521,6 +531,7 @@ test("@DCCM_SIT_TC_0014 @low Ensure while click on close button in the mirror ag
   });
 
   test("@DCCM_SIT_TC_0015 @low Ensure while select user name and click on next button", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -552,11 +563,9 @@ test("@DCCM_SIT_TC_0014 @low Ensure while click on close button in the mirror ag
           sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_CLOSE).click();
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -574,6 +583,7 @@ test("@DCCM_SIT_TC_0014 @low Ensure while click on close button in the mirror ag
   });
 
  test("@DCCM_SIT_TC_0016 @low Ensure while click on back button in the mirror agent", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -601,11 +611,9 @@ test("@DCCM_SIT_TC_0014 @low Ensure while click on close button in the mirror ag
           await ScreenshotUtils.capture(sharedPage, testInfo, 'LAbels-Validation');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -624,6 +632,7 @@ test("@DCCM_SIT_TC_0014 @low Ensure while click on close button in the mirror ag
 
 
 test("@DCCM_SIT_TC_0017 @low Enusre while click on deselect all check box in skill tab", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -650,11 +659,9 @@ test("@DCCM_SIT_TC_0017 @low Enusre while click on deselect all check box in ski
           await ScreenshotUtils.capture(sharedPage, testInfo, 'LAbels-Validation');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -673,6 +680,7 @@ test("@DCCM_SIT_TC_0017 @low Enusre while click on deselect all check box in ski
 
 
 test("@DCCM_SIT_TC_0018 @low Enusre while click on select all check box in skill tab", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -699,11 +707,9 @@ test("@DCCM_SIT_TC_0018 @low Enusre while click on select all check box in skill
           await ScreenshotUtils.capture(sharedPage, testInfo, 'LAbels-Validation');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -721,6 +727,7 @@ test("@DCCM_SIT_TC_0018 @low Enusre while click on select all check box in skill
   });
 
 test("@DCCM_SIT_TC_0019 @low Ensure while click on skill name search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -748,11 +755,9 @@ test("@DCCM_SIT_TC_0019 @low Ensure while click on skill name search text box fi
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -770,6 +775,7 @@ test("@DCCM_SIT_TC_0019 @low Ensure while click on skill name search text box fi
   });
 
 test("@DCCM_SIT_TC_0020 @low Ensure while search valid skill name in search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -798,11 +804,9 @@ test("@DCCM_SIT_TC_0020 @low Ensure while search valid skill name in search text
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -820,6 +824,7 @@ test("@DCCM_SIT_TC_0020 @low Ensure while search valid skill name in search text
   });
 
 test("@DCCM_SIT_TC_0021 @low Ensure while search Invalid skill name in search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -849,11 +854,9 @@ test("@DCCM_SIT_TC_0021 @low Ensure while search Invalid skill name in search te
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -871,6 +874,7 @@ test("@DCCM_SIT_TC_0021 @low Ensure while search Invalid skill name in search te
   });
 
 test("@DCCM_SIT_TC_0022 @low Ensure while click on skill level search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -899,11 +903,9 @@ test("@DCCM_SIT_TC_0022 @low Ensure while click on skill level search text box f
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -921,6 +923,7 @@ test("@DCCM_SIT_TC_0022 @low Ensure while click on skill level search text box f
   });
 
 test("@DCCM_SIT_TC_0023 @low Ensure while search valid skill level in search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -951,11 +954,9 @@ test("@DCCM_SIT_TC_0023 @low Ensure while search valid skill level in search tex
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -973,6 +974,7 @@ test("@DCCM_SIT_TC_0023 @low Ensure while search valid skill level in search tex
   });
 
 test("@DCCM_SIT_TC_0024 @low Ensure while search Invalid skill level in search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1002,11 +1004,9 @@ test("@DCCM_SIT_TC_0024 @low Ensure while search Invalid skill level in search t
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_CLOSE).click();
-          await sharedPage.locator(SELECTORS.DASHBOARD_AGENTS).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
-          await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -1024,6 +1024,7 @@ test("@DCCM_SIT_TC_0024 @low Ensure while search Invalid skill level in search t
   });
 
 test("@DCCM_SIT_TC_0027 @low Ensure while click on skill level column and enter valid value and click on apply button", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1154,6 +1155,7 @@ test("@DCCM_SIT_TC_0028 @low Ensure while click on skill level column and enter 
 */
 
 test("@DCCM_SIT_TC_0029 @low Ensure while click on clear all  filters in command menu", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1206,6 +1208,7 @@ test("@DCCM_SIT_TC_0029 @low Ensure while click on clear all  filters in command
 
 
 test("@DCCM_SIT_TC_0030 @low Ensure while click on toggle filter row in the command menu", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1260,6 +1263,7 @@ test("@DCCM_SIT_TC_0030 @low Ensure while click on toggle filter row in the comm
 
 
 test("@DCCM_SIT_TC_0031 @low Ensure while click on toggle filter row after text box is hide", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1317,6 +1321,7 @@ test("@DCCM_SIT_TC_0031 @low Ensure while click on toggle filter row after text 
 
 
 test("@DCCM_SIT_TC_0032 @low Ensure while click on export to excel", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1369,6 +1374,7 @@ test("@DCCM_SIT_TC_0032 @low Ensure while click on export to excel", async ({ },
 
 
 test("@DCCM_SIT_TC_0033 @low Enusre while click on deselect all check box in Language tab", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1420,6 +1426,7 @@ test("@DCCM_SIT_TC_0033 @low Enusre while click on deselect all check box in Lan
 
 
 test("@DCCM_SIT_TC_0034 @low Enusre while click on select all check box in Language tab", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1472,6 +1479,7 @@ test("@DCCM_SIT_TC_0034 @low Enusre while click on select all check box in Langu
 
 
 test("@DCCM_SIT_TC_0035 @low Ensure while click on Language name search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1526,6 +1534,7 @@ test("@DCCM_SIT_TC_0035 @low Ensure while click on Language name search text box
 
   
 test("@DCCM_SIT_TC_0036 @low Ensure while search valid Language name in search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1580,6 +1589,7 @@ test("@DCCM_SIT_TC_0036 @low Ensure while search valid Language name in search t
 
   
 test("@DCCM_SIT_TC_0037 @low Ensure while search Invalid Language name in search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1635,6 +1645,7 @@ test("@DCCM_SIT_TC_0037 @low Ensure while search Invalid Language name in search
 
   
 test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text box field", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1687,6 +1698,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
   });
 
   test("@DCCM_SIT_TC_0039 @low Ensure while search valid Language level in search text box field", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1742,6 +1754,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
 
   test("@DCCM_SIT_TC_0040 @low Ensure while search Invalid  Language level in search text box field", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1798,6 +1811,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
   
   
   test("@DCCM_SIT_TC_0043 @low Ensure while click on Language level column and enter valid value and click on apply button", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1872,6 +1886,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
 
   test("@DCCM_SIT_TC_0044 @low Ensure while click on Language level column and enter Invalid value and click on apply button", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1946,6 +1961,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
   
   test("@DCCM_SIT_TC_0045 @low Ensure while click on clear all  filters in command menu", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -1993,6 +2009,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
 
   test("@DCCM_SIT_TC_0046 @low Ensure while click on toggle filter row in the command menu", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2041,6 +2058,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
   
     test("@DCCM_SIT_TC_0047 @low Ensure while click on toggle filter row after text box is hide", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2093,6 +2111,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
   
   test("@DCCM_SIT_TC_0048 @low Ensure while click on export to excel", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2149,6 +2168,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
   
   test("@DCCM_SIT_TC_0049 @low Enusre while click on deselect all check box in Queues tab", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2197,6 +2217,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
 
   test("@DCCM_SIT_TC_0050 @low Enusre while click on select all check box in Queues tab", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2246,6 +2267,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
   
   test("@DCCM_SIT_TC_0051 @low Ensure while click on Queues name search text box field", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2293,6 +2315,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
   
   test("@DCCM_SIT_TC_0052 @low Ensure while search valid Queues name in search text box field", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2342,6 +2365,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
   
   
   test("@DCCM_SIT_TC_0053 @low Ensure while search Invalid Queues name in search text box field", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2392,6 +2416,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
 
   test("@DCCM_SIT_TC_0056 @low Ensure while click on clear all  filters in command menu", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2440,6 +2465,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
   
   test("@DCCM_SIT_TC_0057 @low Ensure while click on toggle filter row in the command menu", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2489,6 +2515,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
 
   test("@DCCM_SIT_TC_0058 @low Ensure while click on toggle filter row after text box is hide", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2545,6 +2572,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
 
   test("@DCCM_SIT_TC_0059 @low Ensure while click on export to excel", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2602,6 +2630,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
 
 test("@DCCM_SIT_TC_0060,DCCM_SIT_TC_0061 @low Ensure while click on deselect all check box in Utilization tab", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2655,6 +2684,7 @@ test("@DCCM_SIT_TC_0060,DCCM_SIT_TC_0061 @low Ensure while click on deselect all
   });
 
 test("@DCCM_SIT_TC_0062,DCCM_SIT_TC_0063 @low Ensure while click on Groups name search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2708,6 +2738,7 @@ test("@DCCM_SIT_TC_0062,DCCM_SIT_TC_0063 @low Ensure while click on Groups name 
   });
 
 test("@DCCM_SIT_TC_0064 @low Ensure while click on Groups name search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2761,6 +2792,7 @@ test("@DCCM_SIT_TC_0064 @low Ensure while click on Groups name search text box f
   });
 
 test("@DCCM_SIT_TC_0065,DCCM_SIT_TC_0066 @low Ensure while click on capacity search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2814,6 +2846,7 @@ test("@DCCM_SIT_TC_0065,DCCM_SIT_TC_0066 @low Ensure while click on capacity sea
   });
 
 test("@DCCM_SIT_TC_0067 @low Ensure while search  Invalid capacity in search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2870,6 +2903,7 @@ test("@DCCM_SIT_TC_0067 @low Ensure while search  Invalid capacity in search tex
 
 
 test("@DCCM_SIT_TC_0070 @low Ensure while click on capacity  level column and enter valid value and click on apply button", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -2947,6 +2981,7 @@ test("@DCCM_SIT_TC_0070 @low Ensure while click on capacity  level column and en
   });
 
   test("@DCCM_SIT_TC_0072 @low Ensure while click on clear all  filters in command menu ", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3005,6 +3040,7 @@ test("@DCCM_SIT_TC_0070 @low Ensure while click on capacity  level column and en
   });
 
   test("@DCCM_SIT_TC_0073,DCCM_SIT_TC_0074  @low Ensure while click on toggle filter row in the command menu ", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3064,6 +3100,7 @@ test("@DCCM_SIT_TC_0070 @low Ensure while click on capacity  level column and en
   //75
 
 test("@DCCM_SIT_TC_0076,DCCM_SIT_TC_0077 @low Ensure while click on deselect all check box in Groups tab", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3118,6 +3155,7 @@ test("@DCCM_SIT_TC_0076,DCCM_SIT_TC_0077 @low Ensure while click on deselect all
 
 
 test("@DCCM_SIT_TC_0078,DCCM_SIT_TC_0079 @low Ensure while click on Groups name search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3173,6 +3211,7 @@ test("@DCCM_SIT_TC_0078,DCCM_SIT_TC_0079 @low Ensure while click on Groups name 
 
 
 test("@DCCM_SIT_TC_0080 @low Ensure while search Invalid Groups name in search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3227,6 +3266,7 @@ test("@DCCM_SIT_TC_0080 @low Ensure while search Invalid Groups name in search t
   });
   
 test("@DCCM_SIT_TC_0081 @low Ensure while click on clear all  filters in command menu", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3286,6 +3326,7 @@ test("@DCCM_SIT_TC_0081 @low Ensure while click on clear all  filters in command
 
   
 test("@DCCM_SIT_TC_0082,DCCM_SIT_TC_0083 @low Ensure while click on toggle filter row in the command menu", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3345,6 +3386,7 @@ test("@DCCM_SIT_TC_0082,DCCM_SIT_TC_0083 @low Ensure while click on toggle filte
 
 
 test("@DCCM_SIT_TC_0085 @low Ensure while click on deselect all check box in Role & Division tab", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3396,6 +3438,7 @@ test("@DCCM_SIT_TC_0085 @low Ensure while click on deselect all check box in Rol
   });
 
   test("@DCCM_SIT_TC_0086 @low Ensure while click on select all check box in Role & Division tab", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3450,6 +3493,7 @@ test("@DCCM_SIT_TC_0085 @low Ensure while click on deselect all check box in Rol
 
 
 test("@DCCM_SIT_TC_0087,DCCM_SIT_TC_0088 @low Ensure while click on select all check box in Role & Division tab", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3506,6 +3550,7 @@ test("@DCCM_SIT_TC_0087,DCCM_SIT_TC_0088 @low Ensure while click on select all c
 
 
 test("@DCCM_SIT_TC_0089 @low Ensure while search Invalid Role in search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3560,6 +3605,7 @@ test("@DCCM_SIT_TC_0089 @low Ensure while search Invalid Role in search text box
   });
 
   test("@DCCM_SIT_TC_0090,DCCM_SIT_TC_0091 @low Ensure while click on Division search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3615,6 +3661,7 @@ test("@DCCM_SIT_TC_0089 @low Ensure while search Invalid Role in search text box
   });
 
 test("@DCCM_SIT_TC_0092 @low Ensure while search Invalid division in search text box field", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3670,6 +3717,7 @@ test("@DCCM_SIT_TC_0092 @low Ensure while search Invalid division in search text
   });
 
 test("@DCCM_SIT_TC_0095 @low Ensure while click on clear all  filters in command menu ", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3728,6 +3776,7 @@ test("@DCCM_SIT_TC_0095 @low Ensure while click on clear all  filters in command
 
 
 test("@DCCM_SIT_TC_0096,DCCM_SIT_TC_0097 @low Ensure while click on toggle filter row in the command menu ", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3788,6 +3837,7 @@ test("@DCCM_SIT_TC_0096,DCCM_SIT_TC_0097 @low Ensure while click on toggle filte
 
 
 test("@DCCM_SIT_TC_0099 @low Ensure while apply the profile attributes details for bulk user", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3868,6 +3918,7 @@ test("@DCCM_SIT_TC_0099 @low Ensure while apply the profile attributes details f
   });
 
   test("@DCCM_SIT_TC_0100 @low Ensure while select Profile attributes and click on next button", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3915,6 +3966,7 @@ test("@DCCM_SIT_TC_0099 @low Ensure while apply the profile attributes details f
   });
 
 test("@DCCM_SIT_TC_0101 @low Ensure while apply the profile attributes deatils for the user", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -3971,6 +4023,7 @@ test("@DCCM_SIT_TC_0101 @low Ensure while apply the profile attributes deatils f
 
 
   test("@DCCM_SIT_TC_0102 @low Ensure while schedule the profile attributes details for the user", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -4028,9 +4081,9 @@ test("@DCCM_SIT_TC_0101 @low Ensure while apply the profile attributes deatils f
           await sharedPage.waitForTimeout(5000);
           
 
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -4050,6 +4103,7 @@ test("@DCCM_SIT_TC_0101 @low Ensure while apply the profile attributes deatils f
 //changed file
   
     test("@DCCM_SIT_TC_0106 @low Ensure while schedule the profile attributes deatils for bulk user", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -4114,9 +4168,9 @@ test("@DCCM_SIT_TC_0101 @low Ensure while apply the profile attributes deatils f
           await sharedPage.waitForTimeout(5000);
 
 
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_DASHBOARD_SELECET_DESELECT_ALL).click();
+          await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
         },
 
         sharedPage,
@@ -4136,6 +4190,7 @@ test("@DCCM_SIT_TC_0101 @low Ensure while apply the profile attributes deatils f
 
 
 test("@DCCM_SIT_TC_0107 @low Ensure while click on Groups drop down", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -4173,6 +4228,7 @@ test("@DCCM_SIT_TC_0107 @low Ensure while click on Groups drop down", async ({ }
 
 
 test("@DCCM_SIT_TC_0108 @low Ensure while select any groups from drop down", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -4214,6 +4270,7 @@ test("@DCCM_SIT_TC_0108 @low Ensure while select any groups from drop down", asy
 
 
   test("@DCCM_SIT_TC_0109 @low Ensure while select none from group drop down", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -4259,6 +4316,7 @@ test("@DCCM_SIT_TC_0108 @low Ensure while select any groups from drop down", asy
   
 
   test("@DCCM_SIT_TC_0110 @low Ensure while select user and click on next button and click on apply button in mirror agent", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -4307,6 +4365,7 @@ test("@DCCM_SIT_TC_0108 @low Ensure while select any groups from drop down", asy
   });
 
     test("@DCCM_SIT_TC_0129 @low Ensure while select none from group drop down", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -4348,6 +4407,7 @@ test("@DCCM_SIT_TC_0108 @low Ensure while select any groups from drop down", asy
 
 
   test("@DCCM_SIT_TC_0130 @low Ensure while apply the groups mirror for the single user", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -4416,6 +4476,7 @@ test("@DCCM_SIT_TC_0108 @low Ensure while select any groups from drop down", asy
   });
 
     test("@DCCM_SIT_TC_0131 @low Ensure while apply the groups mirror for the multiple user", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -4779,6 +4840,7 @@ test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the mul
   });
 
     test("@DCCM_SIT_TC_0134 @low Ensure while apply the phone mirror to the single agent", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -4843,6 +4905,7 @@ test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the mul
   });
 
       test("@DCCM_SIT_TC_0135 @low Ensure while apply the phone mirror to the mutiple agents", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -5271,6 +5334,7 @@ test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the mul
 
   //DCCM as division in the mirror agent screen
   test("@DCCM_SIT_TC_0138 @low Ensure while apply the phone mirror with phone disable creation option", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -5417,10 +5481,6 @@ test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the mul
           
           await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
           await sharedPage.waitForTimeout(1000);
-
-          
-
-
         },
 
         sharedPage,
@@ -5438,6 +5498,7 @@ test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the mul
   });
 
   test("@DCCM_SIT_TC_0139 @low Ensure while apply the roles mirror for the single user", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -5511,6 +5572,7 @@ test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the mul
   });
 
     test("@DCCM_SIT_TC_0140 @low Ensure while apply the roles mirror for the multiple user", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -5576,8 +5638,6 @@ test("@DCCM_SIT_TC_0133 @low Ensure while schedule the groups mirror for the mul
           await sharedPage.waitForLoadState('load');
           await sharedPage.waitForLoadState('domcontentloaded');
           await sharedPage.waitForTimeout(3000);
-
-
         },
 
         sharedPage,
@@ -6000,6 +6060,7 @@ test("@DCCM_SIT_TC_0141 @low Ensure while schedule the roles mirror for the sing
 
 
      test("@DCCM_SIT_TC_0143 @low Ensure while apply the division mirror for the single user", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -6096,6 +6157,7 @@ test("@DCCM_SIT_TC_0141 @low Ensure while schedule the roles mirror for the sing
   });
 
      test("@DCCM_SIT_TC_0144 @low Ensure while apply the division mirror for the multiple user", async ({ }, testInfo) => {
+    test.setTimeout(300000);
     try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -6577,6 +6639,7 @@ test("@DCCM_SIT_TC_0141 @low Ensure while schedule the roles mirror for the sing
   });
 
 test("@DCCM_SIT_TC_0147 @low Ensure while apply the work teams mirror for the single user", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
@@ -6658,6 +6721,7 @@ test("@DCCM_SIT_TC_0147 @low Ensure while apply the work teams mirror for the si
 
   
   test("@DCCM_SIT_TC_0148 @low Ensure while apply the work teams mirror for the multiple user", async ({ }, testInfo) => {
+     test.setTimeout(300000);
      try {
       await TestHelpers.executeTestStep(
         'Login → Accounting Activity (first time banner)',
