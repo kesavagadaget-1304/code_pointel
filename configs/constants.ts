@@ -396,6 +396,9 @@ AGENTS_MIRRORAGENT_LANGUAGE_NAME_INPUT: '((//div[@id="slickGridContainer-addUpda
 AGENTS_HISTORY_PREVIOUS_VALUE: '(//h5[contains(text(),"History")]/following::div[@id="angularGridReport"]//following::div[@class="ui-widget-content slick-row even"])[1]/div[@class="slick-cell l3 r3"]',
 AGENTS_REPORT_PROPNAME_FILTER: '//input[@data-columnid="propName"]',
 
+AGENTS_MIRRORAGENT_SKILL_USER_CHECKBOX: '//*[@id="copySkillGrid"]/div[4]/div[3]/div/div[2]/div[1]/label',
+AGENTS_MIRRORAGENT_SKILL_FIRST_CELL: '//*[@id="copySkillGrid"]/div[4]/div[3]/div/div[2]/div[2]',
+AGENT_HISTORY_PROPNAME:"//div[contains(@class, 'slick-headerrow-column l2 r2')]//input[@data-columnid='propName']",
 
 };
 
