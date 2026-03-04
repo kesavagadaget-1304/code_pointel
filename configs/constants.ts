@@ -387,7 +387,14 @@ AGENTS_MIRRORAGENT_USERNAME_SEARCH: "input[data-columnid='userName']",
   AGENTS_SCHEDULER_VALIDATE_USER_PHONE: "//*[contains(text(),'Failed, User already has a phone')]",
   AGENTS_SCHEDULER_VALIDATE_ROLE_DIVISION: "//*[contains(text(),'Failed to Add, role/division already available')]",
 
-
+//3-3-2026
+AGENTS_MIRRORAGENT_LANGUAGES_SELECTALL_CHECKBOX: '//div[@id="slickGridContainer-addUpdateLanguageGrid"]//div[@data-id="_checkbox_selector"]',
+AGENTS_MIRRORAGENT_LANGUAGES_1ST_ROW_CHECKBOX: '((//div[@id="slickGridContainer-addUpdateLanguageGrid"]//div[contains(@class,"slick-row")])[1])/div[1]',
+AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_INPUT: '((//div[@id="slickGridContainer-addUpdateLanguageGrid"]//div[contains(@class,"slick-cell l2 r2 selected")])[1])/input',
+AGENTS_MIRRORAGENT_LANGUAGE_NAME_INPUT: '((//div[@id="slickGridContainer-addUpdateLanguageGrid"]//div[contains(@class,"slick-cell l1 r1 selected")])[1])'
+,AGENTS_HISTORY_CURRENT_VALUE: '(//h5[contains(text(),"History")]/following::div[@id="angularGridReport"]//following::div[@class="ui-widget-content slick-row even"])[1]/div[@class="slick-cell l4 r4"]',
+AGENTS_HISTORY_PREVIOUS_VALUE: '(//h5[contains(text(),"History")]/following::div[@id="angularGridReport"]//following::div[@class="ui-widget-content slick-row even"])[1]/div[@class="slick-cell l3 r3"]',
+AGENTS_REPORT_PROPNAME_FILTER: '//input[@data-columnid="propName"]',
 
 
 };

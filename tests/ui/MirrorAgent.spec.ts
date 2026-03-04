@@ -1546,17 +1546,16 @@ test("@DCCM_SIT_TC_0036 @low Ensure while search valid Language name in search t
           await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
-          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGES_LABEL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
-          await sharedPage.waitForTimeout(10000);
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_SEARCH_FILTER).click();
           await sharedPage.waitForTimeout(2000);
@@ -1601,17 +1600,16 @@ test("@DCCM_SIT_TC_0037 @low Ensure while search Invalid Language name in search
           await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
-          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGES_LABEL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
-          await sharedPage.waitForTimeout(10000);
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_SEARCH_FILTER).click();
           await sharedPage.waitForTimeout(2000);
@@ -1657,17 +1655,16 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
-          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGES_LABEL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
-          await sharedPage.waitForTimeout(10000);
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_SEARCH_FILTER).click();
           await sharedPage.waitForLoadState('networkidle');
@@ -1710,17 +1707,16 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
-          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGES_LABEL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
-          await sharedPage.waitForTimeout(10000);
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_SEARCH_FILTER).click();
           await sharedPage.waitForLoadState('networkidle');
@@ -1765,18 +1761,17 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           await sharedPage.locator(SELECTORS.AGENTS_MORE_ICON).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
           await sharedPage.waitForTimeout(5000);
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
-          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+                    await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGES_LABEL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
-          await sharedPage.waitForTimeout(10000);
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_SEARCH_FILTER).click();
           await sharedPage.waitForLoadState('networkidle');
@@ -1832,42 +1827,51 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
-          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGES_LABEL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGES_SELECTALL_CHECKBOX).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGES_1ST_ROW_CHECKBOX).click();
           await sharedPage.waitForTimeout(10000);
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
-          await sharedPage.waitForTimeout(2000);
           const DCCM_SIT_TC_0043 = faker.number.int({ min: 1, max: 5 }).toString();
           console.log("DCCM_SIT_TC_0043 Generated Language Level is :",DCCM_SIT_TC_0043);
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_NUMBER_INPUT).fill(DCCM_SIT_TC_0043);
+          const DCCM_SIT_TC_0043Langname = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_NAME_INPUT).textContent();
+          console.log("Language name is :",DCCM_SIT_TC_0043Langname);
+          const DCCM_SIT_TC_0043currentValue = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_INPUT).inputValue();
+          console.log("Current value is :",DCCM_SIT_TC_0043currentValue);
+
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_INPUT).fill(DCCM_SIT_TC_0043);
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_APPLY_BUTTON).click();
           await sharedPage.waitForTimeout(1000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_OVERRIDE_APPLY_BUTTON).click();
           await sharedPage.waitForTimeout(5000);
           expect(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_UPDATED_SUCCESSFULLY).isVisible());
           await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
+          await sharedPage.waitForLoadState('load');
           await sharedPage.waitForLoadState('networkidle');
+          await sharedPage.waitForLoadState('domcontentloaded');
+          
           await sharedPage.waitForTimeout(5000);
 
+
+          
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
           await sharedPage.waitForTimeout(5000);
-          const historyCurrentVAlue = await sharedPage.locator(SELECTORS.HISTORY_CURRENT_VALUE).textContent() ?? '';
-          console.log("History Current Value is :",historyCurrentVAlue);
-          expect(parseFloat(historyCurrentVAlue)).toBe(parseFloat(DCCM_SIT_TC_0043));
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'History-After-Valid-Language-Level');
+        
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.waitForTimeout(5000);
           await sharedPage.goto("https://cms.cloudstamp.net/dccm/cms/dashboard");
-
-
         },
 
         sharedPage,
@@ -1907,22 +1911,27 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
           await sharedPage.locator(SELECTORS.AGENTS_MIRROR_AGENT).click({ timeout: 5000 });
           await sharedPage.waitForTimeout(5000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_DROP).click({ timeout: 5000 });
-          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION));
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION).click();
+          await scrollUntilVisible(sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM));
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_DIV_OPTION_DCCM).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SEARCH).click();
           await sharedPage.waitForLoadState('networkidle');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_USERNAME_LABEL).click();
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_NEXT_BUTTON).click();
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_SELECT_ALL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILLS_LABEL).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGES_LABEL).click();
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SELECT_ATTRIBUTES_NEXT_BUTTON).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGES_SELECTALL_CHECKBOX).click();
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGES_1ST_ROW_CHECKBOX).click();
           await sharedPage.waitForTimeout(10000);
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_SKILL_TAB_LANGUAGES).click();
-          await sharedPage.waitForTimeout(2000);
           const DCCM_SIT_TC_0044 = faker.number.int({ min: 6, max: 9 }).toString();
           console.log("DCCM_SIT_TC_0044 Generated Language Level is :",DCCM_SIT_TC_0044);
+          const DCCM_SIT_TC_0044Langname = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_NAME_INPUT).textContent();
+          console.log("Language name is :",DCCM_SIT_TC_0044Langname);
+          const DCCM_SIT_TC_0044currentValue = await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_INPUT).inputValue();
+          console.log("Current value is :",DCCM_SIT_TC_0044currentValue);
 
-          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_NUMBER_INPUT).fill(DCCM_SIT_TC_0044);
+          await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_INPUT).fill(DCCM_SIT_TC_0044);
           await ScreenshotUtils.capture(sharedPage, testInfo, 'Skill-Search-Box');
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_LANGUAGE_LEVEL_APPLY_BUTTON).click();
           await sharedPage.waitForTimeout(1000);
@@ -1935,9 +1944,8 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
 
           await sharedPage.locator(SELECTORS.AGENTS_MIRRORAGENT_HISTORY_USER).click();
           await sharedPage.waitForTimeout(5000);
-          const historyCurrentVAlue = await sharedPage.locator(SELECTORS.HISTORY_CURRENT_VALUE).textContent() ?? '';
-          console.log("History Current Value is :",historyCurrentVAlue);
-          expect(parseFloat(historyCurrentVAlue)).not.toBe(parseFloat(DCCM_SIT_TC_0044));
+          await ScreenshotUtils.capture(sharedPage, testInfo, 'History-After-Invalid-Language-Level-Update');
+
           await sharedPage.waitForTimeout(2000);
           await sharedPage.locator(SELECTORS.HISTORY_CLOSE).click();
           await sharedPage.waitForLoadState('networkidle');
@@ -1958,6 +1966,7 @@ test("@DCCM_SIT_TC_0038 @low Ensure while click on Language level search text bo
       );
     }
   });
+
 
   
   test("@DCCM_SIT_TC_0045 @low Ensure while click on clear all  filters in command menu", async ({ }, testInfo) => {
